@@ -47,3 +47,6 @@ public/runner.worker.js
 test-results/
 playwright-report/
 coverage/
+.claude
+.agents
+skills-lock.json
