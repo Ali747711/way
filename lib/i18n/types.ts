@@ -107,4 +107,9 @@ export interface Messages {
     backToToday: string;
     source: string;
   };
+  notFound: {
+    title: string;
+    status: string;
+    message: string;
+  };
 }

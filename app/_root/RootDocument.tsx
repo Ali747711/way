@@ -1,10 +1,15 @@
-import type { Metadata, Viewport } from 'next';
+import type { Viewport } from 'next';
 import { Caveat, Figtree, JetBrains_Mono } from 'next/font/google';
+import type { ReactNode } from 'react';
 
 import LocaleProvider from '@/components/i18n/LocaleProvider';
-import { MESSAGES } from '@/lib/i18n/messages';
+import type { Locale } from '@/lib/i18n/messages';
 
-import './globals.css';
+import '../globals.css';
+
+// The document shared by every root layout. Each language has its own root
+// layout so the exported HTML carries the right `lang`; this is everything
+// else they have in common.
 
 // Fonts are downloaded at build time and served from the app itself, so the
 // page makes no font request to Google at runtime.
@@ -39,13 +44,8 @@ const mono = JetBrains_Mono({
   preload: false
 });
 
-export const metadata: Metadata = {
-  title: MESSAGES.en.meta.title,
-  description: MESSAGES.en.meta.description
-};
-
 // Browser chrome matches the page ground.
-export const viewport: Viewport = {
+export const VIEWPORT: Viewport = {
   colorScheme: 'light dark',
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#fafafa' },
@@ -53,14 +53,19 @@ export const viewport: Viewport = {
   ]
 };
 
-export default function RootLayout({ children }: LayoutProps<'/'>) {
+interface RootDocumentProps {
+  locale: Locale;
+  children: ReactNode;
+}
+
+export default function RootDocument({ locale, children }: RootDocumentProps) {
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`${figtree.variable} ${hand.variable} ${mono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <LocaleProvider locale="en">{children}</LocaleProvider>
+        <LocaleProvider locale={locale}>{children}</LocaleProvider>
       </body>
     </html>
   );

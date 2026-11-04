@@ -110,5 +110,12 @@ export const en: Messages = {
     ],
     backToToday: 'Back to today',
     source: 'Source on GitHub'
+  },
+  // Next's default 404 wording, kept from before the routes moved into
+  // per-language root layouts.
+  notFound: {
+    title: '404: This page could not be found.',
+    status: '404',
+    message: 'This page could not be found.'
   }
 };

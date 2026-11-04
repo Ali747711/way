@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { COLUMN } from '@/components/classes';
@@ -7,16 +6,14 @@ import { Squiggle } from '@/components/way/Doodle';
 import { glass } from '@/components/way/GlassButton';
 import { AREAS } from '@/lib/areas';
 import { REPO_URL } from '@/lib/config';
-import { MESSAGES } from '@/lib/i18n/messages';
-
-const m = MESSAGES.en;
-
-export const metadata: Metadata = { title: m.meta.aboutTitle };
+import { MESSAGES, type Locale } from '@/lib/i18n/messages';
 
 const bodyClass = 'text-[1.0625rem] leading-[1.6] text-pretty sm:text-lg';
 
 // The page title is the wordmark at display size, so About has no masthead.
-export default function AboutPage() {
+// A server component: it reads the messages for its locale directly.
+export default function AboutView({ locale }: { locale: Locale }) {
+  const m = MESSAGES[locale];
   return (
     <main
       data-grid="short"
