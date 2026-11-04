@@ -1,0 +1,63 @@
+import fs from 'node:fs/promises';
+
+import { runChecks, type CheckFailure } from '@/lib/pipeline/checks';
+import { checkReference, checkSolver } from '@/lib/pipeline/reference';
+
+import { readProblemFiles, writeProblemFile } from './lib/files';
+
+const WORDLIST_PATH = 'content/wordlist.txt';
+
+const loadWords = async (): Promise<Set<string>> => {
+  const text = await fs.readFile(WORDLIST_PATH, 'utf8');
+  const words = text
+    .split('\n')
+    .map((line) => line.trim().toLowerCase())
+    .filter((line) => line !== '');
+  return new Set(words);
+};
+
+const parseIds = (argv: string[]): Set<string> | null => {
+  const i = argv.indexOf('--ids');
+  if (i === -1) return null;
+  const value = argv[i + 1] ?? '';
+  return new Set(
+    value
+      .split(',')
+      .map((id) => id.trim())
+      .filter(Boolean)
+  );
+};
+
+const main = async (): Promise<void> => {
+  const ids = parseIds(process.argv.slice(2));
+  const files = await readProblemFiles();
+  const selected = files.filter(({ problem }) =>
+    ids ? ids.has(problem.id) : problem.status === 'draft'
+  );
+  if (selected.length === 0) return;
+
+  const words = await loadWords();
+  let failed = false;
+  for (const { path, problem } of selected) {
+    const failures: CheckFailure[] = [
+      ...runChecks(problem, { words }),
+      ...checkReference(problem),
+      ...checkSolver(problem)
+    ];
+    if (failures.length === 0) {
+      await writeProblemFile(path, { ...problem, status: 'verified' });
+      console.log(`ok ${problem.id}`);
+      continue;
+    }
+    failed = true;
+    for (const f of failures) {
+      console.log(`FAIL ${problem.id}: ${f.check}: ${f.message}`);
+    }
+  }
+  if (failed) process.exitCode = 1;
+};
+
+main().catch((error: unknown) => {
+  console.error(error instanceof Error ? error.message : error);
+  process.exitCode = 1;
+});
