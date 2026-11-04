@@ -5,26 +5,13 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  /* A self-referencing var() here made font-family invalid, so pages fell back
-     to the browser serif. The intended look is the plain system stack. */
-  --font-sans:
-    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-heading: var(--font-sans);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
+  /* next/font sets --font-text, --font-ui and --font-code on <html>. The
+     names differ from the theme keys on purpose: a self-reference here once
+     made font-family invalid. */
+  --font-sans: var(--font-ui), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-text), ui-serif, Georgia, serif;
+  --font-mono: var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-heading: var(--font-text), ui-serif, Georgia, serif;
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -41,88 +28,84 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-mark-empty: var(--mark-empty);
+  --color-mark-muted: var(--mark-muted);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-xl: calc(var(--radius) * 1.5);
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* Evening notebook. Light: warm paper, ink, hairline rules. Dark: warm ink
+   ground and off-white text with low glare. Lamp amber is the one accent:
+   the primary action, focus and the current mark. Area colours are identity
+   only, never success or failure. */
 :root {
   color-scheme: light;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  /* Field edges and focus rings are darker than the shadcn defaults so they
-     stay visible on white; rings are drawn at 50% alpha by the primitives. */
-  --input: oklch(0.87 0 0);
-  --ring: oklch(0.205 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --background: #f5f0e6;
+  --foreground: #231e18;
+  --card: #fbf8f2;
+  --card-foreground: #231e18;
+  --popover: #fbf8f2;
+  --popover-foreground: #231e18;
+  --primary: #e0a045;
+  --primary-foreground: #231e18;
+  --secondary: #ebe4d7;
+  --secondary-foreground: #231e18;
+  --muted: #ebe4d7;
+  --muted-foreground: #6a6054;
+  --accent: #ebe4d7;
+  --accent-foreground: #231e18;
+  --destructive: #b4372b;
+  --border: #ddd4c4;
+  /* Field edges reach 3:1 against the paper. */
+  --input: #8f8474;
+  /* The amber fill is too light to mark focus on paper, so the ring is a
+     deeper amber of the same hue. */
+  --ring: #9a5b0c;
+  /* Gave-up marks reach 3:1 so the strip reads without colour. */
+  --mark-empty: #b3a895;
+  --mark-muted: #928672;
+  --area-words: #a8473a;
+  --area-logic: #3f5f9e;
+  --area-math: #2b735f;
+  --area-code: #7f4f95;
+  --area-create: #566d2d;
+  --radius: 0.5rem;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     /* Native scrollbars and form controls follow the theme too. */
     color-scheme: dark;
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.87 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
+    --background: #171512;
+    --foreground: #eae3d3;
+    --card: #1f1c18;
+    --card-foreground: #eae3d3;
+    --popover: #1f1c18;
+    --popover-foreground: #eae3d3;
+    --primary: #e2a548;
+    --primary-foreground: #171512;
+    --secondary: #26231e;
+    --secondary-foreground: #eae3d3;
+    --muted: #26231e;
+    --muted-foreground: #a2988a;
+    --accent: #26231e;
+    --accent-foreground: #eae3d3;
+    --destructive: #e07a6e;
+    --border: #2e2a24;
+    --input: #736b5e;
+    --ring: #e2a548;
+    --mark-empty: #554e44;
+    --mark-muted: #6e665a;
+    --area-words: #d98c7e;
+    --area-logic: #93a9d9;
+    --area-math: #7dbfaa;
+    --area-code: #c29cd0;
+    --area-create: #a9be7f;
   }
 }
 
@@ -136,8 +119,28 @@
   html {
     @apply font-sans;
   }
+  ::selection {
+    background-color: color-mix(in oklab, var(--primary) 40%, transparent);
+  }
   /* Text links get a clear keyboard focus mark; controls draw their own ring. */
   a:focus-visible {
     @apply rounded-xs outline-2 outline-offset-2 outline-ring;
+  }
+}
+
+/* A new problem is laid onto the page: a short rise and fade. Under reduced
+   motion it simply appears. */
+@keyframes way-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@layer components {
+  @media (prefers-reduced-motion: no-preference) {
+    .way-enter {
+      animation: way-enter 220ms cubic-bezier(0.23, 1, 0.32, 1) both;
+    }
   }
 }
