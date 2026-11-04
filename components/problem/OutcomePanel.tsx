@@ -36,7 +36,7 @@ export default function OutcomePanel({
   // The response is a white card under the prompt. Solved gets a drawn
   // underline; Not quite takes the red; the rest stay neutral.
   return (
-    <section className="space-y-4 rounded-3xl bg-surface p-5 shadow-[0_10px_24px_rgb(0_0_0/0.06)] ring-1 ring-hairline sm:p-6">
+    <section className="space-y-4 rounded-3xl bg-surface p-5 shadow-soft ring-1 ring-hairline sm:p-6">
       <div className="space-y-1">
         <h2
           className={cn(

@@ -24,7 +24,7 @@ const CHECK = (
     <path
       d="M7.5 12.5l3 3 6-6.5"
       fill="none"
-      stroke="#fff"
+      stroke="var(--on-blue)"
       strokeWidth="2.25"
       strokeLinecap="round"
       strokeLinejoin="round"

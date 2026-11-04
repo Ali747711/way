@@ -33,7 +33,7 @@ export default function DoneScreen({ records, ids, today }: DoneScreenProps) {
       {/* The one way forward on Done: a full-width band, like a banner. */}
       <Link
         href="/deep"
-        className="group mt-10 flex min-h-16 items-center justify-between gap-4 rounded-[20px] bg-blue px-6 py-4 text-lg leading-tight font-black text-white shadow-[0_10px_24px_rgb(35_56_85/0.18)] hover:bg-blue-hover"
+        className="group mt-10 flex min-h-16 items-center justify-between gap-4 rounded-[20px] bg-blue px-6 py-4 text-lg leading-tight font-black text-on-blue shadow-raised hover:bg-blue-hover"
       >
         This week&apos;s deep problem
         <Arrow className="shrink-0 motion-safe:transition-transform motion-safe:group-hover:translate-x-1" />

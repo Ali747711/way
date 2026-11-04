@@ -25,7 +25,10 @@ const bodyClass = 'text-[1.0625rem] leading-[1.6] text-pretty sm:text-lg';
 // The page title is the wordmark at display size, so About has no masthead.
 export default function AboutPage() {
   return (
-    <main className={`${COLUMN} way-enter pt-10 pb-16 sm:pt-16`}>
+    <main
+      data-grid="short"
+      className={`${COLUMN} way-enter pt-10 pb-16 sm:pt-16`}
+    >
       <h1 className="inline-flex items-center gap-2 text-[4rem] leading-none font-black tracking-[-0.035em]">
         Way
         <Squiggle className="mt-3 h-5 w-12 text-blue-line" />

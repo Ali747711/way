@@ -27,16 +27,24 @@ export default function GiveUpDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         showCloseButton={false}
-        className="gap-6 rounded-[28px] bg-surface p-6 shadow-[0_24px_48px_rgb(0_0_0/0.18)] ring-hairline motion-reduce:animate-none! sm:max-w-sm"
+        className="gap-6 rounded-[28px] bg-surface p-6 shadow-overlay ring-hairline motion-reduce:animate-none! sm:max-w-sm"
       >
         <DialogHeader>
           <DialogTitle className="text-[1.375rem] leading-tight font-extrabold tracking-[-0.015em] text-pretty">
             Show the solution? You can&apos;t retry today.
           </DialogTitle>
         </DialogHeader>
-        {/* On a phone the footer stacks in reverse, so Keep trying is on
-            top; from sm it sits at the right of one row. */}
-        <DialogFooter className="-mx-6 -mb-6 gap-2 rounded-b-[28px] border-0 bg-transparent px-6 pt-0 pb-6 sm:items-center">
+        {/* Keep trying comes first in the DOM, so it takes the dialog's
+            initial focus and Enter keeps the problem open. On a phone it
+            sits on top; from sm the row is reversed so it sits at the
+            right. */}
+        <DialogFooter className="-mx-6 -mb-6 flex-col gap-2 rounded-b-[28px] border-0 bg-transparent px-6 pt-0 pb-6 sm:flex-row-reverse sm:items-center sm:justify-start">
+          <GlassButton
+            className="w-full sm:w-auto"
+            onClick={() => onOpenChange(false)}
+          >
+            Keep trying
+          </GlassButton>
           <Button
             type="button"
             variant="ghost"
@@ -48,12 +56,6 @@ export default function GiveUpDialog({
           >
             Show solution
           </Button>
-          <GlassButton
-            className="w-full sm:w-auto"
-            onClick={() => onOpenChange(false)}
-          >
-            Keep trying
-          </GlassButton>
         </DialogFooter>
       </DialogContent>
     </Dialog>
