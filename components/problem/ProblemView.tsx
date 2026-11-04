@@ -72,7 +72,7 @@ export default function ProblemView({
   return (
     <main
       key={problem.id}
-      className={`${COLUMN} way-enter space-y-8 pt-8 pb-16 sm:pt-12`}
+      className={`${COLUMN} way-enter space-y-7 pt-4 pb-16 sm:space-y-8 sm:pt-8`}
     >
       <ProblemHeader problem={problem} position={position} />
 
@@ -84,7 +84,7 @@ export default function ProblemView({
         />
       )}
 
-      <div className="space-y-4">
+      <div className="space-y-5">
         {(!terminal || isCode) && (
           <AnswerInput
             answer={answer}
@@ -120,9 +120,9 @@ export default function ProblemView({
         />
       )}
 
-      <footer className="pt-4 text-sm text-muted-foreground">
+      <footer className="pt-2 text-sm font-semibold text-ink-muted">
         <a
-          className="inline-flex min-h-11 items-center underline decoration-1 underline-offset-4 hover:text-foreground"
+          className="inline-flex min-h-11 items-center underline decoration-1 underline-offset-4 hover:text-ink"
           href={reportIssueUrl(problem.id)}
           target="_blank"
           rel="noreferrer"

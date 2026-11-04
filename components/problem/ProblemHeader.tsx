@@ -1,6 +1,5 @@
-import AreaGlyph from '@/components/AreaGlyph';
-import { areaVars } from '@/components/areaStyle';
 import Markdown from '@/components/Markdown';
+import AreaTile from '@/components/way/AreaTile';
 import { AREA_CONFIG } from '@/lib/areas';
 import type { Problem } from '@/lib/content/schema';
 
@@ -16,23 +15,20 @@ export default function ProblemHeader({
 }: ProblemHeaderProps) {
   return (
     <div>
-      <header
-        className="flex items-center gap-3 text-sm tabular-nums"
-        style={areaVars(problem.area)}
-      >
-        <span className="inline-flex items-center gap-1.5 font-medium text-(--area)">
-          <AreaGlyph area={problem.area} className="size-3.5" />
+      <header className="flex items-center gap-2.5">
+        <AreaTile area={problem.area} size="sm" />
+        <span className="text-[0.9375rem] font-extrabold">
           {AREA_CONFIG[problem.area].label}
         </span>
         {position.total > 1 && (
-          <span className="text-muted-foreground">{`${position.index + 1} of ${position.total}`}</span>
+          <span className="rounded-full bg-track px-2.5 py-1 text-sm leading-none font-semibold text-ink-muted tabular-nums">{`${position.index + 1} of ${position.total}`}</span>
         )}
       </header>
 
-      <h1 className="mt-3 font-serif text-[1.875rem] leading-[1.15] font-medium tracking-[-0.015em] text-balance sm:text-[2.25rem]">
+      <h1 className="mt-4 text-[1.75rem] leading-[1.1] font-extrabold tracking-[-0.02em] text-balance sm:text-[2.5rem] sm:leading-[1.02] sm:font-black sm:tracking-[-0.025em]">
         {problem.title}
       </h1>
-      <Markdown className="mt-5">{problem.prompt}</Markdown>
+      <Markdown className="mt-4">{problem.prompt}</Markdown>
     </div>
   );
 }

@@ -1,18 +1,12 @@
 import { useLayoutEffect, useRef, type KeyboardEvent } from 'react';
 
-import { FOCUS_RING } from '@/components/classes';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import type { Answer } from '@/lib/content/schema';
 import { cn } from '@/lib/utils';
 
-// Fields sit on the raised paper with a 3:1 edge. Typed answers use the text
-// serif, like writing on the page; code uses the mono.
-const FIELD = cn(
-  'rounded-lg border-input bg-card dark:bg-card focus-visible:border-ring',
-  FOCUS_RING
-);
+import ChoiceOptions from './ChoiceOptions';
+import { FIELD } from './fieldStyle';
 
 interface AnswerInputProps {
   answer: Answer;
@@ -48,30 +42,14 @@ export default function AnswerInput({
   }, [draft]);
 
   if (answer.type === 'choice') {
-    // Options read as a list: left-aligned, and long ones wrap instead of
-    // overflowing the phone width.
     return (
-      <div className="flex flex-col gap-2" role="group" aria-label={title}>
-        {answer.options.map((option, i) => (
-          <Button
-            key={i}
-            type="button"
-            size="lg"
-            variant="outline"
-            aria-pressed={draft === String(i)}
-            className={cn(
-              FIELD,
-              'h-auto min-h-12 justify-start px-4 py-3 text-left text-base font-normal whitespace-normal hover:bg-muted dark:hover:bg-muted',
-              // Chosen reads as the amber edge and a faint lamp tint.
-              'aria-pressed:border-ring aria-pressed:bg-primary/12 dark:aria-pressed:bg-primary/12'
-            )}
-            disabled={readOnly}
-            onClick={() => onDraftChange(String(i))}
-          >
-            {option}
-          </Button>
-        ))}
-      </div>
+      <ChoiceOptions
+        options={answer.options}
+        title={title}
+        draft={draft}
+        readOnly={readOnly}
+        onDraftChange={onDraftChange}
+      />
     );
   }
 
@@ -82,10 +60,7 @@ export default function AnswerInput({
         aria-label={title}
         inputMode={answer.type === 'number' ? 'decimal' : undefined}
         autoComplete="off"
-        className={cn(
-          FIELD,
-          'h-12 px-3.5 font-serif text-[1.1875rem] md:text-[1.1875rem]'
-        )}
+        className={cn(FIELD, 'h-14 px-5 text-[1.0625rem] md:text-[1.0625rem]')}
         readOnly={readOnly}
         onChange={(e) => onDraftChange(e.target.value)}
         onKeyDown={(e) => {
@@ -125,8 +100,8 @@ export default function AnswerInput({
       className={cn(
         FIELD,
         isCode
-          ? 'min-h-48 px-3.5 py-3 font-mono text-sm leading-relaxed md:text-sm'
-          : 'min-h-36 px-3.5 py-3 font-serif text-[1.1875rem] leading-relaxed md:text-[1.1875rem]'
+          ? 'min-h-48 rounded-[18px] bg-track px-4 py-3.5 font-mono text-sm leading-relaxed md:text-sm dark:bg-track'
+          : 'min-h-36 rounded-[18px] px-5 py-4 text-[1.0625rem] leading-relaxed md:text-[1.0625rem]'
       )}
       onChange={(e) => onDraftChange(e.target.value)}
       onKeyDown={onKeyDown}

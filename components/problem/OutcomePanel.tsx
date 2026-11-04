@@ -1,5 +1,7 @@
 import Markdown from '@/components/Markdown';
+import { Underline } from '@/components/way/Doodle';
 import type { Answer } from '@/lib/content/schema';
+import { cn } from '@/lib/utils';
 
 import type { Outcome } from './types';
 
@@ -31,25 +33,36 @@ export default function OutcomePanel({
   const line =
     outcome.kind === 'wrong' ? attemptsLine(outcome.attemptsLeft) : null;
 
-  // A hairline separates the response from the prompt above it.
+  // The response is a white card under the prompt. Solved gets a drawn
+  // underline; Not quite takes the red; the rest stay neutral.
   return (
-    <section className="space-y-5 border-t border-border pt-6">
+    <section className="space-y-4 rounded-3xl bg-surface p-5 shadow-[0_10px_24px_rgb(0_0_0/0.06)] ring-1 ring-hairline sm:p-6">
       <div className="space-y-1">
-        <h2 className="font-serif text-2xl leading-snug font-medium tracking-[-0.01em]">
+        <h2
+          className={cn(
+            'relative inline-block text-[1.75rem] leading-tight font-black tracking-[-0.02em]',
+            outcome.kind === 'wrong' && 'text-red'
+          )}
+        >
           {HEADINGS[outcome.kind]}
+          {outcome.kind === 'solved' && (
+            <Underline className="absolute -bottom-1.5 left-0 text-blue-line" />
+          )}
         </h2>
         {line && (
-          <p className="text-base text-muted-foreground tabular-nums">{line}</p>
+          <p className="text-base font-semibold text-ink-muted tabular-nums">
+            {line}
+          </p>
         )}
       </div>
       {outcome.kind !== 'wrong' && (
         <>
           {answer.type === 'open' && (
-            <div className="space-y-2 rounded-lg bg-muted px-4 py-3.5">
-              <h3 className="text-sm font-medium text-muted-foreground">
+            <div className="space-y-2 rounded-[18px] bg-track px-4 py-3.5">
+              <h3 className="text-sm font-extrabold text-ink-muted">
                 What a strong answer does
               </h3>
-              <Markdown className="text-[1.0625rem] sm:text-[1.0625rem]">
+              <Markdown className="sm:text-[1.0625rem]">
                 {answer.authorNote}
               </Markdown>
             </div>

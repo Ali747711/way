@@ -1,6 +1,6 @@
+import { QUIET } from '@/components/classes';
 import { Button } from '@/components/ui/button';
-
-import { OUTLINE, PRIMARY, QUIET } from './buttonStyles';
+import GlassButton from '@/components/way/GlassButton';
 
 interface ProblemActionsProps {
   terminal: boolean;
@@ -13,6 +13,7 @@ interface ProblemActionsProps {
   onNext: () => void;
 }
 
+// Blue is the way forward, yellow is for trying, and the way out is quiet.
 export default function ProblemActions({
   terminal,
   isCode,
@@ -24,36 +25,33 @@ export default function ProblemActions({
 }: ProblemActionsProps) {
   if (terminal) {
     return (
-      <Button type="button" size="lg" className={PRIMARY} onClick={onNext}>
+      <GlassButton className="min-w-36" onClick={onNext}>
         Next
-      </Button>
+      </GlassButton>
     );
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
+    <div className="flex flex-wrap items-center gap-x-2 gap-y-3">
       {isCode && (
-        <Button
-          type="button"
-          variant="outline"
-          size="lg"
-          className={OUTLINE}
+        <GlassButton
+          variant="yellow"
+          className="min-w-24"
           disabled={busy}
           onClick={onRun}
         >
           Run
-        </Button>
+        </GlassButton>
       )}
-      <Button
-        type="button"
-        size="lg"
-        className={PRIMARY}
+      {/* Narrower beside Run, so Run, Submit and Give up share one row at
+          375px. */}
+      <GlassButton
+        className={isCode ? 'min-w-28' : 'min-w-36'}
         disabled={busy}
         onClick={onSubmit}
       >
         Submit
-      </Button>
-      {/* The way out stays available but quieter than the way forward. */}
+      </GlassButton>
       <Button
         type="button"
         variant="ghost"
