@@ -70,4 +70,37 @@ describe('runCode', () => {
     expect(fake.terminate).toHaveBeenCalled();
     expect(vi.getTimerCount()).toBe(0);
   });
+
+  it('ignores a reply that arrives after the timeout', async () => {
+    const fake = new FakeWorker();
+    const promise = runCode(req, 1000, () => fake as unknown as Worker);
+    await vi.advanceTimersByTimeAsync(1000);
+    fake.onmessage?.({ data: [{ passed: true }, { passed: true }] });
+    fake.onerror?.({ message: 'late' });
+    const result = await promise;
+    expect(result).toEqual({ passed: 0, total: 2, timedOut: true });
+    expect(fake.terminate).toHaveBeenCalledTimes(1);
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it('resolves with failures when the factory throws', async () => {
+    const result = await runCode(req, 1000, () => {
+      throw new Error('no worker');
+    });
+    expect(result.passed).toBe(0);
+    expect(result.total).toBe(2);
+    expect(result.firstFailure?.error).toContain('no worker');
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it('resolves and cleans up when postMessage throws', async () => {
+    const fake = new FakeWorker();
+    fake.postMessage.mockImplementation(() => {
+      throw new Error('DataCloneError');
+    });
+    const result = await runCode(req, 1000, () => fake as unknown as Worker);
+    expect(result.firstFailure?.error).toContain('DataCloneError');
+    expect(fake.terminate).toHaveBeenCalledTimes(1);
+    expect(vi.getTimerCount()).toBe(0);
+  });
 });
