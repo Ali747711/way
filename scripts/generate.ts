@@ -1,7 +1,8 @@
 import fs from 'node:fs/promises';
 
-import { anthropic } from '@ai-sdk/anthropic';
-import { generateText, Output } from 'ai';
+import { createAnthropic } from '@ai-sdk/anthropic';
+import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
+import { generateText, Output, type LanguageModel } from 'ai';
 
 import { AREAS, AREA_CONFIG, DEEP_DIFFICULTY, type Area } from '@/lib/areas';
 import { problemSchema, type Problem } from '@/lib/content/schema';
@@ -13,8 +14,12 @@ import {
 } from '@/lib/pipeline/prompt';
 
 import { problemPath, readProblemFiles, writeProblemFile } from './lib/files';
+import {
+  OPENROUTER_BASE_URL,
+  resolveProvider,
+  type ProviderChoice
+} from './lib/provider';
 
-const MODEL = 'claude-sonnet-5-5';
 const MAX_EXAMPLES = 3;
 const USAGE =
   'usage: generate --area <area> --difficulty N --count N [--dry-run]';
@@ -72,14 +77,34 @@ const loadEnv = (): void => {
   }
 };
 
+const buildModel = (
+  provider: Exclude<ProviderChoice, { kind: 'none' }>
+): LanguageModel => {
+  if (provider.kind === 'anthropic') {
+    return createAnthropic({ apiKey: provider.apiKey })(provider.model);
+  }
+  return createOpenAICompatible({
+    name: 'openrouter',
+    baseURL: OPENROUTER_BASE_URL,
+    apiKey: provider.apiKey,
+    headers: {
+      'HTTP-Referer': 'https://github.com/OWNER/way',
+      'X-Title': 'Way'
+    },
+    // Makes Output.array send a JSON-schema response_format.
+    supportsStructuredOutputs: true
+  })(provider.model);
+};
+
 const main = async (): Promise<number> => {
   const args = parseArgs(process.argv.slice(2));
   const { area, difficulty, count } = args;
   const deep = difficulty === DEEP_DIFFICULTY;
 
   loadEnv();
-  if (!args.dryRun && !process.env.ANTHROPIC_API_KEY) {
-    console.error('ANTHROPIC_API_KEY is not set (put it in .env.local)');
+  const provider = resolveProvider(process.env);
+  if (!args.dryRun && provider.kind === 'none') {
+    console.error(provider.message);
     return 1;
   }
 
@@ -107,8 +132,10 @@ const main = async (): Promise<number> => {
     return 0;
   }
 
+  if (provider.kind === 'none') return 1;
+  console.log(`using ${provider.kind} ${provider.model}`);
   const { output } = await generateText({
-    model: anthropic(MODEL),
+    model: buildModel(provider),
     output: Output.array({ element: draftSchema }),
     prompt
   });

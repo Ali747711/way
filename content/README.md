@@ -11,6 +11,10 @@ Problems live in `content/problems/<area>/<id>.json`. The offline scripts move e
 - `approved`: set by the owner after reading the problem.
 - `published`: set by `npm run content:schedule` when the problem is placed on the schedule.
 
+## Choosing the provider
+
+`npm run content:generate` reads `.env.local`. If `OPENROUTER_API_KEY` is set it uses OpenRouter (default model `anthropic/claude-sonnet-5.5`); otherwise it uses `ANTHROPIC_API_KEY` directly (default `claude-sonnet-5-5`). Set `GENERATE_MODEL` to override the model for either. It prints `using <provider> <model>` before the call.
+
 ## Reviewing
 
 1. Run `npm run content:status` to see counts per status and area, plus the `verified` problems waiting for review.
