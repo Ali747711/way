@@ -1,0 +1,28 @@
+{
+  "id": "l-030",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "The knockout cup",
+  "prompt": "37 players enter a knockout tennis cup. In every match, two players play, there is always a winner, and the loser is out of the cup for good. When a round has an odd number of players, one of them gets a bye and goes through to the next round without playing. The cup continues until a single champion is left.\n\nHow many matches are played in total?",
+  "answer": {
+    "type": "number",
+    "value": 36,
+    "tolerance": 0
+  },
+  "hints": [
+    "Instead of counting matches round by round, what happens to exactly one player in every match?",
+    "When the cup is over, how many players have been knocked out?",
+    "Does giving someone a bye change how many players must lose?"
+  ],
+  "solution": "**36 matches.**\n\nEvery match knocks out exactly one player, and players are knocked out only by losing a match. At the end, one champion is left, so 37 − 1 = 36 players have been knocked out. That takes exactly 36 matches.\n\nByes change how the rounds are arranged, but they don't knock anyone out, so they don't change the total.\n\nCounting round by round gives the same answer: 18 + 9 + 5 + 2 + 1 + 1 = 36, with byes in the rounds that have an odd number of players.",
+  "solver": "let players = 37;\nlet matches = 0;\nwhile (players > 1) {\n  const games = Math.floor(players / 2);\n  matches += games;\n  players -= games;\n}\nreturn matches;",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "counting",
+    "invariant"
+  ],
+  "createdAt": "2026-11-04T13:18:18.023Z"
+}

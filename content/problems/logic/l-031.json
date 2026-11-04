@@ -1,0 +1,30 @@
+{
+  "id": "l-031",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "Shifting letters",
+  "prompt": "A secret code turns words into other strings of letters. Each letter is always moved forward in the alphabet by a fixed rule. Here are three coded words:\n\n- CAT becomes DCW\n- DOG becomes EQJ\n- BEE becomes CGH\n\nUsing the same rule, what does FISH become?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "GKVL"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "In BEE, the two E's turn into different letters, so does the shift depend only on the letter itself?",
+    "How far forward does the first letter of each word move? How far do the second and third letters move?",
+    "If the shift grows by one with each position, how far does the fourth letter of FISH move?"
+  ],
+  "solution": "**GKVL.**\n\nIn BEE, the two E's become G and H, so the shift can't depend on the letter alone. It depends on the letter's position in the word:\n\n- 1st letter: +1 (C→D, D→E, B→C)\n- 2nd letter: +2 (A→C, O→Q, E→G)\n- 3rd letter: +3 (T→W, G→J, E→H)\n\nFor FISH, the fourth letter moves forward 4:\n\nF+1 = G, I+2 = K, S+3 = V, H+4 = L, giving **GKVL**.",
+  "solver": "function solve(){ return 'FISH'.split('').map((ch,i)=>String.fromCharCode((ch.charCodeAt(0)-65+i+1)%26+65)).join(''); }\nreturn solve();",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "rule finding",
+    "cipher"
+  ],
+  "createdAt": "2026-11-04T13:18:18.023Z"
+}

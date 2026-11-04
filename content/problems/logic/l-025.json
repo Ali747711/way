@@ -1,0 +1,32 @@
+{
+  "id": "l-025",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "Six seats around the table",
+  "prompt": "Six friends, Ava, Ben, Cora, Dan, Eli and Fay, sit around a round table with six evenly spaced seats. Each seat has exactly one seat directly opposite it, and each seat has exactly two neighbouring seats.\n\n- Ava sits directly opposite Ben.\n- Cora sits in the seat immediately clockwise from Ava.\n- Eli sits next to both Ben and Cora.\n- Fay sits next to Ava.\n\nWho sits directly opposite Cora?",
+  "answer": {
+    "type": "choice",
+    "options": [
+      "Ben",
+      "Eli",
+      "Dan",
+      "Fay"
+    ],
+    "correctIndex": 2
+  },
+  "hints": [
+    "If you number the seats clockwise and put Ava in seat 1, where do Ben and Cora go?",
+    "Which single seat is next to both Ben's seat and Cora's seat?",
+    "Ava has only one free neighbouring seat left for Fay, so which seat is left for the last friend?"
+  ],
+  "solution": "**Dan.**\n\nNumber the seats 1 to 6 clockwise and put Ava in seat 1.\n\n- Ben is directly opposite Ava, so Ben is in seat 4.\n- Cora is immediately clockwise from Ava, so Cora is in seat 2.\n- Eli is next to both Ben (seat 4) and Cora (seat 2). Seat 3 is the only seat beside both of them, so Eli is in seat 3.\n- Fay is next to Ava. Ava's neighbours are seats 2 and 6, and seat 2 is taken, so Fay is in seat 6.\n- Dan takes the last seat, seat 5.\n\nSeat 2 is directly opposite seat 5, so Dan sits opposite Cora.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "seating",
+    "ordering"
+  ],
+  "createdAt": "2026-11-04T13:18:18.020Z"
+}

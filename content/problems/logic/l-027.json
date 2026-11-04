@@ -1,0 +1,31 @@
+{
+  "id": "l-027",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "Hats in a line",
+  "prompt": "Pia, Quin and Raj stand in a line, all facing the same way. Pia is at the back and can see Quin and Raj. Quin is in the middle and can see only Raj. Raj is at the front and sees nobody. No one can see their own hat.\n\nEveryone knows the hats were taken from a bag that held 3 red hats and 2 blue hats, and that each of them is wearing one of those hats. Everyone hears everything that is said and reasons perfectly.\n\n- Pia says: \"I don't know the colour of my hat.\"\n- Quin then says: \"I don't know the colour of my hat either.\"\n- Raj then says: \"I know the colour of my hat.\"\n\nWhat colour is Raj's hat?",
+  "answer": {
+    "type": "choice",
+    "options": [
+      "Blue",
+      "Red",
+      "It cannot be determined"
+    ],
+    "correctIndex": 1
+  },
+  "hints": [
+    "What would Pia have to see in front of her to know her own colour at once?",
+    "So what does Quin learn from Pia's answer about the hats on Quin and Raj together?",
+    "If Raj's hat were blue, what could Quin conclude about his own hat?"
+  ],
+  "solution": "**Red.**\n\nThere are only 2 blue hats. If Pia saw blue hats on both Quin and Raj, she would know her own hat must be red. She says she doesn't know, so Quin and Raj are **not both** wearing blue.\n\nQuin heard that and knows it too. If Quin saw a blue hat on Raj, he would know his own hat can't also be blue, so it must be red, and he would know his colour. Quin says he doesn't know, so Raj's hat is not blue.\n\nRaj can follow the same chain of reasoning, which is how he knows his hat is red.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "hat puzzle",
+    "common knowledge"
+  ],
+  "createdAt": "2026-11-04T13:18:18.022Z"
+}

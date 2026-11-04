@@ -1,0 +1,27 @@
+{
+  "id": "l-034",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "Brothers and sisters",
+  "prompt": "In one family, every child is either a boy or a girl.\n\n- Each boy has exactly as many brothers as sisters.\n- Each girl has exactly twice as many brothers as sisters.\n\nA child's brothers and sisters never include the child. How many children are in the family?",
+  "answer": {
+    "type": "number",
+    "value": 7,
+    "tolerance": 0
+  },
+  "hints": [
+    "A boy doesn't count himself, so how does the number of boys compare with the number of girls?",
+    "From a girl's point of view, how many sisters does she have compared with the total number of girls?",
+    "Can you try small numbers of girls and check whether both statements hold for that family?"
+  ],
+  "solution": "**7 children: 4 boys and 3 girls.**\n\nSay there are *b* boys and *g* girls.\n\n- A boy has *b* − 1 brothers and *g* sisters. These are equal, so *b* = *g* + 1. There is one more boy than girls.\n- A girl has *b* brothers and *g* − 1 sisters, and *b* = 2(*g* − 1).\n\nPutting the two together: *g* + 1 = 2*g* − 2, so *g* = 3 and *b* = 4.\n\nCheck: each boy has 3 brothers and 3 sisters. Each girl has 4 brothers and 2 sisters, and 4 is twice 2. In total there are 4 + 3 = 7 children.",
+  "solver": "function solve(){ for (let b = 1; b < 50; b++) for (let g = 1; g < 50; g++) if (b - 1 === g && b === 2 * (g - 1)) return b + g; return null; }\nreturn solve();",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "family puzzle"
+  ],
+  "createdAt": "2026-11-04T13:18:18.024Z"
+}
