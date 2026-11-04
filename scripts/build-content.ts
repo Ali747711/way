@@ -23,6 +23,8 @@ const writeOut = async (
 };
 
 const main = async (): Promise<void> => {
+  // Clear stale output (e.g. e2e fixtures) so only scheduled days ship.
+  await fs.rm(OUT_DIR, { recursive: true, force: true });
   const root = process.cwd();
   const problems = await readProblemFiles(path.join(root, 'content/problems'));
   const schedule = await readSchedule(path.join(root, 'content/schedule.json'));
