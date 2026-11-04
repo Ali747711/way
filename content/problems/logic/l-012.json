@@ -1,0 +1,28 @@
+{
+  "id": "l-012",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "Socks in the dark",
+  "prompt": "A drawer holds 12 loose socks: 6 red, 4 blue and 2 green. The room is completely dark, so you can't see colours. You take socks out one at a time and don't put any back.\n\nWhat is the smallest number of socks you must take to be **certain** of having at least two blue socks?",
+  "answer": {
+    "type": "number",
+    "value": 10,
+    "tolerance": 0
+  },
+  "hints": [
+    "Being certain means planning for the unluckiest possible draws. What would the unluckiest draws be?",
+    "How many socks could you take without getting a single blue one?",
+    "After all of those, how many more draws could still give you only one blue sock?"
+  ],
+  "solution": "**10 socks.**\n\nPlan for the worst luck. You could draw all 6 red and both green socks first, which is 8 socks and no blue. The 9th sock must be blue, but one blue sock isn't a pair. The 10th sock must also be blue, because only blue socks are left.\n\nWith 9 socks you could still have just one blue, so 9 is not enough. 10 always works.",
+  "solver": "const socks = [...Array(6).fill('red'), ...Array(4).fill('blue'), ...Array(2).fill('green')];\nconst n = socks.length;\nconst fewestBlue = Array(n + 1).fill(Infinity);\nfor (let mask = 0; mask < 1 << n; mask++) {\n  let size = 0;\n  let blue = 0;\n  for (let i = 0; i < n; i++) {\n    if (mask & (1 << i)) {\n      size++;\n      if (socks[i] === 'blue') blue++;\n    }\n  }\n  fewestBlue[size] = Math.min(fewestBlue[size], blue);\n}\nfor (let k = 1; k <= n; k++) if (fewestBlue[k] >= 2) return k;\nreturn NaN;",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "worst case",
+    "pigeonhole"
+  ],
+  "createdAt": "2026-11-04T13:11:59.409Z"
+}

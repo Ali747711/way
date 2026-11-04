@@ -1,0 +1,29 @@
+{
+  "id": "w-007",
+  "area": "words",
+  "difficulty": 1,
+  "title": "Two meanings, one word",
+  "prompt": "This is a double-definition clue. The clue gives two different meanings, and a single word fits both of them. The number in brackets is the length of the answer.\n\n> \"Tree's rough skin, or a dog's loud call\" (4)\n\nWhat is the answer?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "bark"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "Which of the two meanings is easier to put a word to on its own?",
+    "Which four-letter words name the noise a dog makes?",
+    "Which of those dog noises could also describe something on the outside of a tree?"
+  ],
+  "solution": "**Bark.**\n\nThe clue has two halves, and each half is a definition of the same word:\n\n- *Tree's rough skin*: the tough outer layer of a tree trunk is its **bark**.\n- *A dog's loud call*: a dog **barks**.\n\nBARK has four letters, which matches the (4). To solve a double-definition clue, find a word for whichever meaning feels easier. Then check that the word also fits the other meaning.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "cryptic",
+    "double definition"
+  ],
+  "createdAt": "2026-11-04T12:58:54.694Z"
+}

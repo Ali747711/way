@@ -1,0 +1,30 @@
+{
+  "id": "l-009",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "Pets and drinks",
+  "prompt": "Ana, Ben and Cal each own one pet (a cat, a dog or a fish) and each drink one drink (tea, coffee or milk). No two of them own the same pet or have the same drink.\n\n- The person who drinks tea owns the cat.\n- Ana drinks coffee.\n- Ben does not own the cat.\n- The dog owner drinks milk.\n\nWho owns the cat?",
+  "answer": {
+    "type": "choice",
+    "options": [
+      "Ana",
+      "Ben",
+      "Cal"
+    ],
+    "correctIndex": 2
+  },
+  "hints": [
+    "Two of the clues pair a drink with a pet. Which pet goes with the remaining drink?",
+    "Given Ana's drink, which pet must Ana own?",
+    "With Ana's pet known and Ben ruled out for one pet, which pet is left for each of the other two friends?"
+  ],
+  "solution": "**Cal.**\n\nTea goes with the cat and milk goes with the dog, so coffee goes with the fish. Ana drinks coffee, so Ana owns the fish.\n\nThe cat and the dog are left for Ben and Cal. Ben does not own the cat, so Ben owns the dog and drinks milk. Cal owns the cat and drinks tea.\n\nCheck: tea goes with the cat (Cal), milk goes with the dog (Ben), Ana drinks coffee, and Ben doesn't own the cat. All four clues hold.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "grid puzzle"
+  ],
+  "createdAt": "2026-11-04T13:11:59.408Z"
+}

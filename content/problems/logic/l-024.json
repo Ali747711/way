@@ -1,0 +1,31 @@
+{
+  "id": "l-024",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "Every label is wrong",
+  "prompt": "Three jars are labelled **Apples**, **Oranges** and **Mixed**. One jar holds only apples, one holds only oranges, and one holds a mix of apples and oranges. Every label is on the wrong jar.\n\nYou reach into the jar labelled **Mixed** without looking and pull out an orange.\n\nWhat is in the jar labelled **Apples**?",
+  "answer": {
+    "type": "choice",
+    "options": [
+      "Only apples",
+      "Only oranges",
+      "A mix of apples and oranges"
+    ],
+    "correctIndex": 2
+  },
+  "hints": [
+    "The jar labelled Mixed can't really be mixed. So what does the orange tell you it contains?",
+    "With that jar's contents known, which two contents are left for the other two jars?",
+    "The jar labelled Oranges can't hold only oranges. What does that leave for it, and then for the last jar?"
+  ],
+  "solution": "**A mix of apples and oranges.**\n\nEvery label is wrong, so the jar labelled Mixed is not the mixed jar. It holds only one kind of fruit, and you pulled an orange from it, so it holds only oranges.\n\nThe other two jars hold only apples and the mix. The jar labelled Oranges can't be the oranges jar, and the oranges jar is already found anyway. The jar labelled Apples can't hold only apples, because its label would then be right. So the jar labelled Apples holds the mix, and the jar labelled Oranges holds only apples.\n\nCheck: no jar has its own label. Mixed holds oranges, Oranges holds apples, and Apples holds the mix.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "labels",
+    "deduction"
+  ],
+  "createdAt": "2026-11-04T13:15:24.334Z"
+}

@@ -1,0 +1,29 @@
+{
+  "id": "w-023",
+  "area": "words",
+  "difficulty": 1,
+  "title": "Losing your head",
+  "prompt": "Think of a six-letter word meaning \"frightened\". Remove its first letter, and you are left with a five-letter word meaning \"looked after\" or \"worried about\".\n\nWhat is the six-letter word?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "scared"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "How many words for frightened can you list, and which of them have six letters?",
+    "For each six-letter word on your list, what is left when you drop its first letter?",
+    "If AFRAID does not leave a word when its first letter goes, which other six-letter word for frightened is worth trying?"
+  ],
+  "solution": "**Scared.**\n\nSix-letter words for frightened include AFRAID and SCARED. Removing the first letter from AFRAID leaves FRAID, which isn't a word. Removing the S from SCARED leaves CARED, which means \"looked after\" or \"worried about\".\n\nSo SCARED is the only word that works for both parts of the puzzle.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "beheadment",
+    "letter removal"
+  ],
+  "createdAt": "2026-11-04T13:06:15.689Z"
+}

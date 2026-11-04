@@ -1,0 +1,30 @@
+{
+  "id": "l-010",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "The fox and the owl",
+  "prompt": "A fox lies on Mondays, Tuesdays and Wednesdays and tells the truth on every other day. An owl lies on Thursdays, Fridays and Saturdays and tells the truth on every other day.\n\nOn one particular day, the fox and the owl each say: \"I will lie tomorrow.\"\n\nWhat day of the week is it?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "wednesday",
+      "wed"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "On a day when the fox tells the truth, what must tomorrow be for the fox? And on a day when it lies?",
+    "Which two days could the fox have said this on? Which two days could the owl have said it on?",
+    "Which day appears on both lists?"
+  ],
+  "solution": "**Wednesday.**\n\n**The fox.** On a truthful day (Thursday to Sunday), the fox must lie tomorrow. Only Sunday works, because Monday is a lying day. On a lying day (Monday to Wednesday), the statement must be false, so the fox tells the truth tomorrow. Only Wednesday works, because Thursday is truthful. The fox could have spoken on Sunday or Wednesday.\n\n**The owl.** On a truthful day (Sunday to Wednesday), the owl must lie tomorrow. Only Wednesday works, because Thursday is a lying day. On a lying day (Thursday to Saturday), the owl must tell the truth tomorrow. Only Saturday works, because Sunday is truthful. The owl could have spoken on Wednesday or Saturday.\n\nThe only day on both lists is Wednesday. On Wednesday the fox is lying (it tells the truth on Thursday), and the owl is telling the truth (it lies on Thursday).",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "liars",
+    "days of the week"
+  ],
+  "createdAt": "2026-11-04T13:11:59.408Z"
+}

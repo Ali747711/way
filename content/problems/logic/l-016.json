@@ -1,0 +1,28 @@
+{
+  "id": "l-016",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "Five floors, five neighbours",
+  "prompt": "Five people, Jo, Kay, Mira, Sam and Tom, live in a five-storey building. Each lives on a different floor, numbered 1 (bottom) to 5 (top).\n\n- Kay lives on the top floor.\n- Mira lives on the floor directly above Tom's.\n- Jo lives on a higher floor than Mira.\n- Sam lives on a lower floor than Tom.\n\nWho lives on floor 3?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "Mira"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "Which clue fixes one person's floor straight away, and which floors does that leave for the other four?",
+    "Three of the remaining people are stacked in a fixed upward order. Who is at the bottom of that stack, and who must be below that person?",
+    "If Sam must be below Tom, can Tom be on floor 1?"
+  ],
+  "solution": "**Mira.**\n\nKay is on floor 5, so Jo, Mira, Sam and Tom share floors 1 to 4.\n\nFrom the clues, Tom is below Mira, who is directly above him, and Jo is above Mira. Sam is also below Tom. That puts the four people in a single order from bottom to top: Sam, Tom, Mira, Jo.\n\nFour people in a fixed order on four floors leaves only one arrangement: Sam on 1, Tom on 2, Mira on 3, Jo on 4. Mira is directly above Tom, as required, so Mira lives on floor 3.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "ordering"
+  ],
+  "createdAt": "2026-11-04T13:15:24.332Z"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "w-030",
+  "area": "words",
+  "difficulty": 1,
+  "title": "Not like the others",
+  "prompt": "Four of these five words use exactly the same five letters, rearranged. One word does not.\n\nWhich word is the odd one out?",
+  "answer": {
+    "type": "choice",
+    "options": [
+      "STEAL",
+      "LEAST",
+      "STEEL",
+      "SLATE",
+      "TALES"
+    ],
+    "correctIndex": 2
+  },
+  "hints": [
+    "Which five letters does the first word use?",
+    "Do all five words contain the same vowels?",
+    "Which letter appears in four of the words but not in the fifth?"
+  ],
+  "solution": "**STEEL.**\n\nSTEAL uses the letters A, E, L, S and T. LEAST, SLATE and TALES use exactly the same letters in a different order, so they are anagrams of STEAL.\n\nSTEEL looks very similar, but it has two Es and no A. It is the only word that is not an anagram of the others. The quick check is to look for one letter, here A, in every word.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "anagram",
+    "odd one out"
+  ],
+  "createdAt": "2026-11-04T13:08:50.611Z"
+}

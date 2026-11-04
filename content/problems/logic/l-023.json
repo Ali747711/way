@@ -1,0 +1,31 @@
+{
+  "id": "l-023",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "Points on the table",
+  "prompt": "Three teams, Ash, Birch and Cedar, each played every other team exactly once, so there were three matches in total. A win earns 3 points, a draw earns 1 point to each team, and a loss earns 0.\n\nFinal points: **Ash 4**, **Birch 3**, **Cedar 1**.\n\nWhich match ended in a draw?",
+  "answer": {
+    "type": "choice",
+    "options": [
+      "Ash vs Birch",
+      "Ash vs Cedar",
+      "Birch vs Cedar",
+      "None of the matches"
+    ],
+    "correctIndex": 1
+  },
+  "hints": [
+    "How many points does a decisive match hand out, compared with a drawn one, and what is the total of the final points?",
+    "With only two matches each, how can a team finish with exactly one point?",
+    "Which team's total can only come from one win plus one draw?"
+  ],
+  "solution": "**Ash vs Cedar.**\n\nA decisive match hands out 3 points and a draw hands out 2. Three decisive matches would give 9 points in total, but the teams have 4 + 3 + 1 = 8, so exactly one match was drawn.\n\nCedar has 1 point from two matches, so Cedar drew one match and lost the other. Ash has 4 points, which from two matches can only be a win (3) plus a draw (1). There is only one draw, and both Ash and Cedar took part in it, so the draw was Ash vs Cedar.\n\nThat leaves Ash beating Birch and Birch beating Cedar. Birch gets 3 points from one win and one loss, which matches the table.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "deduction"
+  ],
+  "createdAt": "2026-11-04T13:15:24.334Z"
+}

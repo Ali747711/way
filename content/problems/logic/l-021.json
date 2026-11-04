@@ -1,0 +1,31 @@
+{
+  "id": "l-021",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "Four cards on the table",
+  "prompt": "Each card in a set has a letter on one side and a whole number on the other. Someone claims: \"If a card has a vowel on one side, it has an even number on the other side.\"\n\nFour cards lie on the table showing **E**, **K**, **4** and **7**.\n\nWhich cards must you turn over to check whether the claim is true for these four cards, without turning over any card you don't need to?",
+  "answer": {
+    "type": "choice",
+    "options": [
+      "E and 4",
+      "E and 7",
+      "E only",
+      "E, 4 and 7"
+    ],
+    "correctIndex": 1
+  },
+  "hints": [
+    "For each card, could anything on its hidden side break the claim?",
+    "Does the claim say anything about what must be behind an even number?",
+    "What hidden letter on the card showing an odd number would break the claim?"
+  ],
+  "solution": "**E and 7.**\n\nThe claim can only be broken by a card that has a vowel on one side and an odd number on the other. Check each card for that:\n\n- **E**: a vowel. If its back is odd, the claim fails, so it must be turned.\n- **K**: a consonant. The claim says nothing about consonants, so its back can't break the claim.\n- **4**: even. A vowel or a consonant on its back both fit the claim, because the claim never says that only vowels have even numbers.\n- **7**: odd. If its back is a vowel, the claim fails, so it must be turned.\n\nTurning the 4 is the common mistake, but nothing on the back of the 4 can disprove the claim.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "conditional reasoning"
+  ],
+  "createdAt": "2026-11-04T13:15:24.334Z"
+}

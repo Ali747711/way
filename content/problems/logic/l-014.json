@@ -1,0 +1,29 @@
+{
+  "id": "l-014",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "Cracking the lock",
+  "prompt": "A lock opens with a three-digit code made of three different digits. Four guesses were scored like this:\n\n- **346:** one digit is correct and in the right place.\n- **132:** two digits are correct, but both are in the wrong places.\n- **625:** one digit is correct, but in the wrong place.\n- **462:** no digit is correct.\n\nWhat is the code?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "351"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "Which digits does the guess with nothing correct rule out completely?",
+    "With those digits gone, how many candidates are left in each of the other guesses, and does that leave you any choice?",
+    "Once one digit is fixed in its place, where can the digit that the third guess has in the wrong place go?"
+  ],
+  "solution": "**351.**\n\nGuess 462 has nothing correct, so 4, 6 and 2 are not in the code.\n\n- **346:** 4 and 6 are out, so the correct digit is 3, and it is already in the right place. The code starts with 3.\n- **625:** 6 and 2 are out, so 5 is in the code, but not in third place.\n- **132:** 2 is out, so 1 and 3 are both in the code. This guess puts 1 first and 3 second, and both are wrong places, which fits 3 being first.\n\nThe code's digits are 3, 5 and 1, with 3 first. Since 5 can't be third, 5 is second and 1 is third.",
+  "solver": "function solve() { const score = (code, guess) => { let right = 0, wrong = 0; for (let i = 0; i < 3; i++) { if (guess[i] === code[i]) right++; else if (code.includes(guess[i])) wrong++; } return [right, wrong]; }; const clues = [['346',1,0],['132',0,2],['625',0,1],['462',0,0]]; const out = []; for (let n = 0; n < 1000; n++) { const c = String(n).padStart(3,'0'); if (new Set(c).size !== 3) continue; if (clues.every(([g,r,w]) => { const [a,b] = score(c,g); return a === r && b === w; })) out.push(c); } return out.length === 1 ? out[0] : 'not unique'; }\nreturn solve();",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "code breaking"
+  ],
+  "createdAt": "2026-11-04T13:11:59.409Z"
+}

@@ -1,0 +1,29 @@
+{
+  "id": "w-020",
+  "area": "words",
+  "difficulty": 1,
+  "title": "Bridges between words",
+  "prompt": "One word fills all three gaps. Each gap needs a word that ends the word on its left and starts the word on its right, making two compound words each time.\n\n- SUN ____ HOUSE\n- MOON ____ YEAR\n- FLASH ____ BULB\n\nWhat is the word?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "light"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "Which of the three lines gives you the most to go on?",
+    "Which word can follow FLASH to make a common compound, and can that same word also come before BULB?",
+    "Does your word from the FLASH line also fit after SUN and MOON, and before HOUSE and YEAR?"
+  ],
+  "solution": "**Light**: sunlight and lighthouse, moonlight and light-year, flashlight and lightbulb.\n\nA good way in is to notice what the left-hand words share. The sun, the moon and a flash all give off something, and that same word also starts *house*, *year* and *bulb*. Each line has to work in both directions, so checking all six compounds confirms the answer.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "connection",
+    "compound words"
+  ],
+  "createdAt": "2026-11-04T13:06:15.688Z"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "l-017",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "Wheels and colours",
+  "prompt": "Three friends, Pia, Quinn and Rae, each own exactly one vehicle: a bicycle, a scooter or a skateboard. No two own the same kind. The three vehicles are three different colours: red, green and blue.\n\n- The skateboard is blue.\n- Quinn owns the red vehicle.\n- Pia's vehicle is not blue, and Pia does not own the scooter.\n- Rae does not own the bicycle.\n\nWhat does Rae own?",
+  "answer": {
+    "type": "choice",
+    "options": [
+      "A blue skateboard",
+      "A green scooter",
+      "A green skateboard",
+      "A blue scooter"
+    ],
+    "correctIndex": 0
+  },
+  "hints": [
+    "One vehicle's colour is given directly. Can Quinn own that vehicle?",
+    "Pia's vehicle isn't blue and isn't the scooter. Which vehicle does that leave for her?",
+    "Once Pia's vehicle is fixed, which vehicle can Quinn still have, and what is left for Rae?"
+  ],
+  "solution": "**A blue skateboard.**\n\nThe skateboard is blue. Pia's vehicle is not blue, so she doesn't own the skateboard, and she doesn't own the scooter either. Pia owns the bicycle.\n\nQuinn's vehicle is red, so Quinn can't own the blue skateboard. With the bicycle taken, Quinn owns the scooter, and it is red.\n\nRae gets the last vehicle, the skateboard, which is blue. That fits the clue that Rae doesn't own the bicycle. Pia's bicycle takes the remaining colour, green, which fits the clue that her vehicle isn't blue.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "grid puzzle"
+  ],
+  "createdAt": "2026-11-04T13:15:24.333Z"
+}

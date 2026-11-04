@@ -1,0 +1,29 @@
+{
+  "id": "w-010",
+  "area": "words",
+  "difficulty": 1,
+  "title": "Lost vowels",
+  "prompt": "Someone has removed every vowel (A, E, I, O, U) from the name of a fruit. The other letters are still in their original order, and Y counts as a consonant here.\n\n> STRWBRRY\n\nWhat is the fruit?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "strawberry",
+      "strawberries"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "Could the fruit be made of two shorter words joined together?",
+    "Which vowel could go between STR and W to make the start of the fruit a real word on its own?",
+    "Which common fruits end in BERRY, and which of them begins with the letters STR?"
+  ],
+  "solution": "**Strawberry.**\n\nSTRW only needs one vowel to become STRAW. BRRY needs one vowel to become BERRY. Joined together they make STRAWBERRY. Take out its vowels (A and E) and you get exactly S-T-R-W-B-R-R-Y.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "missing vowels"
+  ],
+  "createdAt": "2026-11-04T13:01:53.917Z"
+}

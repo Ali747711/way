@@ -1,0 +1,30 @@
+{
+  "id": "l-007",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "Five spines on a shelf",
+  "prompt": "Five books stand in a row on a shelf, in positions 1 to 5 from left to right. Their covers are red, blue, green, yellow and white, one colour each.\n\n- The red book is in the middle position.\n- The green book is somewhere to the left of the red book.\n- The blue book is directly to the right of the yellow book.\n- The white book is at one of the two ends.\n\nWhat colour is the book in position 2?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "green",
+      "the green book",
+      "green book"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "With the middle spot taken, where could a pair of side-by-side books fit?",
+    "If the yellow-blue pair sat on the left, would there be room for the book that must be left of the middle?",
+    "Once the yellow-blue pair is placed, which two books are left for the two left-hand spots, and which of them has to be at an end?"
+  ],
+  "solution": "**Green.**\n\nRed is in position 3. Yellow and blue must sit side by side with blue on the right, so they take positions 1-2 or positions 4-5.\n\nGreen must be left of red, so it is in position 1 or 2. If yellow and blue took positions 1 and 2, there would be no room for green. So yellow is in position 4 and blue is in position 5.\n\nWhite and green are left for positions 1 and 2. White must be at an end, so white is in position 1 and green is in position 2.\n\nThe full order is white, green, red, yellow, blue.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "ordering"
+  ],
+  "createdAt": "2026-11-04T13:11:59.408Z"
+}

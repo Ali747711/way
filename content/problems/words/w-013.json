@@ -1,0 +1,28 @@
+{
+  "id": "w-013",
+  "area": "words",
+  "difficulty": 1,
+  "title": "One letter in front",
+  "prompt": "Put the same single letter in front of each of these four words to make four new words:\n\n- HOST\n- LOVE\n- RAVE\n- OLD\n\nOnce you have found the letter, what word does HOST become?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "ghost"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "Which of the four words lets the fewest different letters go in front of it?",
+    "Very few letters can go in front of HOST to make a word, so which ones can you find?",
+    "Which letters can go in front of OLD to make a word, and which of those also work in front of HOST?"
+  ],
+  "solution": "**GHOST.**\n\nThe letter is G: GHOST, GLOVE, GRAVE, GOLD.\n\nStart with HOST, because it accepts the fewest letters. G is the only common one. Other letters fail on HOST even though they work elsewhere. For example, C gives CLOVE, CRAVE and COLD, but CHOST is not a word. So HOST becomes GHOST.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "add a letter"
+  ],
+  "createdAt": "2026-11-04T13:01:53.918Z"
+}

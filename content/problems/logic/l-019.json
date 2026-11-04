@@ -1,0 +1,28 @@
+{
+  "id": "l-019",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "Who ate the cake",
+  "prompt": "One of four suspects, Ada, Ben, Cora or Dev, ate the cake. Each makes one statement:\n\n- **Ada:** \"Ben did it.\"\n- **Ben:** \"Dev did it.\"\n- **Cora:** \"I didn't do it.\"\n- **Dev:** \"Ben is lying.\"\n\nExactly one of the four statements is true. Who ate the cake?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "Cora"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "Two of the statements are directly about each other. Which two?",
+    "If exactly one of Ben's and Dev's statements is true, how many true statements are left for the other two suspects?",
+    "Which statement must then be false, and what does that false statement reveal?"
+  ],
+  "solution": "**Cora.**\n\nDev says Ben is lying. If Ben's statement is true, Dev's is false, and if Ben's is false, Dev's is true. Either way, exactly one of those two statements is true.\n\nOnly one statement in total is true, so Ada's and Cora's statements are both false. Cora said \"I didn't do it\", so that is false and Cora ate the cake.\n\nCheck with Cora as the culprit. Ada's statement (Ben did it) is false. Ben's statement (Dev did it) is false. Cora's statement is false. Dev's statement that Ben is lying is true. That makes exactly one true statement, as required.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "truth tellers"
+  ],
+  "createdAt": "2026-11-04T13:15:24.333Z"
+}

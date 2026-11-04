@@ -1,0 +1,29 @@
+{
+  "id": "w-012",
+  "area": "words",
+  "difficulty": 1,
+  "title": "Drive your animal home",
+  "prompt": "A cryptic clue has two parts. One end of the clue is a plain definition of the answer. The rest is wordplay that builds the same answer another way. The number in brackets is the length of the answer.\n\nIn this clue, the wordplay joins two short words end to end.\n\n> \"Vehicle with a pet makes a floor covering.\" (6)\n\nWhat is the answer?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "carpet"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "Which end of the clue reads like a plain definition of a household item?",
+    "What three-letter word for a vehicle could make up the first half of the answer?",
+    "What do you get if you write that vehicle and then the word PET straight after it?"
+  ],
+  "solution": "**CARPET.**\n\nThe definition is *a floor covering*. The wordplay is *vehicle with a pet*: a vehicle is a CAR, and a pet is simply PET. Joined, CAR + PET = CARPET, which is a floor covering. Both halves of the clue point to the same word.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "cryptic",
+    "charade"
+  ],
+  "createdAt": "2026-11-04T13:01:53.918Z"
+}

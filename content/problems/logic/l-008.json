@@ -1,0 +1,31 @@
+{
+  "id": "l-008",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "The picky calculator",
+  "prompt": "A calculator follows one rule about which numbers it accepts. So far:\n\n- **Accepted:** 18, 27, 63, 108, 450\n- **Rejected:** 19, 30, 99, 189\n\nWhich of these numbers will it accept?",
+  "answer": {
+    "type": "choice",
+    "options": [
+      "198",
+      "117",
+      "990",
+      "279"
+    ],
+    "correctIndex": 1
+  },
+  "hints": [
+    "Every accepted number divides evenly by nine. Why might some numbers that divide by nine still be rejected?",
+    "What do you get when you add up the digits of each accepted number?",
+    "What digit sum do the rejected multiples of nine have, and which option has the same digit sum as the accepted numbers?"
+  ],
+  "solution": "**117.**\n\nEvery accepted number is a multiple of 9, but that can't be the whole rule, because 99 and 189 are multiples of 9 and are rejected. Add the digits instead:\n\n- Accepted: 1+8, 2+7, 6+3, 1+0+8 and 4+5+0 all equal 9.\n- Rejected: 19 gives 10, 30 gives 3, 99 gives 18 and 189 gives 18.\n\nThe rule is that the digits add up to exactly 9. Among the options, 198, 990 and 279 each have a digit sum of 18. Only 117 (1+1+7 = 9) passes.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "rule finding"
+  ],
+  "createdAt": "2026-11-04T13:11:59.408Z"
+}

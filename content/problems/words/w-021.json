@@ -1,0 +1,32 @@
+{
+  "id": "w-021",
+  "area": "words",
+  "difficulty": 1,
+  "title": "The odd letters out",
+  "prompt": "Three of these words use exactly the same five letters, just in a different order. One word does not.\n\nWhich word is the odd one out?",
+  "answer": {
+    "type": "choice",
+    "options": [
+      "elbow",
+      "blown",
+      "below",
+      "bowel"
+    ],
+    "correctIndex": 1
+  },
+  "hints": [
+    "What do you get if you write each word's letters in alphabetical order?",
+    "Do all four words even contain the same vowels?",
+    "Which letters do all four words share, and which word swaps one of them for a different letter?"
+  ],
+  "solution": "**Blown.**\n\nSort each word's letters alphabetically:\n\n- elbow → B E L O W\n- below → B E L O W\n- bowel → B E L O W\n- blown → B L N O W\n\nElbow, below and bowel are anagrams of each other. Blown shares four of the letters, but it has an N instead of an E, so it is the odd one out.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "anagram",
+    "odd one out"
+  ],
+  "createdAt": "2026-11-04T13:06:15.688Z"
+}

@@ -1,0 +1,30 @@
+{
+  "id": "l-020",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "A tangled calendar",
+  "prompt": "The day after the day before yesterday was three days before Saturday.\n\nWhat day of the week will it be four days from today?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "Monday",
+      "Mon"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "If you go back two days and then forward one, where do you end up?",
+    "Which day is three days before Saturday, and what does that make today?",
+    "Starting from today, what do you reach after counting forward four days?"
+  ],
+  "solution": "**Monday.**\n\nThe day before yesterday is two days ago. The day after that is one day ago, which is yesterday. So the sentence says that yesterday was three days before Saturday.\n\nThree days before Saturday is Wednesday, so yesterday was Wednesday and today is Thursday. Counting forward four days from Thursday gives Friday, Saturday, Sunday, Monday.",
+  "solver": "function solve() { const d = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']; const yesterday = (6 - 3 + 7) % 7; const today = (yesterday + 1) % 7; return d[(today + 4) % 7]; }\nreturn solve();",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "calendar"
+  ],
+  "createdAt": "2026-11-04T13:15:24.333Z"
+}

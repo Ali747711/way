@@ -1,0 +1,27 @@
+{
+  "id": "l-011",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "The coffee queue",
+  "prompt": "Ivy, Jon, Kat, Leo and Max stand in a single-file queue. Position 1 is the front and position 5 is the back. \"Directly behind\" someone means the very next position toward the back.\n\n- Jon is somewhere ahead of Leo.\n- Kat is directly behind Jon.\n- Ivy is directly ahead of Max.\n- Max is not at either end of the queue.\n- Ivy is not at the front.\n\nHow many people are standing between Kat and Leo?",
+  "answer": {
+    "type": "number",
+    "value": 2,
+    "tolerance": 0
+  },
+  "hints": [
+    "The queue has two side-by-side pairs and one single person. How many ways can they be arranged?",
+    "Which arrangements put Max at an end, put Ivy at the front, or put Leo ahead of Jon?",
+    "Once only one order survives, where are Kat and Leo, and who stands between them?"
+  ],
+  "solution": "**2 people** (Ivy and Max).\n\nJon and Kat form a pair (Jon, then Kat). Ivy and Max form a pair (Ivy, then Max). Leo stands alone. Leo must be behind Jon, so he can't come before the Jon-Kat pair. That leaves three possible orders:\n\n- Jon, Kat, Ivy, Max, Leo: Max is fourth and Ivy is third. Every clue holds.\n- Ivy, Max, Jon, Kat, Leo: Ivy is at the front. Ruled out.\n- Jon, Kat, Leo, Ivy, Max: Max is at the back. Ruled out.\n\nThe queue is Jon, Kat, Ivy, Max, Leo. Kat is second and Leo is fifth, so Ivy and Max stand between them.",
+  "solver": "function solve() { const names = ['Ivy','Jon','Kat','Leo','Max']; const perms = []; const build = (a, r) => { if (!r.length) { perms.push(a); return; } r.forEach((x, i) => build([...a, x], r.filter((_, j) => j !== i))); }; build([], names); const ok = perms.filter(q => { const p = x => q.indexOf(x); return p('Jon') < p('Leo') && p('Kat') === p('Jon') + 1 && p('Max') === p('Ivy') + 1 && p('Max') !== 0 && p('Max') !== 4 && p('Ivy') !== 0; }); const q = ok[0]; return Math.abs(q.indexOf('Kat') - q.indexOf('Leo')) - 1; }\nreturn solve();",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "ordering"
+  ],
+  "createdAt": "2026-11-04T13:11:59.409Z"
+}

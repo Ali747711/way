@@ -1,0 +1,31 @@
+{
+  "id": "w-016",
+  "area": "words",
+  "difficulty": 1,
+  "title": "Letters in a line",
+  "prompt": "In one of these words, the letters appear in alphabetical order. Each letter comes later in the alphabet than the letter before it.\n\nWhich word is it?",
+  "answer": {
+    "type": "choice",
+    "options": [
+      "ALMOND",
+      "ALMOST",
+      "ABSENT",
+      "FLIGHT"
+    ],
+    "correctIndex": 1
+  },
+  "hints": [
+    "For each word, can you compare every letter with the one right after it?",
+    "Two of the words begin A, L, M, O, so where do those two words first differ?",
+    "In the alphabet, does N come before or after O, and does S come before T?"
+  ],
+  "solution": "**ALMOST.**\n\nCheck each word pair by pair:\n\n- ALMOND: A, L, M, O are in order, but the N comes before O in the alphabet, so the order breaks.\n- ALMOST: A < L < M < O < S < T. Every step moves forward, so this word works.\n- ABSENT: A, B, S are in order, but E comes before S, so the order breaks.\n- FLIGHT: F, L are in order, but I comes before L, so the order breaks.\n\nOnly ALMOST keeps its letters in alphabetical order the whole way through.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "letter patterns"
+  ],
+  "createdAt": "2026-11-04T13:01:53.918Z"
+}
