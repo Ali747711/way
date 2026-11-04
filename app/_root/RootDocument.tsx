@@ -3,6 +3,7 @@ import { Caveat, Figtree, JetBrains_Mono } from 'next/font/google';
 import type { ReactNode } from 'react';
 
 import LocaleProvider from '@/components/i18n/LocaleProvider';
+import LocaleRedirect from '@/components/i18n/LocaleRedirect';
 import type { Locale } from '@/lib/i18n/messages';
 
 import '../globals.css';
@@ -65,7 +66,10 @@ export default function RootDocument({ locale, children }: RootDocumentProps) {
       className={`${figtree.variable} ${hand.variable} ${mono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <LocaleProvider locale={locale}>{children}</LocaleProvider>
+        <LocaleProvider locale={locale}>
+          <LocaleRedirect />
+          {children}
+        </LocaleProvider>
       </body>
     </html>
   );

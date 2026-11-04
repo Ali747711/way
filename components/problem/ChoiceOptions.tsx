@@ -1,3 +1,4 @@
+import { useContentLang } from '@/components/i18n/LocaleProvider';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -45,7 +46,12 @@ export default function ChoiceOptions({
   onDraftChange
 }: ChoiceOptionsProps) {
   return (
-    <div className="flex flex-col gap-2.5" role="group" aria-label={title}>
+    <div
+      className="flex flex-col gap-2.5"
+      role="group"
+      aria-label={title}
+      lang={useContentLang()}
+    >
       {options.map((option, i) => (
         <Button
           key={i}

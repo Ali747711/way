@@ -5,6 +5,8 @@ import { cn } from '@/lib/utils';
 interface MarkdownProps {
   children: string;
   className?: string;
+  /** The text's language, when it differs from the page's. */
+  lang?: string;
 }
 
 // Problem prose in Figtree at reading size. The typography plugin is not
@@ -23,9 +25,9 @@ const PROSE = [
   '[&_strong]:font-bold'
 ].join(' ');
 
-export default function Markdown({ children, className }: MarkdownProps) {
+export default function Markdown({ children, className, lang }: MarkdownProps) {
   return (
-    <div className={cn(PROSE, className)}>
+    <div lang={lang} className={cn(PROSE, className)}>
       <ReactMarkdown>{children}</ReactMarkdown>
     </div>
   );

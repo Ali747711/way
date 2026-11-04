@@ -2,6 +2,7 @@
 
 import { createContext, useContext, type ReactNode } from 'react';
 
+import { contentLang } from '@/lib/i18n/content';
 import {
   DEFAULT_LOCALE,
   MESSAGES,
@@ -31,3 +32,7 @@ export default function LocaleProvider({
 export const useLocale = (): Locale => useContext(LocaleContext);
 
 export const useMessages = (): Messages => MESSAGES[useLocale()];
+
+/** `lang` for problem content on this page, when it differs from the page. */
+export const useContentLang = (): Locale | undefined =>
+  contentLang(useLocale());

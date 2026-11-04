@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import { COLUMN, DISPLAY } from '@/components/classes';
-import { useMessages } from '@/components/i18n/LocaleProvider';
+import { useLocale, useMessages } from '@/components/i18n/LocaleProvider';
 import Masthead from '@/components/Masthead';
 import ProblemView from '@/components/problem/ProblemView';
 import Accented from '@/components/way/Accented';
@@ -13,6 +13,7 @@ import { DEEP_HINTS } from '@/lib/areas';
 import { fetchDeep } from '@/lib/content/client';
 import type { DeepFile } from '@/lib/content/schema';
 import { isoWeekKey, toLocalDate } from '@/lib/date/localDate';
+import { localeHref } from '@/lib/i18n/paths';
 
 import NoSet from './NoSet';
 import { usePlaySession } from './usePlaySession';
@@ -38,6 +39,7 @@ function DeepMasthead() {
 
 function DeepDone() {
   const t = useMessages().deep;
+  const locale = useLocale();
   return (
     <>
       <DeepMasthead />
@@ -45,7 +47,7 @@ function DeepDone() {
         <h1 className={DISPLAY}>
           <Accented text={t.title} />
         </h1>
-        <Link href="/" className={glass('blue')}>
+        <Link href={localeHref('/', locale)} className={glass('blue')}>
           {t.backToToday}
         </Link>
       </main>

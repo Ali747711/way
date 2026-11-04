@@ -1,7 +1,7 @@
 import type { Area } from '@/lib/areas';
 
-/** Interface languages. */
-export type Locale = 'en';
+/** Interface languages. Problem content has its own (see content.ts). */
+export type Locale = 'en' | 'uz';
 
 /** A display heading with one accent word drawn in red. */
 export interface AccentedText {
@@ -111,5 +111,9 @@ export interface Messages {
     title: string;
     status: string;
     message: string;
+  };
+  language: {
+    /** Names the language switch for assistive technology. */
+    label: string;
   };
 }

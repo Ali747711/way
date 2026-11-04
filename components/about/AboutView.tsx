@@ -1,12 +1,14 @@
 import Link from 'next/link';
 
 import { COLUMN } from '@/components/classes';
+import LanguageSwitch from '@/components/i18n/LanguageSwitch';
 import AreaTile from '@/components/way/AreaTile';
 import { Squiggle } from '@/components/way/Doodle';
 import { glass } from '@/components/way/GlassButton';
 import { AREAS } from '@/lib/areas';
 import { REPO_URL } from '@/lib/config';
 import { MESSAGES, type Locale } from '@/lib/i18n/messages';
+import { localeHref } from '@/lib/i18n/paths';
 
 const bodyClass = 'text-[1.0625rem] leading-[1.6] text-pretty sm:text-lg';
 
@@ -19,16 +21,24 @@ export default function AboutView({ locale }: { locale: Locale }) {
       data-grid="short"
       className={`${COLUMN} way-enter pt-10 pb-16 sm:pt-16`}
     >
-      <h1 className="inline-flex items-center gap-2 text-[4rem] leading-none font-black tracking-[-0.035em]">
-        Way
-        <Squiggle className="mt-3 h-5 w-12 text-blue-line" />
-      </h1>
+      <div className="flex items-center justify-between gap-4">
+        <h1 className="inline-flex items-center gap-2 text-[4rem] leading-none font-black tracking-[-0.035em]">
+          Way
+          <Squiggle className="mt-3 h-5 w-12 text-blue-line" />
+        </h1>
+        <LanguageSwitch />
+      </div>
       <section className="mt-6 space-y-4">
         {m.about.intro.map((paragraph) => (
           <p key={paragraph} className={bodyClass}>
             {paragraph}
           </p>
         ))}
+        {m.about.contentNote && (
+          <p className="text-[1.0625rem] font-semibold text-ink-muted">
+            {m.about.contentNote}
+          </p>
+        )}
       </section>
       {/* The five areas, in slot order: the tiles that make up a day. */}
       <ul role="list" className="mt-10 grid grid-cols-5 gap-2">
@@ -56,7 +66,7 @@ export default function AboutView({ locale }: { locale: Locale }) {
         </ol>
       </section>
       <nav className="mt-10 flex flex-wrap gap-3">
-        <Link href="/" className={glass('blue')}>
+        <Link href={localeHref('/', locale)} className={glass('blue')}>
           {m.about.backToToday}
         </Link>
         <a href={REPO_URL} className={glass('black')}>

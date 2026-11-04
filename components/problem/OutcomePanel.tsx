@@ -1,4 +1,4 @@
-import { useMessages } from '@/components/i18n/LocaleProvider';
+import { useContentLang, useMessages } from '@/components/i18n/LocaleProvider';
 import Markdown from '@/components/Markdown';
 import { Underline } from '@/components/way/Doodle';
 import type { Answer } from '@/lib/content/schema';
@@ -29,6 +29,7 @@ export default function OutcomePanel({
 }: OutcomePanelProps) {
   const messages = useMessages();
   const t = messages.outcome;
+  const lang = useContentLang();
   const line =
     outcome.kind === 'wrong'
       ? attemptsLine(outcome.attemptsLeft, messages)
@@ -63,12 +64,12 @@ export default function OutcomePanel({
               <h3 className="text-sm font-extrabold text-ink-muted">
                 {t.strongAnswer}
               </h3>
-              <Markdown className="sm:text-[1.0625rem]">
+              <Markdown lang={lang} className="sm:text-[1.0625rem]">
                 {answer.authorNote}
               </Markdown>
             </div>
           )}
-          <Markdown>{solution}</Markdown>
+          <Markdown lang={lang}>{solution}</Markdown>
         </>
       )}
     </section>

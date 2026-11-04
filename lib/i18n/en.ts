@@ -117,5 +117,8 @@ export const en: Messages = {
     title: '404: This page could not be found.',
     status: '404',
     message: 'This page could not be found.'
+  },
+  language: {
+    label: 'Language'
   }
 };

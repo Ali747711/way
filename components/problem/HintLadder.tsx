@@ -1,4 +1,4 @@
-import { useMessages } from '@/components/i18n/LocaleProvider';
+import { useContentLang, useMessages } from '@/components/i18n/LocaleProvider';
 import GlassButton from '@/components/way/GlassButton';
 
 interface HintLadderProps {
@@ -22,12 +22,15 @@ export default function HintLadder({
     maxHints
   );
 
+  const lang = useContentLang();
+
   return (
     <div className="space-y-4">
       {/* Hints are questions on a grey card, each behind a yellow number. */}
       {shown.length > 0 && (
         <ol
           role="list"
+          lang={lang}
           className="hint-list space-y-3 rounded-[22px] bg-track p-4 text-[1.0625rem] leading-relaxed text-pretty"
         >
           {shown.map((hint, i) => (
