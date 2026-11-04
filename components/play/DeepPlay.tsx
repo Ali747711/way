@@ -21,13 +21,13 @@ const thisWeek = (): string => isoWeekKey(toLocalDate(new Date()));
 
 function DeepDone() {
   return (
-    <main className="mx-auto w-full max-w-160 space-y-6 px-4 py-10">
-      <h1 className="text-3xl font-semibold tracking-tight">
+    <main className="mx-auto w-full max-w-160 space-y-3 px-4 pt-10 pb-16 sm:pt-16">
+      <h1 className="text-3xl leading-tight font-semibold tracking-tight">
         That&apos;s this week.
       </h1>
       <Link
         href="/"
-        className="inline-block py-2 text-base font-medium underline underline-offset-4"
+        className="inline-flex min-h-11 items-center text-base font-medium underline underline-offset-4"
       >
         Back to today
       </Link>

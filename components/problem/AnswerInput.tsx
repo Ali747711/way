@@ -39,6 +39,8 @@ export default function AnswerInput({
   }, [draft]);
 
   if (answer.type === 'choice') {
+    // Options read as a list: left-aligned, and long ones wrap instead of
+    // overflowing the phone width.
     return (
       <div className="flex flex-col gap-2" role="group" aria-label={title}>
         {answer.options.map((option, i) => (
@@ -48,6 +50,7 @@ export default function AnswerInput({
             size="lg"
             variant={draft === String(i) ? 'default' : 'outline'}
             aria-pressed={draft === String(i)}
+            className="h-auto min-h-11 justify-start px-4 py-2.5 text-left text-base whitespace-normal"
             disabled={readOnly}
             onClick={() => onDraftChange(String(i))}
           >
@@ -65,7 +68,7 @@ export default function AnswerInput({
         aria-label={title}
         inputMode={answer.type === 'number' ? 'decimal' : undefined}
         autoComplete="off"
-        className="h-12 text-lg"
+        className="h-12 px-3 text-lg md:text-lg"
         readOnly={readOnly}
         onChange={(e) => onDraftChange(e.target.value)}
         onKeyDown={(e) => {
@@ -102,7 +105,11 @@ export default function AnswerInput({
       placeholder={isCode ? answer.signature : undefined}
       spellCheck={!isCode}
       readOnly={readOnly}
-      className={isCode ? 'min-h-48 font-mono text-sm' : 'min-h-32 text-lg'}
+      className={
+        isCode
+          ? 'min-h-48 px-3 py-2.5 font-mono text-sm leading-relaxed'
+          : 'min-h-32 px-3 py-2.5 text-lg leading-relaxed md:text-lg'
+      }
       onChange={(e) => onDraftChange(e.target.value)}
       onKeyDown={onKeyDown}
     />

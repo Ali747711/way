@@ -22,7 +22,7 @@ export default function GiveUpDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent showCloseButton={false}>
         <DialogHeader>
-          <DialogTitle>
+          <DialogTitle className="text-base leading-snug text-pretty">
             Show the solution? You can&apos;t retry today.
           </DialogTitle>
         </DialogHeader>
@@ -30,12 +30,14 @@ export default function GiveUpDialog({
           <Button
             type="button"
             variant="outline"
+            className="h-11 px-4 text-base"
             onClick={() => onOpenChange(false)}
           >
             Keep trying
           </Button>
           <Button
             type="button"
+            className="h-11 px-4 text-base"
             onClick={() => {
               onOpenChange(false);
               onConfirm();

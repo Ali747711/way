@@ -69,16 +69,21 @@ export default function ProblemView({
   }, [onHint, terminal, current.hints, maxHints]);
 
   return (
-    <main className="mx-auto w-full max-w-160 space-y-6 px-4 py-6">
-      <header className="flex items-baseline gap-3 text-sm text-muted-foreground">
-        {position.total > 1 && (
-          <span>{`${position.index + 1} of ${position.total}`}</span>
-        )}
-        <span>{AREA_CONFIG[problem.area].label}</span>
-      </header>
+    <main className="mx-auto w-full max-w-160 space-y-8 px-4 pt-8 pb-16 sm:pt-14">
+      {/* Meta, title and prompt read as one block, so they sit close together. */}
+      <div>
+        <header className="flex items-baseline gap-3 text-sm text-muted-foreground tabular-nums">
+          {position.total > 1 && (
+            <span>{`${position.index + 1} of ${position.total}`}</span>
+          )}
+          <span>{AREA_CONFIG[problem.area].label}</span>
+        </header>
 
-      <h1 className="text-2xl font-semibold">{problem.title}</h1>
-      <Markdown>{problem.prompt}</Markdown>
+        <h1 className="mt-2 text-2xl leading-tight font-semibold tracking-tight text-balance">
+          {problem.title}
+        </h1>
+        <Markdown className="mt-4">{problem.prompt}</Markdown>
+      </div>
 
       {outcome && (
         <OutcomePanel
@@ -88,52 +93,66 @@ export default function ProblemView({
         />
       )}
 
-      {(!terminal || isCode) && (
-        <AnswerInput
-          answer={answer}
-          title={problem.title}
-          draft={current.draft}
-          readOnly={terminal}
-          busy={busy}
-          onDraftChange={onDraftChange}
-          onSubmit={onSubmit}
-        />
-      )}
+      <div className="space-y-4">
+        {(!terminal || isCode) && (
+          <AnswerInput
+            answer={answer}
+            title={problem.title}
+            draft={current.draft}
+            readOnly={terminal}
+            busy={busy}
+            onDraftChange={onDraftChange}
+            onSubmit={onSubmit}
+          />
+        )}
 
-      {codeResult && <CodeResult result={codeResult} />}
+        {codeResult && <CodeResult result={codeResult} />}
 
-      {terminal ? (
-        <Button type="button" size="lg" onClick={onNext}>
-          Next
-        </Button>
-      ) : (
-        <div className="space-y-6">
+        {terminal ? (
+          <Button
+            type="button"
+            size="lg"
+            className="h-11 px-5 text-base"
+            onClick={onNext}
+          >
+            Next
+          </Button>
+        ) : (
           <div className="flex flex-wrap gap-2">
             {isCode && (
               <Button
                 type="button"
                 variant="outline"
                 size="lg"
+                className="h-11 px-5 text-base"
                 disabled={busy}
                 onClick={onRun}
               >
                 Run
               </Button>
             )}
-            <Button type="button" size="lg" disabled={busy} onClick={onSubmit}>
+            <Button
+              type="button"
+              size="lg"
+              className="h-11 px-5 text-base"
+              disabled={busy}
+              onClick={onSubmit}
+            >
               Submit
             </Button>
+            {/* The way out stays available but quieter than the way forward. */}
             <Button
               type="button"
               variant="ghost"
               size="lg"
+              className="h-11 px-4 text-base text-muted-foreground"
               onClick={() => setConfirmOpen(true)}
             >
               Give up
             </Button>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {(!terminal || current.hints > 0) && (
         <HintLadder
@@ -147,7 +166,7 @@ export default function ProblemView({
 
       <footer className="text-sm text-muted-foreground">
         <a
-          className="underline"
+          className="inline-flex min-h-11 items-center underline underline-offset-4 hover:text-foreground"
           href={reportIssueUrl(problem.id)}
           target="_blank"
           rel="noreferrer"

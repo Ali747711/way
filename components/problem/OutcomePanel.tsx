@@ -31,10 +31,17 @@ export default function OutcomePanel({
   const line =
     outcome.kind === 'wrong' ? attemptsLine(outcome.attemptsLeft) : null;
 
+  // A hairline separates the response from the prompt above it.
   return (
-    <section className="space-y-3">
-      <h2 className="text-xl font-semibold">{HEADINGS[outcome.kind]}</h2>
-      {line && <p className="text-base text-muted-foreground">{line}</p>}
+    <section className="space-y-4 border-t border-border pt-6">
+      <div className="space-y-1">
+        <h2 className="text-xl leading-snug font-semibold">
+          {HEADINGS[outcome.kind]}
+        </h2>
+        {line && (
+          <p className="text-base text-muted-foreground tabular-nums">{line}</p>
+        )}
+      </div>
       {outcome.kind !== 'wrong' && (
         <>
           {answer.type === 'open' && (

@@ -11,13 +11,14 @@ export default function CodeResult({ result }: CodeResultProps) {
 
   return (
     <div className="space-y-2" role="status">
-      <p className="text-base font-medium">
+      <p className="text-base font-medium tabular-nums">
         {result.timedOut
           ? 'Timed out'
           : `passed ${result.passed} of ${result.total}`}
       </p>
       {firstFailure && (
-        <div className="space-y-1 rounded-lg bg-muted p-3 font-mono text-sm">
+        // Long values wrap rather than widening the page on a phone.
+        <div className="space-y-1 rounded-lg bg-muted px-3 py-2.5 font-mono text-sm leading-relaxed wrap-anywhere">
           <p>
             Input: <code>{show(firstFailure.input)}</code>
           </p>

@@ -16,23 +16,27 @@ const PRINCIPLES = [
 ];
 
 const linkClass =
-  'inline-block py-2 text-base font-medium underline underline-offset-4';
+  'inline-flex min-h-11 items-center text-base font-medium underline underline-offset-4';
+
+const bodyClass = 'text-base leading-relaxed text-pretty';
 
 export default function AboutPage() {
   return (
-    <main className="mx-auto w-full max-w-160 space-y-10 px-4 py-10">
+    <main className="mx-auto w-full max-w-160 space-y-12 px-4 pt-10 pb-16 sm:pt-16">
       <section className="space-y-4">
-        <h1 className="text-3xl font-semibold tracking-tight">Way</h1>
-        <p className="text-base leading-relaxed">
+        <h1 className="text-3xl leading-tight font-semibold tracking-tight">
+          Way
+        </h1>
+        <p className={bodyClass}>
           Way is a free web app that replaces late-night scrolling with short
           bursts of real thinking. Each day it offers a small, finite set of
           problems across different areas, solved one at a time.
         </p>
-        <p className="text-base leading-relaxed">
+        <p className={bodyClass}>
           Hints only ask questions. The answer appears only after you commit.
           When the set is done, Way says so and stops.
         </p>
-        <p className="text-base leading-relaxed">
+        <p className={bodyClass}>
           It exists because AI has made thinking optional, and the effortful
           parts of life (reading, reasoning, searching, discussing) stop getting
           exercised. The fixes that mean leaving the device fail for people who
@@ -45,7 +49,9 @@ export default function AboutPage() {
         <h2 className="text-xl font-semibold tracking-tight">Principles</h2>
         <ol className="list-decimal space-y-2 pl-6 text-base leading-relaxed marker:text-muted-foreground">
           {PRINCIPLES.map((principle) => (
-            <li key={principle}>{principle}</li>
+            <li key={principle} className="pl-1">
+              {principle}
+            </li>
           ))}
         </ol>
       </section>
