@@ -20,8 +20,13 @@ export default function AreaMap({ records, today }: AreaMapProps) {
           <li
             key={area}
             data-tone={areaTone(days)}
-            className="space-y-1 rounded-lg border border-foreground/20 bg-muted px-3 py-3 data-[tone=fresh]:opacity-100 data-[tone=recent]:opacity-75 data-[tone=fading]:opacity-50 data-[tone=quiet]:opacity-25"
+            className="group space-y-2 rounded-lg border border-border bg-muted px-3 py-3"
           >
+            {/* Only the swatch fades; text stays at full contrast. */}
+            <div
+              aria-hidden="true"
+              className="h-1.5 rounded-full bg-foreground group-data-[tone=fresh]:opacity-100 group-data-[tone=recent]:opacity-75 group-data-[tone=fading]:opacity-50 group-data-[tone=quiet]:opacity-25"
+            />
             <p className="text-base font-medium">{AREA_CONFIG[area].label}</p>
             <p className="text-sm text-muted-foreground">{areaCaption(days)}</p>
           </li>

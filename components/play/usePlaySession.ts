@@ -63,6 +63,8 @@ const deriveOutcome = (
   };
 };
 
+const now = (): number => Date.now();
+
 export const usePlaySession = (opts: PlaySessionOptions): PlaySession => {
   const { slot, key, problems, deep, settled, resolveKey, onKeyChange } = opts;
   const { state, update } = useWayState();
@@ -93,7 +95,6 @@ export const usePlaySession = (opts: PlaySessionOptions): PlaySession => {
 
   const open = problem !== null && current !== null && current.result === null;
   const guarded = open && !busy;
-  const now = (): number => Date.now();
 
   const draft = useCallback(
     (d: string) => update((s) => setDraft(s, slot, d)),
@@ -101,9 +102,10 @@ export const usePlaySession = (opts: PlaySessionOptions): PlaySession => {
   );
 
   const hint = useCallback(() => {
-    if (!guarded) return;
+    // Allowed while a run is in flight: a hint does not touch the run.
+    if (!open) return;
     update((s) => revealHint(s, slot, deep ? DEEP_HINTS : DAILY_HINTS));
-  }, [guarded, update, slot, deep]);
+  }, [open, update, slot, deep]);
 
   const giveUp = useCallback(() => {
     if (!guarded) return;

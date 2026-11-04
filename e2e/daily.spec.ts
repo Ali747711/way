@@ -86,6 +86,10 @@ test.describe('daily play', () => {
     await box.focus();
     await page.keyboard.press('Enter');
     await expect(page.getByText('Not quite')).toHaveCount(0);
+    await page.getByRole('button', { name: 'Submit' }).click();
+    await box.fill('   ');
+    await page.getByRole('button', { name: 'Submit' }).click();
+    await expect(page.getByText('Not quite')).toHaveCount(0);
     await failWords(page);
   });
 
@@ -149,7 +153,10 @@ test.describe('daily play', () => {
 
     await code.fill('function sumDigits(n) { while (true) {} }');
     await page.getByRole('button', { name: 'Run' }).click();
-    await expect(page.getByText('Timed out')).toBeVisible({ timeout: 5000 });
+    // The page must stay responsive while the worker spins.
+    await page.getByRole('button', { name: 'Hint 1 of 3' }).click();
+    await expect(page.getByText('First hint?')).toBeVisible();
+    await expect(page.getByText('Timed out')).toBeVisible({ timeout: 3000 });
 
     await code.fill(CORRECT_CODE);
     await page.getByRole('button', { name: 'Submit' }).click();
@@ -172,6 +179,34 @@ test.describe('daily play', () => {
     await expect(
       page.getByRole('heading', { name: 'Words puzzle 2' })
     ).toBeVisible();
+  });
+
+  test('Next after midnight moves to the new day without reload', async ({
+    page
+  }) => {
+    await open(page);
+    await answerBox(page, 'Words puzzle 1').fill('cat');
+    await page.getByRole('button', { name: 'Submit' }).click();
+    await page.getByRole('button', { name: 'Next', exact: true }).click();
+    await page.getByRole('button', { name: 'Beta' }).click();
+    await page.getByRole('button', { name: 'Submit' }).click();
+    await page.clock.setFixedTime(DAY_2);
+    await page.getByRole('button', { name: 'Next', exact: true }).click();
+    await expect(page.getByText('1 of 5')).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Words puzzle 2' })
+    ).toBeVisible();
+  });
+
+  test('follows the system dark color scheme', async ({ page }) => {
+    const bg = () =>
+      page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+    await page.emulateMedia({ colorScheme: 'light' });
+    await open(page);
+    const light = await bg();
+    await page.emulateMedia({ colorScheme: 'dark' });
+    const dark = await bg();
+    expect(dark).not.toBe(light);
   });
 
   test('an unscheduled date shows Nothing scheduled for today.', async ({
