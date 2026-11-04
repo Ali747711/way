@@ -1,0 +1,30 @@
+{
+  "id": "w-031",
+  "area": "words",
+  "difficulty": 1,
+  "title": "Stacked words",
+  "prompt": "In this kind of puzzle the layout is part of the clue. Read the words together with the way they are placed.\n\n```\nHEAD\nHEELS\n```\n\nThe stack stands for a common three-word phrase about being completely in love. What is the phrase?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "head over heels",
+      "head-over-heels"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "What does the position of the first word, compared with the second, tell you?",
+    "Which small linking word describes one thing being placed above another?",
+    "If you read the first word, then that linking word, then the second word aloud, do you get a phrase you have heard before?"
+  ],
+  "solution": "**Head over heels.**\n\nHEAD sits above HEELS, so the missing word is a word for \"above\": OVER. Reading the layout aloud gives *head over heels*, the phrase for being madly in love.\n\nIn a rebus puzzle the position of the words carries part of the message, so ask what the arrangement is saying as well as what the words say.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "draft",
+  "tags": [
+    "rebus",
+    "phrase"
+  ],
+  "createdAt": "2026-11-04T13:28:52.055Z"
+}

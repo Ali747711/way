@@ -1,0 +1,29 @@
+{
+  "id": "w-034",
+  "area": "words",
+  "difficulty": 1,
+  "title": "Inside the pub",
+  "prompt": "In a container clue, one piece of wordplay goes inside another, and a word like \"holding\" or \"has inside\" signals it. Here the single letter E stands for \"energy\". The number in brackets is the length of the answer.\n\n> \"Carry a pub that has energy inside (4)\"\n\nWhat is the answer?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "bear"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "Which word at the start of the clue is the definition, and which words describe the wordplay?",
+    "What three-letter word means a pub, and where could one extra letter be slotted into it?",
+    "Two placements of the extra letter make real four-letter words; which of them fits the definition at the start of the clue?"
+  ],
+  "solution": "**Bear.**\n\n*Carry* is the definition. The wordplay says a pub (BAR) has energy (E) inside it. Putting E inside BAR after the B gives B-E-AR, BEAR, which means to carry.\n\nPutting the E at the end would give BARE, also a real word, but it doesn't mean carry. The definition settles which placement is right.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "cryptic",
+    "container"
+  ],
+  "createdAt": "2026-11-04T13:28:52.057Z"
+}

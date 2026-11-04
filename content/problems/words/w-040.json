@@ -1,0 +1,31 @@
+{
+  "id": "w-040",
+  "area": "words",
+  "difficulty": 1,
+  "title": "A wardrobe swap",
+  "prompt": "Change exactly one letter in the name of a farm animal and you get a garment that you put on over your other clothes when it is cold.\n\nWhich farm animal is it?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "goat",
+      "a goat",
+      "the goat"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "Which farm animals have short names that you could test one at a time?",
+    "Which letter of each name would you change: first, last, or one in the middle?",
+    "Try replacing the first letter of each animal's name with other letters. Which one gives something you could wear in winter?"
+  ],
+  "solution": "**Goat.**\n\nChange the G of GOAT to C and you get COAT, a garment worn over other clothes in cold weather.\n\nTesting the farm animals one at a time works best. Changing the first letter is the most productive place to start, because many English word pairs differ only in their opening letter.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "letter change",
+    "animals"
+  ],
+  "createdAt": "2026-11-04T13:28:52.059Z"
+}

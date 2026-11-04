@@ -1,0 +1,29 @@
+{
+  "id": "w-036",
+  "area": "words",
+  "difficulty": 1,
+  "title": "Tea party words",
+  "prompt": "One word can be added after each of these to make a new common word:\n\n- pan\n- cup\n- cheese\n- short\n\nWhat is the word?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "cake"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "Which of the four words can be followed by the fewest other words, so you could start there?",
+    "Can you list a few words that follow \"cup\" and a few that follow \"pan\"?",
+    "Which word on both of those lists also follows \"cheese\" and \"short\"?"
+  ],
+  "solution": "**Cake**: pancake, cupcake, cheesecake, shortcake.\n\nList the words that can follow *cup* and *pan*. Only one appears on both lists, and it also completes *cheese* and *short*. Starting with the most restrictive gap and checking the answer against the others is the quickest method.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "connection",
+    "compound words"
+  ],
+  "createdAt": "2026-11-04T13:28:52.058Z"
+}

@@ -1,0 +1,29 @@
+{
+  "id": "w-035",
+  "area": "words",
+  "difficulty": 1,
+  "title": "Climbing letters",
+  "prompt": "Find a six-letter word that means \"nearly\". Its letters are in alphabetical order from the first to the last: each letter is later in the alphabet than the one before it.\n\nWhat is the word?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "almost"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "Which different words could replace \"nearly\" in a sentence?",
+    "Which of those candidates have six letters?",
+    "For each six-letter candidate, check whether every letter comes later in the alphabet than the one before it. Where does a candidate first fail?"
+  ],
+  "solution": "**Almost.**\n\nSix-letter words for \"nearly\" include ALMOST and MOSTLY. Checking the alphabet order: A-L-M-O-S-T climbs all the way. MOSTLY fails because after T comes L, which is earlier in the alphabet.\n\nTesting each candidate against the letter pattern removes all but one.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "letter pattern",
+    "alphabet"
+  ],
+  "createdAt": "2026-11-04T13:28:52.058Z"
+}

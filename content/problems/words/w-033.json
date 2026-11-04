@@ -1,0 +1,30 @@
+{
+  "id": "w-033",
+  "area": "words",
+  "difficulty": 1,
+  "title": "Built from two pieces",
+  "prompt": "In a charade clue the answer is built by joining shorter words end to end. The clue gives a short definition of each piece, in order, and a separate definition of the whole answer at the start. The number in brackets is the length of the answer.\n\n> \"Food store: cooking vessel, then attempt (6)\"\n\nWhat is the answer?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "pantry",
+      "a pantry"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "Which part of the clue is the definition of the whole answer, and which part describes the pieces?",
+    "What are the three-letter words for a cooking vessel and for an attempt?",
+    "If you join the two pieces in the order the clue gives them, does the result have six letters and match the definition at the start?"
+  ],
+  "solution": "**Pantry.**\n\nThe clue splits at the colon. *Food store* defines the whole answer. The wordplay is *cooking vessel* = PAN, then *attempt* = TRY. Joined in order they make PANTRY, a six-letter food store.\n\nBoth halves confirm each other: the pieces build the word, and the definition agrees with it.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "cryptic",
+    "charade"
+  ],
+  "createdAt": "2026-11-04T13:28:52.057Z"
+}

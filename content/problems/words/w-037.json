@@ -1,0 +1,28 @@
+{
+  "id": "w-037",
+  "area": "words",
+  "difficulty": 1,
+  "title": "The missing rung",
+  "prompt": "In a word ladder you change one letter at a time, and every step must be a real word. Fill the gap:\n\nCARE → ____ → CORK\n\nThe middle word is the part of an apple that you usually throw away. What is it?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "core"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "Which positions differ between CARE and CORK?",
+    "The middle word must differ from CARE in one place and from CORK in one place. Which letters could it keep from each?",
+    "Try changing only the second letter of CARE; does the result sit one letter away from CORK?"
+  ],
+  "solution": "**Core.**\n\nCARE and CORK differ in two places: the second letter (A/O) and the fourth letter (E/K). The middle word changes one of them first. Changing the A in CARE to O gives CORE. CORE is one letter away from CORK, because you change E to K, and it is also the middle of an apple.\n\nThe other route, changing E to K first, gives CARK, which is not a common word. The apple clue confirms CORE.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "word ladder"
+  ],
+  "createdAt": "2026-11-04T13:28:52.058Z"
+}

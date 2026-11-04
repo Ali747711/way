@@ -1,0 +1,30 @@
+{
+  "id": "w-038",
+  "area": "words",
+  "difficulty": 1,
+  "title": "The stowaway",
+  "prompt": "The same three-letter word hides unbroken inside each of these four words:\n\nPLANTER, GIANT, CHANTS, DISTANT\n\nThe hidden word is also a small insect. What is it?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "ant",
+      "an ant"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "Which letters appear side by side, in the same order, in all four words?",
+    "Is there a two-letter stretch common to all four that could be one letter longer?",
+    "Write the four words in a column and underline the stretch of letters that lines up in all of them. Which insect is it?"
+  ],
+  "solution": "**Ant.**\n\nPL**ANT**ER, GI**ANT**, CH**ANT**S and DIST**ANT** all contain the same three letters in a row, and they spell a small insect.\n\nShorter fragments such as AN also appear in all four, but the puzzle asks for the three-letter word, and it must be an insect.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "hidden word",
+    "connection"
+  ],
+  "createdAt": "2026-11-04T13:28:52.058Z"
+}

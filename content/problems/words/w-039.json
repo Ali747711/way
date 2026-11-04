@@ -1,0 +1,29 @@
+{
+  "id": "w-039",
+  "area": "words",
+  "difficulty": 1,
+  "title": "Rhyme time",
+  "prompt": "A hink pink is a pair of rhyming one-syllable words that fits a short clue. For example, \"a big hog\" is \"big pig\".\n\nWhat is the hink pink for \"an unhappy father\"? Give the two words (3,3).",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "sad dad"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "Which short words mean \"unhappy\", and which short words mean \"father\"?",
+    "Which of your words for father has plenty of rhyming partners?",
+    "Take the word for father and list its rhymes. Does one of them mean unhappy?"
+  ],
+  "solution": "**Sad dad.**\n\nThe clue gives two meanings, unhappy and father, and the two answer words must rhyme. DAD rhymes with SAD, and SAD means unhappy.\n\nYou can work from either side: pick a word for father and look for an unhappy rhyme, or pick a word for unhappy and look for a rhyming father.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "rhyme",
+    "phrase"
+  ],
+  "createdAt": "2026-11-04T13:28:52.058Z"
+}

@@ -1,0 +1,30 @@
+{
+  "id": "w-032",
+  "area": "words",
+  "difficulty": 1,
+  "title": "Sounds like a fruit",
+  "prompt": "In a cryptic clue, a phrase such as \"we hear\" or \"reportedly\" tells you the wordplay works by sound: the answer sounds like another word. The rest of the clue is the definition. The number in brackets is the length of the answer.\n\n> \"Fruit from a couple, we hear (4)\"\n\nWhat is the answer?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "pear",
+      "a pear"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "Which words in the clue tell you to listen to a word rather than spell it?",
+    "What short word means a couple, and can you think of a word that sounds the same but is spelled differently?",
+    "Which of the sound-alike spellings has four letters and is something you could eat?"
+  ],
+  "solution": "**Pear.**\n\n*We hear* signals a homophone. A couple is a PAIR, and PAIR sounds exactly like PEAR. *Fruit* is the definition, and PEAR is a fruit with four letters.\n\nThe sound of the wordplay word and the meaning of the definition word agree, which tells you the answer is right.",
+  "source": {
+    "kind": "generated"
+  },
+  "status": "verified",
+  "tags": [
+    "cryptic",
+    "homophone"
+  ],
+  "createdAt": "2026-11-04T13:28:52.056Z"
+}
