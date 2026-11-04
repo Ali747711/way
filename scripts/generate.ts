@@ -2,7 +2,8 @@ import fs from 'node:fs/promises';
 
 import { createAnthropic } from '@ai-sdk/anthropic';
 import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
-import { generateText, Output, type LanguageModel } from 'ai';
+import { generateText, type LanguageModel } from 'ai';
+import { z } from 'zod';
 
 import { AREAS, AREA_CONFIG, DEEP_DIFFICULTY, type Area } from '@/lib/areas';
 import { problemSchema, type Problem } from '@/lib/content/schema';
@@ -13,6 +14,7 @@ import {
   nextId
 } from '@/lib/pipeline/prompt';
 
+import { extractDraftArray } from './lib/drafts';
 import { problemPath, readProblemFiles, writeProblemFile } from './lib/files';
 import {
   OPENROUTER_BASE_URL,
@@ -21,6 +23,9 @@ import {
 } from './lib/provider';
 
 const MAX_EXAMPLES = 3;
+// A batch of 10 drafts runs to roughly 25k tokens; leave headroom so the
+// reply is never cut off mid-array.
+const MAX_OUTPUT_TOKENS = 48_000;
 const USAGE =
   'usage: generate --area <area> --difficulty N --count N [--dry-run]';
 
@@ -90,11 +95,25 @@ const buildModel = (
     headers: {
       'HTTP-Referer': 'https://github.com/OWNER/way',
       'X-Title': 'Way'
-    },
-    // Makes Output.array send a JSON-schema response_format.
-    supportsStructuredOutputs: true
+    }
   })(provider.model);
 };
+
+/**
+ * The draft schema goes into the prompt as text instead of a JSON-schema
+ * response_format: Anthropic's structured outputs reject the `oneOf` that the
+ * answer union produces ("Schema type 'oneOf' is not supported"), and through
+ * OpenRouter that surfaced only as "Provider returned error".
+ */
+const schemaBlock = (): string =>
+  [
+    '## Schema',
+    'Each problem in the array is one JSON object matching this JSON Schema:',
+    '```json',
+    JSON.stringify(z.toJSONSchema(draftSchema, { io: 'input' })),
+    '```',
+    'Reply with the JSON array only: start with [ and end with ], with no prose before or after it and no code fence.'
+  ].join('\n');
 
 const main = async (): Promise<number> => {
   const args = parseArgs(process.argv.slice(2));
@@ -118,7 +137,7 @@ const main = async (): Promise<number> => {
         (p.status === 'approved' || p.status === 'published')
     )
     .slice(0, MAX_EXAMPLES);
-  const prompt = buildGenerationPrompt({
+  const basePrompt = buildGenerationPrompt({
     area,
     difficulty,
     count,
@@ -126,6 +145,7 @@ const main = async (): Promise<number> => {
     existingTitles: problems.filter((p) => p.area === area).map((p) => p.title),
     template: await loadTemplate(area, deep)
   });
+  const prompt = `${basePrompt}\n\n${schemaBlock()}`;
 
   if (args.dryRun) {
     console.log(prompt);
@@ -134,16 +154,29 @@ const main = async (): Promise<number> => {
 
   if (provider.kind === 'none') return 1;
   console.log(`using ${provider.kind} ${provider.model}`);
-  const { output } = await generateText({
+  const { text, finishReason } = await generateText({
     model: buildModel(provider),
-    output: Output.array({ element: draftSchema }),
+    maxOutputTokens: MAX_OUTPUT_TOKENS,
     prompt
   });
+  if (finishReason === 'length') {
+    console.error('the reply hit the output token limit and was cut off');
+  }
+  const elements = extractDraftArray(text);
 
   const ids = problems.map((p) => p.id);
   const prefix = idPrefixFor(area, difficulty);
   let written = 0;
-  for (const draft of output) {
+  for (const [i, element] of elements.entries()) {
+    const shape = draftSchema.safeParse(element);
+    if (!shape.success) {
+      const issue = shape.error.issues[0];
+      console.error(
+        `skipped draft ${i}: ${issue.path.join('.')} ${issue.message}`
+      );
+      continue;
+    }
+    const draft = shape.data;
     const candidate: Problem = {
       ...draft,
       id: nextId(prefix, ids),
