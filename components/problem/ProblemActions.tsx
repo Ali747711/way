@@ -1,4 +1,5 @@
 import { QUIET } from '@/components/classes';
+import { useMessages } from '@/components/i18n/LocaleProvider';
 import { Button } from '@/components/ui/button';
 import GlassButton from '@/components/way/GlassButton';
 
@@ -23,10 +24,11 @@ export default function ProblemActions({
   onAskGiveUp,
   onNext
 }: ProblemActionsProps) {
+  const t = useMessages().problem;
   if (terminal) {
     return (
       <GlassButton className="min-w-36" onClick={onNext}>
-        Next
+        {t.next}
       </GlassButton>
     );
   }
@@ -40,7 +42,7 @@ export default function ProblemActions({
           disabled={busy}
           onClick={onRun}
         >
-          Run
+          {t.run}
         </GlassButton>
       )}
       {/* Narrower beside Run, so Run, Submit and Give up share one row at
@@ -50,7 +52,7 @@ export default function ProblemActions({
         disabled={busy}
         onClick={onSubmit}
       >
-        Submit
+        {t.submit}
       </GlassButton>
       <Button
         type="button"
@@ -59,7 +61,7 @@ export default function ProblemActions({
         className={QUIET}
         onClick={onAskGiveUp}
       >
-        Give up
+        {t.giveUp}
       </Button>
     </div>
   );

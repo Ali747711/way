@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import DoneScreen from '@/components/done/DoneScreen';
+import { useMessages } from '@/components/i18n/LocaleProvider';
 import Masthead from '@/components/Masthead';
 import ProblemView from '@/components/problem/ProblemView';
 import { DAILY_HINTS } from '@/lib/areas';
@@ -23,6 +24,7 @@ interface Loaded {
 const today = (): string => toLocalDate(new Date());
 
 export default function DailyPlay() {
+  const m = useMessages();
   const [key, setKey] = useState(today);
   const [loaded, setLoaded] = useState<Loaded | null>(null);
 
@@ -54,8 +56,7 @@ export default function DailyPlay() {
 
   const { phase, problem, current, state } = session;
 
-  if (phase === 'no-set')
-    return <NoSet message="Nothing scheduled for today." />;
+  if (phase === 'no-set') return <NoSet message={m.noSet.today} />;
   if (phase === 'done' && state !== null && problems !== null) {
     return (
       <>

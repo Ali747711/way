@@ -1,6 +1,9 @@
+import { useMessages } from '@/components/i18n/LocaleProvider';
 import Markdown from '@/components/Markdown';
 import { Underline } from '@/components/way/Doodle';
 import type { Answer } from '@/lib/content/schema';
+import { en } from '@/lib/i18n/en';
+import type { Messages } from '@/lib/i18n/types';
 import { cn } from '@/lib/utils';
 
 import type { Outcome } from './types';
@@ -11,18 +14,12 @@ interface OutcomePanelProps {
   solution: string;
 }
 
-const HEADINGS = {
-  solved: 'Solved',
-  wrong: 'Not quite',
-  failed: 'Out of attempts',
-  gave_up: 'The solution'
-} as const;
-
-export function attemptsLine(attemptsLeft: number): string | null {
+export function attemptsLine(
+  attemptsLeft: number,
+  messages: Messages = en
+): string | null {
   if (attemptsLeft === Infinity) return null;
-  return attemptsLeft === 1
-    ? '1 attempt left'
-    : `${attemptsLeft} attempts left`;
+  return messages.outcome.attemptsLeft(attemptsLeft);
 }
 
 export default function OutcomePanel({
@@ -30,8 +27,12 @@ export default function OutcomePanel({
   answer,
   solution
 }: OutcomePanelProps) {
+  const messages = useMessages();
+  const t = messages.outcome;
   const line =
-    outcome.kind === 'wrong' ? attemptsLine(outcome.attemptsLeft) : null;
+    outcome.kind === 'wrong'
+      ? attemptsLine(outcome.attemptsLeft, messages)
+      : null;
 
   // The response is a white card under the prompt. Solved gets a drawn
   // underline; Not quite takes the red; the rest stay neutral.
@@ -44,7 +45,7 @@ export default function OutcomePanel({
             outcome.kind === 'wrong' && 'text-red'
           )}
         >
-          {HEADINGS[outcome.kind]}
+          {t[outcome.kind]}
           {outcome.kind === 'solved' && (
             <Underline className="absolute -bottom-1.5 left-0 text-blue-line" />
           )}
@@ -60,7 +61,7 @@ export default function OutcomePanel({
           {answer.type === 'open' && (
             <div className="space-y-2 rounded-[18px] bg-track px-4 py-3.5">
               <h3 className="text-sm font-extrabold text-ink-muted">
-                What a strong answer does
+                {t.strongAnswer}
               </h3>
               <Markdown className="sm:text-[1.0625rem]">
                 {answer.authorNote}

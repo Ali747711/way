@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, type KeyboardEvent } from 'react';
 
+import { useMessages } from '@/components/i18n/LocaleProvider';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import type { Answer } from '@/lib/content/schema';
@@ -22,7 +23,7 @@ interface AnswerInputProps {
 
 export default function AnswerInput(props: AnswerInputProps) {
   const { answer, draft, notice = null } = props;
-  const count = wordCountLabel(answer, draft);
+  const count = wordCountLabel(answer, draft, useMessages());
   return (
     <div className="space-y-2">
       <AnswerField {...props} />

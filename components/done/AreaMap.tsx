@@ -1,5 +1,6 @@
+import { useMessages } from '@/components/i18n/LocaleProvider';
 import AreaTile from '@/components/way/AreaTile';
-import { AREAS, AREA_CONFIG } from '@/lib/areas';
+import { AREAS } from '@/lib/areas';
 import {
   areaCaption,
   areaTone,
@@ -17,6 +18,7 @@ interface AreaMapProps {
 // One row per area. The tile fades with the days since the area was last
 // exercised; the label and caption stay at full contrast and carry it.
 export default function AreaMap({ records, today, className }: AreaMapProps) {
+  const m = useMessages();
   return (
     <ul
       role="list"
@@ -38,11 +40,9 @@ export default function AreaMap({ records, today, className }: AreaMapProps) {
               size="md"
               className="group-data-[tone=fading]:opacity-55 group-data-[tone=quiet]:opacity-30 group-data-[tone=recent]:opacity-80"
             />
-            <p className="text-[1.0625rem] font-extrabold">
-              {AREA_CONFIG[area].label}
-            </p>
+            <p className="text-[1.0625rem] font-extrabold">{m.areas[area]}</p>
             <p className="ml-auto text-[0.9375rem] text-ink-muted">
-              {areaCaption(days)}
+              {areaCaption(days, m)}
             </p>
           </li>
         );

@@ -4,8 +4,10 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import { COLUMN, DISPLAY } from '@/components/classes';
+import { useMessages } from '@/components/i18n/LocaleProvider';
 import Masthead from '@/components/Masthead';
 import ProblemView from '@/components/problem/ProblemView';
+import Accented from '@/components/way/Accented';
 import { glass } from '@/components/way/GlassButton';
 import { DEEP_HINTS } from '@/lib/areas';
 import { fetchDeep } from '@/lib/content/client';
@@ -23,24 +25,28 @@ interface Loaded {
 const thisWeek = (): string => isoWeekKey(toLocalDate(new Date()));
 
 // The deep page names itself in the masthead; it has no set strip.
-const DeepMasthead = () => (
-  <Masthead>
-    <span className="rounded-full bg-track px-3 py-1.5 text-sm leading-none font-extrabold text-ink-muted">
-      Deep
-    </span>
-  </Masthead>
-);
+function DeepMasthead() {
+  const t = useMessages().deep;
+  return (
+    <Masthead>
+      <span className="rounded-full bg-track px-3 py-1.5 text-sm leading-none font-extrabold text-ink-muted">
+        {t.badge}
+      </span>
+    </Masthead>
+  );
+}
 
 function DeepDone() {
+  const t = useMessages().deep;
   return (
     <>
       <DeepMasthead />
       <main className={`${COLUMN} way-enter space-y-8 pt-6 pb-16 sm:pt-10`}>
         <h1 className={DISPLAY}>
-          That&apos;s <span className="text-red">this week.</span>
+          <Accented text={t.title} />
         </h1>
         <Link href="/" className={glass('blue')}>
-          Back to today
+          {t.backToToday}
         </Link>
       </main>
     </>
@@ -48,6 +54,7 @@ function DeepDone() {
 }
 
 export default function DeepPlay() {
+  const m = useMessages();
   const [key, setKey] = useState(thisWeek);
   const [loaded, setLoaded] = useState<Loaded | null>(null);
 
@@ -79,8 +86,7 @@ export default function DeepPlay() {
 
   const { phase, problem, current } = session;
 
-  if (phase === 'no-set')
-    return <NoSet message="Nothing scheduled for this week." />;
+  if (phase === 'no-set') return <NoSet message={m.noSet.week} />;
   if (phase === 'done') return <DeepDone />;
   if (phase === 'playing' && problem !== null && current !== null) {
     return (

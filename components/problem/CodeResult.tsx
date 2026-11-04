@@ -1,3 +1,4 @@
+import { useMessages } from '@/components/i18n/LocaleProvider';
 import type { RunResult } from '@/lib/runner/types';
 
 interface CodeResultProps {
@@ -8,13 +9,12 @@ const show = (value: unknown): string => JSON.stringify(value) ?? 'undefined';
 
 export default function CodeResult({ result }: CodeResultProps) {
   const { firstFailure } = result;
+  const t = useMessages().code;
 
   return (
     <div className="space-y-2" role="status">
       <p className="text-[1.0625rem] font-extrabold tabular-nums">
-        {result.timedOut
-          ? 'Timed out'
-          : `passed ${result.passed} of ${result.total}`}
+        {result.timedOut ? t.timedOut : t.passed(result.passed, result.total)}
       </p>
       {firstFailure && (
         // Labels stay in the line's own text (tests read "Expected: 6"), so
@@ -22,19 +22,20 @@ export default function CodeResult({ result }: CodeResultProps) {
         // rather than widening the page on a phone. 14px is the floor.
         <div className="space-y-1 rounded-[18px] bg-track px-4 py-3 font-mono text-sm leading-relaxed text-ink-muted wrap-anywhere">
           <p>
-            Input: <code className="text-ink">{show(firstFailure.input)}</code>
+            {t.input}{' '}
+            <code className="text-ink">{show(firstFailure.input)}</code>
           </p>
           <p>
-            Expected:{' '}
+            {t.expected}{' '}
             <code className="text-ink">{show(firstFailure.expected)}</code>
           </p>
           {firstFailure.error !== undefined ? (
             <p>
-              Error: <code className="text-ink">{firstFailure.error}</code>
+              {t.error} <code className="text-ink">{firstFailure.error}</code>
             </p>
           ) : (
             <p>
-              Actual:{' '}
+              {t.actual}{' '}
               <code className="text-ink">{show(firstFailure.actual)}</code>
             </p>
           )}

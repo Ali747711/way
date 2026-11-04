@@ -1,5 +1,7 @@
 import type { Area } from '@/lib/areas';
 import { daysBetween } from '@/lib/date/localDate';
+import { en } from '@/lib/i18n/en';
+import type { Messages } from '@/lib/i18n/types';
 
 import type { Session, WayState } from './schema';
 
@@ -42,8 +44,11 @@ export const areaTone = (days: number | null): AreaTone => {
   return 'fresh';
 };
 
-export const areaCaption = (days: number | null): string => {
-  if (days === null) return 'never';
-  if (days === 0) return 'last: today';
-  return days === 1 ? 'last: 1 day ago' : `last: ${days} days ago`;
+export const areaCaption = (
+  days: number | null,
+  { areaMap: t }: Messages = en
+): string => {
+  if (days === null) return t.never;
+  if (days === 0) return t.today;
+  return t.daysAgo(days);
 };

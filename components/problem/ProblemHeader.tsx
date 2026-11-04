@@ -1,6 +1,6 @@
+import { useMessages } from '@/components/i18n/LocaleProvider';
 import Markdown from '@/components/Markdown';
 import AreaTile from '@/components/way/AreaTile';
-import { AREA_CONFIG } from '@/lib/areas';
 import type { Problem } from '@/lib/content/schema';
 
 interface ProblemHeaderProps {
@@ -13,15 +13,18 @@ export default function ProblemHeader({
   problem,
   position
 }: ProblemHeaderProps) {
+  const m = useMessages();
   return (
     <div>
       <header className="flex items-center gap-2.5">
         <AreaTile area={problem.area} size="sm" />
         <span className="text-[0.9375rem] font-extrabold">
-          {AREA_CONFIG[problem.area].label}
+          {m.areas[problem.area]}
         </span>
         {position.total > 1 && (
-          <span className="rounded-full bg-track px-2.5 py-1 text-sm leading-none font-semibold text-ink-muted tabular-nums">{`${position.index + 1} of ${position.total}`}</span>
+          <span className="rounded-full bg-track px-2.5 py-1 text-sm leading-none font-semibold text-ink-muted tabular-nums">
+            {m.problem.position(position.index + 1, position.total)}
+          </span>
         )}
       </header>
 

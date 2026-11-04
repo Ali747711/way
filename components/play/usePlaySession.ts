@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+import { useMessages } from '@/components/i18n/LocaleProvider';
 import type { Outcome } from '@/components/problem/types';
 import { DAILY_HINTS, DEEP_HINTS } from '@/lib/areas';
 import { checkAnswer } from '@/lib/check/checkAnswer';
@@ -71,6 +72,7 @@ const now = (): number => Date.now();
 export const usePlaySession = (opts: PlaySessionOptions): PlaySession => {
   const { slot, key, problems, deep, settled, resolveKey, onKeyChange } = opts;
   const { state, update } = useWayState();
+  const messages = useMessages();
   const [codeResult, setCodeResult] = useState<RunResult | null>(null);
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
@@ -167,9 +169,9 @@ export const usePlaySession = (opts: PlaySessionOptions): PlaySession => {
       });
     } else {
       // Invalid: no attempt consumed and nothing stored, only explained.
-      setNotice(invalidNotice(answer, current.draft));
+      setNotice(invalidNotice(answer, current.draft, messages));
     }
-  }, [guarded, current, problem, exec, update, slot, deep]);
+  }, [guarded, current, problem, exec, update, slot, deep, messages]);
 
   const run = useCallback(async () => {
     if (!guarded) return;

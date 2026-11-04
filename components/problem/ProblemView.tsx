@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { COLUMN } from '@/components/classes';
+import { useMessages } from '@/components/i18n/LocaleProvider';
 import { reportIssueUrl } from '@/lib/config';
 import type { Problem } from '@/lib/content/schema';
 import type { RunResult } from '@/lib/runner/types';
@@ -57,6 +58,7 @@ export default function ProblemView({
   onGiveUp,
   onNext
 }: ProblemViewProps) {
+  const m = useMessages();
   const [confirmOpen, setConfirmOpen] = useState(false);
   const terminal = outcome !== null && outcome.kind !== 'wrong';
   const { answer } = problem;
@@ -131,7 +133,7 @@ export default function ProblemView({
           target="_blank"
           rel="noreferrer"
         >
-          Report a problem
+          {m.problem.report}
         </a>
       </footer>
 

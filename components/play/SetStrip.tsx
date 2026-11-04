@@ -1,18 +1,9 @@
 import AreaGlyph from '@/components/AreaGlyph';
+import { useMessages } from '@/components/i18n/LocaleProvider';
 import AreaTile from '@/components/way/AreaTile';
-import { AREA_CONFIG } from '@/lib/areas';
 import { cn } from '@/lib/utils';
 
-import type { MarkStatus, SetMark } from './setMarks';
-
-// Read out in place of the marks. Worded apart from the outcome headings
-// so the page never shows those phrases twice.
-const SPOKEN: Record<MarkStatus, string> = {
-  solved: 'solved',
-  gave_up: 'gave up',
-  failed: 'not solved',
-  open: 'not started'
-};
+import type { SetMark } from './setMarks';
 
 // Status is drawn as a shape, never only as colour: a check for solved, a
 // dash for gave up or out of attempts, a ring for current, an outline for
@@ -91,10 +82,13 @@ export default function SetStrip({
   size = 'sm',
   className
 }: SetStripProps) {
+  const m = useMessages();
+  // Read out in place of the marks.
+  const spokenStatus = m.set.status;
   return (
     <ol
       role="list"
-      aria-label="Today's set"
+      aria-label={m.set.label}
       className={cn(
         'flex',
         size === 'sm' ? 'gap-1.5' : 'justify-between sm:justify-start sm:gap-5',
@@ -104,12 +98,14 @@ export default function SetStrip({
       {marks.map((mark) => {
         const spoken =
           mark.current && mark.status === 'open'
-            ? 'current'
-            : SPOKEN[mark.status];
+            ? spokenStatus.current
+            : spokenStatus[mark.status];
         return (
           <li key={mark.id} className="flex">
             <Mark mark={mark} size={size} />
-            <span className="sr-only">{`${AREA_CONFIG[mark.area].label}, ${spoken}`}</span>
+            <span className="sr-only">
+              {m.set.mark(m.areas[mark.area], spoken)}
+            </span>
           </li>
         );
       })}

@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 import { Caveat, Figtree, JetBrains_Mono } from 'next/font/google';
 
+import LocaleProvider from '@/components/i18n/LocaleProvider';
+import { MESSAGES } from '@/lib/i18n/messages';
+
 import './globals.css';
 
 // Fonts are downloaded at build time and served from the app itself, so the
@@ -37,8 +40,8 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Way',
-  description: 'A finite daily set of problems'
+  title: MESSAGES.en.meta.title,
+  description: MESSAGES.en.meta.description
 };
 
 // Browser chrome matches the page ground.
@@ -56,7 +59,9 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       lang="en"
       className={`${figtree.variable} ${hand.variable} ${mono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        <LocaleProvider locale="en">{children}</LocaleProvider>
+      </body>
     </html>
   );
 }

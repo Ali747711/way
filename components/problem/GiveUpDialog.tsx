@@ -1,4 +1,5 @@
 import { QUIET } from '@/components/classes';
+import { useMessages } from '@/components/i18n/LocaleProvider';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -23,6 +24,7 @@ export default function GiveUpDialog({
   onOpenChange,
   onConfirm
 }: GiveUpDialogProps) {
+  const t = useMessages().giveUp;
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
@@ -31,7 +33,7 @@ export default function GiveUpDialog({
       >
         <DialogHeader>
           <DialogTitle className="text-[1.375rem] leading-tight font-extrabold tracking-[-0.015em] text-pretty">
-            Show the solution? You can&apos;t retry today.
+            {t.question}
           </DialogTitle>
         </DialogHeader>
         {/* Keep trying comes first in the DOM, so it takes the dialog's
@@ -43,7 +45,7 @@ export default function GiveUpDialog({
             className="w-full sm:w-auto"
             onClick={() => onOpenChange(false)}
           >
-            Keep trying
+            {t.keepTrying}
           </GlassButton>
           <Button
             type="button"
@@ -54,7 +56,7 @@ export default function GiveUpDialog({
               onConfirm();
             }}
           >
-            Show solution
+            {t.confirm}
           </Button>
         </DialogFooter>
       </DialogContent>

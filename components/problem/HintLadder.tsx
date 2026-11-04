@@ -1,3 +1,4 @@
+import { useMessages } from '@/components/i18n/LocaleProvider';
 import GlassButton from '@/components/way/GlassButton';
 
 interface HintLadderProps {
@@ -16,7 +17,10 @@ export default function HintLadder({
   onHint
 }: HintLadderProps) {
   const shown = hints.slice(0, revealed);
-  const label = `Hint ${Math.min(revealed + 1, maxHints)} of ${maxHints}`;
+  const label = useMessages().problem.hint(
+    Math.min(revealed + 1, maxHints),
+    maxHints
+  );
 
   return (
     <div className="space-y-4">
