@@ -3,7 +3,7 @@
   "area": "create",
   "difficulty": 4,
   "title": "An honest ad for a rock",
-  "prompt": "Write an advert for one ordinary grey rock, the kind you could pick up in any garden. Every sentence must be literally true, with no exaggeration, and the advert should still make someone want the rock.\n\nUse at most 50 words.",
+  "prompt": "Write an advert for one ordinary grey rock, the kind you could pick up in any garden. Every sentence must be literally true, with no exaggeration, and the advert should still make someone want the rock.\n\nUse 10 to 50 words.",
   "answer": {
     "type": "open",
     "minWords": 10,
@@ -15,7 +15,7 @@
     "Which of the things people complain about in their gadgets does a rock never do?",
     "Can you read each sentence and ask: is this literally true of this exact rock, or only of some rocks?"
   ],
-  "solution": "One example answer (48 words):\n\n> FOR SALE: one grey rock. Older than every city on Earth. Never needs charging, updates or feeding. Has no settings to get wrong. Fits in a pocket. Will still be here long after your phone. Comes with no instructions, because it needs none. Free to a good home.\n\nEach line survives a literal reading, and the humour comes from treating ordinary facts about a rock as product features.",
+  "solution": "One example answer (47 words):\n\n> AVAILABLE: one grey rock. Older than every city on Earth. Never needs charging, updates or feeding. Has no settings to get wrong. Fits in a pocket. Will still be here long after your phone. Comes with no instructions, because it needs none. Free to a good home.\n\nEach line survives a literal reading, and the humour comes from treating ordinary facts about a rock as product features.",
   "source": {
     "kind": "original"
   },

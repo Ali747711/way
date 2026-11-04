@@ -14,7 +14,7 @@
   "hints": [
     "Which gap allows the fewest possible words, and could you start there?",
     "Which short words can follow bon, and does any of them also follow camp?",
-    "What do people sit around at a campsite after dark?"
+    "Of the four-letter words that can follow bon, which one also makes a word in front of place and in front of fly?"
   ],
   "solution": "**Fire**: firefly, fireplace, campfire, bonfire.\n\nThe quickest route is to start with the gap that allows the fewest words. Very few common words start with *bon*, and one of them, bonfire, also works after *camp*. Testing that word in the first two gaps confirms it: firefly and fireplace.",
   "source": {

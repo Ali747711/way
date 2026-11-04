@@ -3,7 +3,7 @@
   "area": "create",
   "difficulty": 4,
   "title": "A game for the bus stop",
-  "prompt": "Invent a game two strangers could play while waiting for a bus, standing up, with no equipment, no phones and no paper. Write its rules in at most 60 words.\n\nTwo conditions: the game must end on its own within a few minutes, without anyone watching a clock, and nobody can win just by stalling.",
+  "prompt": "Invent a game two strangers could play while waiting for a bus, standing up, with no equipment, no phones and no paper. Write its rules in 15 to 60 words.\n\nTwo conditions: the game must end on its own within a few minutes, without anyone watching a clock, and nobody can win just by stalling.",
   "answer": {
     "type": "open",
     "minWords": 15,
@@ -15,7 +15,7 @@
     "How could the other player stop someone from simply taking forever on their turn?",
     "What happens if neither player has lost by the time the thing you chose runs out?"
   ],
-  "solution": "One example answer (50 words):\n\n> **Alphabet Animals.** Take turns naming an animal. The first must start with A, the next with B, and so on through the alphabet, skipping X. No repeats. Your opponent counts to five out loud; reach five without an answer and you lose. If you both reach Z, the bus wins.\n\nThe alphabet is the clock: at most 25 turns, so a game takes a few minutes. The spoken count stops stalling, and the opponent counts fairly because they want their own turn.",
+  "solution": "One example answer (48 words):\n\n> **Alphabet Animals.** Take turns naming an animal. The first must start with A, the next with B, and so on through the alphabet, skipping X. Your opponent counts to five out loud; reach five without an answer and you lose. If you both reach Z, the bus wins.\n\nThe alphabet is the clock: at most 25 turns, so a game takes a few minutes. The spoken count stops stalling, and the opponent counts fairly because they want their own turn.",
   "source": {
     "kind": "original"
   },

@@ -3,7 +3,7 @@
   "area": "words",
   "difficulty": 1,
   "title": "Lead into gold",
-  "prompt": "Turn LEAD into GOLD in exactly three steps. Each step changes one letter and keeps the other three in place, and every step must be a common English word.\n\nLEAD → ____ → ____ → GOLD\n\nWhat word comes just before GOLD?",
+  "prompt": "Turn LEAD into GOLD in exactly three steps. Each step changes one letter and keeps the other three in place, and every step must be a real English word.\n\nLEAD → ____ → ____ → GOLD\n\nWhat word comes just before GOLD?",
   "answer": {
     "type": "exact",
     "accepted": [

@@ -16,7 +16,7 @@
   "hints": [
     "Which six-letter words mean a prize, or something given for good work?",
     "Which of those words ends in a letter that could start the name of a part of a desk?",
-    "Which six-letter word for a prize starts with R?"
+    "If you read each of your six-letter prize words from its last letter to its first, which one spells a real word?"
   ],
   "solution": "**Drawer.**\n\nREWARD, something you get for good work, reads DRAWER backwards: the part of a desk that slides out.\n\nThe search is quickest from the reward side. There are only a few six-letter words for a prize (reward, trophy, bounty, payoff), and only one of them reverses into a word at all. Words that make a different word when reversed are called semordnilaps, which is *palindromes* spelled backwards.",
   "source": {
