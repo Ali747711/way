@@ -1,0 +1,30 @@
+{
+  "id": "w-004",
+  "area": "words",
+  "difficulty": 1,
+  "title": "Read it backwards",
+  "prompt": "Think of a six-letter word for something you get for doing good work. Write it backwards and you get a word for something you'd find in a desk.\n\nWhat is the thing in the desk?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "drawer",
+      "a drawer",
+      "drawers"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "Which six-letter words mean a prize, or something given for good work?",
+    "Which of those words ends in a letter that could start the name of a part of a desk?",
+    "Which six-letter word for a prize starts with R?"
+  ],
+  "solution": "**Drawer.**\n\nREWARD, something you get for good work, reads DRAWER backwards: the part of a desk that slides out.\n\nThe search is quickest from the reward side. There are only a few six-letter words for a prize (reward, trophy, bounty, payoff), and only one of them reverses into a word at all. Words that make a different word when reversed are called semordnilaps, which is *palindromes* spelled backwards.",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "reversal"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

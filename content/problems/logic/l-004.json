@@ -1,0 +1,35 @@
+{
+  "id": "l-004",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "Five runners, four clues",
+  "prompt": "Ada, Ben, Cal, Dot and Eve ran a race. There were no ties.\n\n- Exactly two runners finished between Cal and Dot.\n- Eve finished right behind Ada.\n- Dot finished ahead of Ben.\n- Ada and Cal did not finish next to each other.\n\nIn what order did they finish? Type the five initials from first to last, like **EDCBA**.",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "DAECB",
+      "D A E C B",
+      "D, A, E, C, B",
+      "D,A,E,C,B",
+      "D-A-E-C-B",
+      "Dot Ada Eve Cal Ben",
+      "Dot, Ada, Eve, Cal, Ben"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "With exactly two runners between them, which pairs of places can Cal and Dot take?",
+    "Ada and Eve finish as a pair with Ada in front, so in each case for Cal and Dot, where can that pair fit?",
+    "Which placements of Cal and Dot leave room for the Ada and Eve pair and still let Dot beat Ben?"
+  ],
+  "solution": "**DAECB**: Dot, Ada, Eve, Cal, Ben.\n\nWith two runners between them, Cal and Dot take places 1 and 4, or 2 and 5, in some order. Ada and Eve need two neighbouring places, Ada first. Try the four cases:\n\n- **Dot 5th:** nobody can finish behind Dot, but Dot beats Ben. Impossible.\n- **Dot 2nd, Cal 5th:** the free places are 1, 3 and 4. Ada and Eve must take 3 and 4, leaving Ben 1st, ahead of Dot. Impossible.\n- **Cal 1st, Dot 4th:** Ben must be 5th, so Ada and Eve take 2 and 3, which puts Ada next to Cal. Impossible.\n- **Dot 1st, Cal 4th:** the free places are 2, 3 and 5. Ada and Eve take 2 and 3, Ben is 5th, and Ada (2nd) is not next to Cal (4th). This works.\n\nOnly one order survives.",
+  "solver": "const names = ['A', 'B', 'C', 'D', 'E'];\nconst orders = [];\nconst permute = (done, rest) => {\n  if (rest.length === 0) {\n    orders.push(done);\n    return;\n  }\n  rest.forEach((n, i) =>\n    permute([...done, n], [...rest.slice(0, i), ...rest.slice(i + 1)])\n  );\n};\npermute([], names);\nconst fits = (order) => {\n  const at = (n) => order.indexOf(n);\n  return (\n    Math.abs(at('C') - at('D')) === 3 &&\n    at('E') === at('A') + 1 &&\n    at('D') < at('B') &&\n    Math.abs(at('A') - at('C')) !== 1\n  );\n};\nconst found = orders.filter(fits);\nreturn found.length === 1 ? found[0].join('') : 'not unique';",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "ordering"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

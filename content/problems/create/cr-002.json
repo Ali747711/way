@@ -1,0 +1,29 @@
+{
+  "id": "cr-002",
+  "area": "create",
+  "difficulty": 3,
+  "title": "Lost and found without an E",
+  "prompt": "Write a tiny story about losing something and finding it again, without using the letter *e* anywhere: not in a single word, not even *the*.\n\nWrite 30 to 60 words.",
+  "answer": {
+    "type": "open",
+    "minWords": 30,
+    "maxWords": 60,
+    "authorNote": "A strong answer reads naturally, as if leaving out the letter were a style choice rather than a cage. It replaces blocked words with fresh ones instead of awkward ones (*a* or *that* for *the*, *found* for *retrieved*, *I hunted* for *I searched*), keeps a clear arc from loss to find, and lands a small surprise at the end.\n\nThe core move, in one line: *She searched everywhere* becomes *I hunted high and low*."
+  },
+  "hints": [
+    "Which very common words are now off limits, and what can stand in for each of them?",
+    "Can you tell it in the first person, with I and my, so that you never need he, she or her?",
+    "Where could the lost thing turn up that would make the reader smile at the end?"
+  ],
+  "solution": "One example answer (42 words):\n\n> Grandpa's watch was missing. I took apart my room, my car and our attic, cursing softly. At midnight, worn out, I sat on our stairs and put my hands in my lap. Tick, tick, tick. It was on my wrist all along.\n\nTelling it in the first person avoids *he*, *she* and *her*. Short sentences keep it moving, and the ticking gives the reader the answer a beat before the last line confirms it.",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "lipogram",
+    "micro-story"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

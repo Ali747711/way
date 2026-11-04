@@ -1,0 +1,29 @@
+{
+  "id": "cr-003",
+  "area": "create",
+  "difficulty": 4,
+  "title": "Six words and a turn",
+  "prompt": "Write a story in exactly six words. The last word must make the reader see the first five differently.\n\nWords are counted by the spaces between them, so a hyphenated word like *store-bought* counts as one.",
+  "answer": {
+    "type": "open",
+    "minWords": 6,
+    "maxWords": 6,
+    "authorNote": "A strong answer spends five words building an ordinary picture, so the reader settles into one reading, and then a single concrete last word flips it: the picture was never what it seemed. The turn comes from the word itself, not from an explanation, and the first five words still make sense on a second read.\n\nThe core move, in one example: *Finally alone on the island. Footprints.*"
+  },
+  "hints": [
+    "What ordinary scene could you set up in five words so the reader assumes they know what is going on?",
+    "What single detail would quietly contradict that assumption?",
+    "Can that detail be one concrete noun or verb, placed last, with nothing after it to explain it?"
+  ],
+  "solution": "One example answer:\n\n> Grandma's secret recipe, finally revealed: store-bought.\n\nThe first five words promise an heirloom and a moment of family history. The last one turns the whole legend into a small, funny lie, and the reader rereads *secret* and *finally* in a new light.",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "micro-story",
+    "twist"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "d-001",
+  "area": "math",
+  "difficulty": 5,
+  "title": "Every square on a chessboard",
+  "prompt": "A chessboard is an 8 by 8 grid of small squares. Its lines cross at 9 × 9 = 81 points: the corners of the small squares, including the points around the edge.\n\nHow many different squares have all four of their corners on these 81 points?\n\nSquares of every size count, and so do tilted squares whose sides do not run along the grid lines. Two squares are different if their sets of four corners are different.",
+  "answer": {
+    "type": "number",
+    "value": 540,
+    "tolerance": 0
+  },
+  "hints": [
+    "How many upright squares, with sides along the grid lines, are there of each size from 1 by 1 to 8 by 8, and what is their total?",
+    "Can four of the points form a square that is tilted, with none of its sides along a grid line?",
+    "If one side of a tilted square goes a steps right and b steps up, where are its other two corners, and what is the smallest upright square that just contains it?",
+    "Inside a k by k upright frame, how many squares, upright or tilted, have one corner on each side of the frame?",
+    "How many positions does a k by k frame have on the board, and what do you get when you add up over every k from 1 to 8?"
+  ],
+  "solution": "**540.**\n\n**Stage 1: the upright squares.** A k by k square with sides along the grid fits in (9 − k)² positions: 64 of size 1, 49 of size 2, and so on down to 1 of size 8. That gives 64 + 49 + 36 + 25 + 16 + 9 + 4 + 1 = 204. This is the well-known answer to \"how many squares are on a chessboard?\", and it is where most people stop.\n\n**Stage 2: tilted squares exist.** The points (1, 0), (3, 1), (2, 3) and (0, 2) form a square: every side goes 2 one way and 1 the other, and neighbouring sides meet at right angles. In general, if one side goes a right and b up, turning it a quarter turn gives the next side, b left and a up. So the corners are (x, y), (x + a, y + b), (x + a − b, y + a + b) and (x − b, y + a).\n\n**Stage 3: count by frame.** Each such square fits snugly in an upright frame of side a + b, with exactly one corner on each side of the frame. Turn it around: in a k by k frame, put a corner on the bottom edge any whole number of steps from the left end, from 0 up to k − 1. Each choice gives exactly one square with a corner on every side (0 steps gives the frame itself), so each frame holds **k** squares. Every square has exactly one snug frame, so nothing is counted twice.\n\n**Stage 4: add it up.** A k by k frame has (9 − k)² positions, so the total is the sum of k × (9 − k)² for k = 1 to 8:\n\n1·64 + 2·49 + 3·36 + 4·25 + 5·16 + 6·9 + 7·4 + 8·1 = 64 + 98 + 108 + 100 + 80 + 54 + 28 + 8 = **540**.\n\n**Why the shortcuts fail.** Stopping at 204 misses 336 tilted squares. Counting tilted squares by side length goes wrong because different directions can give the same length: a side of 5 steps straight across and a side of 3 across and 4 up are both 5 long, so grouping by length mixes squares that fit in different frames. Grouping by frame avoids that. A quick check of the method: on a 3 by 3 grid of points it gives 1·4 + 2·1 = 6, and drawing confirms four small squares, one large square and one tilted diamond.",
+  "solver": "const n = 9;\nconst inside = ([x, y]) => x >= 0 && x < n && y >= 0 && y < n;\nconst squares = new Set();\nfor (let x = 0; x < n; x++) {\n  for (let y = 0; y < n; y++) {\n    for (let a = -n; a <= n; a++) {\n      for (let b = -n; b <= n; b++) {\n        if (a === 0 && b === 0) continue;\n        const corners = [\n          [x, y],\n          [x + a, y + b],\n          [x + a - b, y + b + a],\n          [x - b, y + a]\n        ];\n        if (!corners.every(inside)) continue;\n        const key = corners\n          .map(([cx, cy]) => cx * n + cy)\n          .sort((p, q) => p - q)\n          .join(',');\n        squares.add(key);\n      }\n    }\n  }\n}\nreturn squares.size;",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "counting",
+    "geometry",
+    "grids"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

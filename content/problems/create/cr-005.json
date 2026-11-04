@@ -1,0 +1,29 @@
+{
+  "id": "cr-005",
+  "area": "create",
+  "difficulty": 4,
+  "title": "An honest ad for a rock",
+  "prompt": "Write an advert for one ordinary grey rock, the kind you could pick up in any garden. Every sentence must be literally true, with no exaggeration, and the advert should still make someone want the rock.\n\nUse at most 50 words.",
+  "answer": {
+    "type": "open",
+    "minWords": 10,
+    "maxWords": 50,
+    "authorNote": "A strong answer finds true facts that sound like selling points: a rock is older than any city, never needs charging or updates, and asks nothing of its owner. It turns plainness into the pitch, keeps a confident voice, and resists the claims that would break the rule (*magical*, *the best rock you'll ever own*, *lasts forever*).\n\nThe core move, in one line: *It has never once needed charging.*"
+  },
+  "hints": [
+    "What is true of almost any rock that is not true of most things people buy?",
+    "Which of the things people complain about in their gadgets does a rock never do?",
+    "Can you read each sentence and ask: is this literally true of this exact rock, or only of some rocks?"
+  ],
+  "solution": "One example answer (48 words):\n\n> FOR SALE: one grey rock. Older than every city on Earth. Never needs charging, updates or feeding. Has no settings to get wrong. Fits in a pocket. Will still be here long after your phone. Comes with no instructions, because it needs none. Free to a good home.\n\nEach line survives a literal reading, and the humour comes from treating ordinary facts about a rock as product features.",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "pitch",
+    "humour"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "m-005",
+  "area": "math",
+  "difficulty": 3,
+  "title": "Down the hill",
+  "prompt": "You cycle up a hill at 10 km/h, then ride straight back down the same road.\n\nHow fast, in km/h, must you ride down for your average speed over the whole round trip to be 15 km/h?",
+  "answer": {
+    "type": "number",
+    "value": 30,
+    "tolerance": 0
+  },
+  "hints": [
+    "Is average speed the average of the two speeds, or the total distance divided by the total time?",
+    "Pick a length for the road, say 60 km: how long does the climb take, and how long can the whole round trip take?",
+    "How much time is left for the descent, and what speed covers the road in that time?"
+  ],
+  "solution": "**30 km/h.**\n\nAverage speed is total distance divided by total time, not the average of the two speeds.\n\nAny length of road gives the same answer, so take 60 km. The climb takes 60 ÷ 10 = 6 hours. An average of 15 km/h over the 120 km round trip means 8 hours in total, which leaves 2 hours for the descent: 60 ÷ 2 = **30 km/h**.\n\nThe tempting answer, 20 km/h, gives 6 + 3 = 9 hours for 120 km, an average of only 13⅓ km/h. The slow part of a trip counts for more than its share, because you spend more time in it.",
+  "solver": "const road = 60;\nconst climbHours = road / 10;\nfor (let down = 1; down <= 1000; down++) {\n  const average = (2 * road) / (climbHours + road / down);\n  if (Math.abs(average - 15) < 1e-9) return down;\n}\nreturn NaN;",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "rates",
+    "average speed"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

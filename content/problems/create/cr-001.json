@@ -1,0 +1,28 @@
+{
+  "id": "cr-001",
+  "area": "create",
+  "difficulty": 3,
+  "title": "The web in one-syllable words",
+  "prompt": "Explain how a web page gets from somewhere far away onto your phone's screen, using only words of one syllable.\n\nEvery word must have exactly one syllable. *Tap*, *phone* and *screen* are fine; *into*, *data* and *server* are not. Write 30 to 90 words.",
+  "answer": {
+    "type": "open",
+    "minWords": 30,
+    "maxWords": 90,
+    "authorNote": "A strong answer stays accurate while giving up the jargon. It swaps each technical word for a plain thing you can picture (a far-off box that holds the page, small bits sent on the best road, bits put back in line at the end) and keeps the steps in the right order. It also catches the sneaky two-syllable words that slip in unnoticed, like *into*, *over*, *very* and *little*.\n\nThe core move, in one line: *server* becomes *a big box far off that keeps the page*."
+  },
+  "hints": [
+    "What are the three or four steps between your tap and the page appearing?",
+    "For each step, what everyday object or action could stand in for the technical word?",
+    "Have you read your draft aloud, slowly, listening for words like into, over or very that sneak in a second beat?"
+  ],
+  "solution": "One example answer (77 words):\n\n> When you tap a link, your phone sends a short note through the air and down long lines to a big box far off that keeps the page. The box cuts the page in small bits and sends each bit back on the best road it can find. Some bits get lost, so your phone asks for them once more. When all the bits are home, it puts them back in line and shows you the page.\n\nIt works because each hard word (*server*, *packet*, *router*, *retransmit*) is traded for something you can see, and the order of events is still true.",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "explanation"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

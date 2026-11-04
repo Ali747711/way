@@ -1,0 +1,28 @@
+{
+  "id": "m-004",
+  "area": "math",
+  "difficulty": 3,
+  "title": "The slipping ladder",
+  "prompt": "A ladder 25 metres long leans against a vertical wall, standing on level ground. Its foot is 7 metres from the wall.\n\nThe top of the ladder slips 4 metres down the wall, and the foot slides straight away from the wall. How many metres does the foot slide?",
+  "answer": {
+    "type": "number",
+    "value": 8,
+    "tolerance": 0
+  },
+  "hints": [
+    "The ladder, the wall and the ground make a right triangle, so how high up the wall is the top at the start?",
+    "How high is the top after it slips, and what does Pythagoras give for the new distance from the foot to the wall?",
+    "How far from the wall is the foot now, compared with where it started?"
+  ],
+  "solution": "**8.**\n\nThe ladder is the hypotenuse of a right triangle formed with the wall and the ground.\n\n- At the start the top is √(25² − 7²) = √(625 − 49) = √576 = 24 m up the wall.\n- It slips 4 m, to 20 m.\n- Now the foot is √(25² − 20²) = √(625 − 400) = √225 = 15 m from the wall.\n\nThe foot moved from 7 m to 15 m: **8 m**.\n\nThe tempting answer, 4 m, assumes the two ends move by the same amount. They don't: while the ladder is steep, a small drop at the top pushes the foot out a long way.",
+  "solver": "const length = 25;\nconst top = Math.sqrt(length ** 2 - 7 ** 2) - 4;\nconst foot = Math.sqrt(length ** 2 - top ** 2);\nreturn foot - 7;",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "geometry",
+    "right triangles"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

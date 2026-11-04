@@ -1,0 +1,87 @@
+{
+  "id": "c-001",
+  "area": "code",
+  "difficulty": 3,
+  "title": "Say what you see",
+  "prompt": "Read a string of digits aloud, group by group: `1211` is \"one 1, one 2, two 1s\". Writing that description down as digits gives `111221`.\n\nWrite `lookAndSay(s)` that takes a string of digits and returns its description as a string. Each run of identical neighbouring digits becomes its length followed by the digit. A run can be longer than 9: ten 7s in a row become `107`. An empty string returns an empty string.\n\nExamples:\n\n- `lookAndSay(\"1\")` returns `\"11\"`\n- `lookAndSay(\"1211\")` returns `\"111221\"`",
+  "answer": {
+    "type": "code",
+    "signature": "function lookAndSay(s) {\n  \n}",
+    "entry": "lookAndSay",
+    "examples": [
+      {
+        "input": [
+          "1"
+        ],
+        "expected": "11"
+      },
+      {
+        "input": [
+          "1211"
+        ],
+        "expected": "111221"
+      }
+    ],
+    "tests": [
+      {
+        "input": [
+          "21"
+        ],
+        "expected": "1211"
+      },
+      {
+        "input": [
+          "111221"
+        ],
+        "expected": "312211"
+      },
+      {
+        "input": [
+          "9"
+        ],
+        "expected": "19"
+      },
+      {
+        "input": [
+          "7777777777"
+        ],
+        "expected": "107"
+      },
+      {
+        "input": [
+          ""
+        ],
+        "expected": ""
+      },
+      {
+        "input": [
+          "122333"
+        ],
+        "expected": "112233"
+      },
+      {
+        "input": [
+          "0000011"
+        ],
+        "expected": "5021"
+      }
+    ],
+    "timeLimitMs": 2000,
+    "reference": "function lookAndSay(s) {\n  let out = '';\n  let i = 0;\n  while (i < s.length) {\n    let j = i;\n    while (j < s.length && s[j] === s[i]) j++;\n    out += String(j - i) + s[i];\n    i = j;\n  }\n  return out;\n}"
+  },
+  "hints": [
+    "How will your code know that a run of identical digits has ended?",
+    "Can you walk the string with one index and count how many times the current digit repeats before it changes?",
+    "When you write a count down, does a count of ten come out as the two characters it should?"
+  ],
+  "solution": "Walk the string once. At each position, find where the current run ends, write its length and its digit, and jump to the next run.\n\n```js\nfunction lookAndSay(s) {\n  let out = '';\n  let i = 0;\n  while (i < s.length) {\n    let j = i;\n    while (j < s.length && s[j] === s[i]) j++;\n    out += String(j - i) + s[i];\n    i = j;\n  }\n  return out;\n}\n```\n\nThe inner loop advances `j` while the digit stays the same, so `j - i` is the run's length. `String(j - i)` writes the full count, which handles runs of ten or more; code that stores the count as a single character breaks there. An empty string skips the loop and returns `''`.\n\nStarting from `\"1\"` and applying this again and again gives the look-and-say sequence: 1, 11, 21, 1211, 111221, 312211, … Curiously, no digit larger than 3 ever appears in it.",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "strings",
+    "run length"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

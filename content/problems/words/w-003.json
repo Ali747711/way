@@ -1,0 +1,29 @@
+{
+  "id": "w-003",
+  "area": "words",
+  "difficulty": 1,
+  "title": "One word, four gaps",
+  "prompt": "One word fills every gap below. In the first two it goes at the front; in the last two it goes at the end. Each result is a single common word.\n\n- ____fly\n- ____place\n- camp____\n- bon____\n\nWhat is the word?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "fire"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "Which gap allows the fewest possible words, and could you start there?",
+    "Which short words can follow bon, and does any of them also follow camp?",
+    "What do people sit around at a campsite after dark?"
+  ],
+  "solution": "**Fire**: firefly, fireplace, campfire, bonfire.\n\nThe quickest route is to start with the gap that allows the fewest words. Very few common words start with *bon*, and one of them, bonfire, also works after *camp*. Testing that word in the first two gaps confirms it: firefly and fireplace.",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "connection",
+    "compound words"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

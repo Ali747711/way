@@ -1,0 +1,31 @@
+{
+  "id": "l-001",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "Same kind as me",
+  "prompt": "On an island, every person is either a knight, who always tells the truth, or a knave, who always lies. You meet three islanders, A, B and C.\n\n- **A** says: \"C is a knave.\"\n- **B** says: \"A and I are the same kind.\"\n- **C** says: \"Exactly two of us three are knights.\"\n\nWho are the knights?",
+  "answer": {
+    "type": "choice",
+    "options": [
+      "Only A",
+      "A and B",
+      "B and C",
+      "None of them"
+    ],
+    "correctIndex": 0
+  },
+  "hints": [
+    "If B is a knight, what does B's statement tell you about A?",
+    "And if B is a knave, so the statement is false, what does that make A?",
+    "Once you know what A is, what is C, and which count of knights would make C's claim false?"
+  ],
+  "solution": "**Only A.**\n\nStart with B, because B's statement is partly about B. If B is a knight, the statement is true, so A is the same kind as B: a knight. If B is a knave, the statement is false, so A is a different kind from B: again a knight. Either way, A is a knight.\n\nA tells the truth, so C is a knave and C's claim is false: the number of knights is not two. A is a knight and C is not, so B decides the count. If B were a knight there would be exactly two knights, which would make C's claim true, and a knave can't say something true. So B is a knave, and A is the only knight.\n\nCheck: B, a knave, says A and B are the same kind. They aren't, so B lied, as a knave must.",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "knights and knaves"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

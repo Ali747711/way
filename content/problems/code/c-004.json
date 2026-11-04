@@ -1,0 +1,103 @@
+{
+  "id": "c-004",
+  "area": "code",
+  "difficulty": 4,
+  "title": "The knight's shortest route",
+  "prompt": "A chessboard has 8 columns, `a` to `h` from left to right, and 8 rows, `1` to `8` from bottom to top, so every square has a name like `e4`. A knight moves in an L: two squares along a row or column, then one square at a right angle. From the middle of the board it has eight possible moves, and it can never leave the board.\n\nWrite `knightDistance(from, to)` that returns the smallest number of knight moves needed to get from one square to the other. Both squares are valid names. If they are the same square, return 0.\n\nExamples:\n\n- `knightDistance(\"a1\", \"b3\")` returns `1`\n- `knightDistance(\"a1\", \"h8\")` returns `6`",
+  "answer": {
+    "type": "code",
+    "signature": "function knightDistance(from, to) {\n  \n}",
+    "entry": "knightDistance",
+    "examples": [
+      {
+        "input": [
+          "a1",
+          "b3"
+        ],
+        "expected": 1
+      },
+      {
+        "input": [
+          "a1",
+          "h8"
+        ],
+        "expected": 6
+      }
+    ],
+    "tests": [
+      {
+        "input": [
+          "e4",
+          "e4"
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          "a1",
+          "b2"
+        ],
+        "expected": 4
+      },
+      {
+        "input": [
+          "d4",
+          "d5"
+        ],
+        "expected": 3
+      },
+      {
+        "input": [
+          "h8",
+          "g7"
+        ],
+        "expected": 4
+      },
+      {
+        "input": [
+          "e4",
+          "e6"
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          "a8",
+          "h1"
+        ],
+        "expected": 6
+      },
+      {
+        "input": [
+          "c3",
+          "d4"
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          "b1",
+          "c3"
+        ],
+        "expected": 1
+      }
+    ],
+    "timeLimitMs": 2000,
+    "reference": "function knightDistance(from, to) {\n  const parse = (square) => [square.charCodeAt(0) - 97, Number(square[1]) - 1];\n  const [tx, ty] = parse(to);\n  const jumps = [[1, 2], [2, 1], [2, -1], [1, -2], [-1, -2], [-2, -1], [-2, 1], [-1, 2]];\n  const start = parse(from);\n  const seen = new Set([start.join(',')]);\n  let frontier = [start];\n  for (let moves = 0; frontier.length > 0; moves++) {\n    const next = [];\n    for (const [x, y] of frontier) {\n      if (x === tx && y === ty) return moves;\n      for (const [dx, dy] of jumps) {\n        const nx = x + dx;\n        const ny = y + dy;\n        const key = nx + ',' + ny;\n        if (nx < 0 || nx > 7 || ny < 0 || ny > 7 || seen.has(key)) continue;\n        seen.add(key);\n        next.push([nx, ny]);\n      }\n    }\n    frontier = next;\n  }\n  return -1;\n}"
+  },
+  "hints": [
+    "Can you picture the board as a network, where each square links to the squares a knight can jump to?",
+    "Which kind of search visits squares in order of how many moves away they are, so the first time it reaches the target is the fastest way?",
+    "Have you tried a corner case such as a1 to b2, where the edge of the board forces a longer route than open space would?"
+  ],
+  "solution": "Treat the board as a graph: 64 squares, each linked to the squares a knight can reach in one jump. The shortest route in a graph where every step costs the same is found by breadth-first search: explore everything one move away, then everything two moves away, and so on, never revisiting a square.\n\n```js\nfunction knightDistance(from, to) {\n  const parse = (square) => [square.charCodeAt(0) - 97, Number(square[1]) - 1];\n  const [tx, ty] = parse(to);\n  const jumps = [[1, 2], [2, 1], [2, -1], [1, -2], [-1, -2], [-2, -1], [-2, 1], [-1, 2]];\n  const start = parse(from);\n  const seen = new Set([start.join(',')]);\n  let frontier = [start];\n  for (let moves = 0; frontier.length > 0; moves++) {\n    const next = [];\n    for (const [x, y] of frontier) {\n      if (x === tx && y === ty) return moves;\n      for (const [dx, dy] of jumps) {\n        const nx = x + dx;\n        const ny = y + dy;\n        const key = nx + ',' + ny;\n        if (nx < 0 || nx > 7 || ny < 0 || ny > 7 || seen.has(key)) continue;\n        seen.add(key);\n        next.push([nx, ny]);\n      }\n    }\n    frontier = next;\n  }\n  return -1;\n}\n```\n\n`parse` turns `\"e4\"` into column 4 and row 3, counting from 0. Each round of the loop builds the next frontier: the squares exactly one more move away. The first round that contains the target gives the answer.\n\nFormulas based on distance alone fail near the edges. On an open board, a1 to b2 would take 2 moves, but from the corner the knight has only two jumps available, and the shortest route takes **4**. The search handles this without special cases.",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "graphs",
+    "breadth-first search"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "l-003",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "What the door lets through",
+  "prompt": "A strange door follows one rule about what you can carry through it. So far:\n\n- a kettle can pass, but a pot cannot\n- coffee can pass, but tea cannot\n- a book can pass, but a novel cannot\n- apples can pass, but pears cannot\n- a puppy can pass, but a dog cannot\n\nWhich of these can pass through the door?",
+  "answer": {
+    "type": "choice",
+    "options": [
+      "A fork",
+      "A spoon",
+      "A knife",
+      "A plate"
+    ],
+    "correctIndex": 1
+  },
+  "hints": [
+    "Is the rule about the things themselves, or about the words for them?",
+    "A book and a novel are nearly the same thing, so what is different about how the two words are spelled?",
+    "What do kettle, coffee, book, apples and puppy have in their spelling that pot, tea, novel, pears and dog lack?"
+  ],
+  "solution": "**A spoon.**\n\nThe rule is about spelling, not meaning: a word can pass only if it contains a double letter. Kettle (tt), coffee (ff and ee), book (oo), apples (pp) and puppy (pp) pass; pot, tea, novel, pears and dog don't.\n\nThe book and novel pair gives it away. Two words for nearly the same object are treated differently, so the difference has to be in the words. Of the four options, only *spoon* has a double letter.",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "rule finding"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

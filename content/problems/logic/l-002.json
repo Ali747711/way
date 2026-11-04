@@ -1,0 +1,30 @@
+{
+  "id": "l-002",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "Three boxes, one true label",
+  "prompt": "A prize is in exactly one of three boxes. Each box has a label:\n\n- **Gold box:** \"The prize is in this box.\"\n- **Silver box:** \"The prize is not in this box.\"\n- **Lead box:** \"The prize is not in the gold box.\"\n\nExactly one of the three labels is true. Where is the prize?",
+  "answer": {
+    "type": "choice",
+    "options": [
+      "In the gold box",
+      "In the silver box",
+      "In the lead box"
+    ],
+    "correctIndex": 1
+  },
+  "hints": [
+    "For each box, how many labels would be true if the prize were there?",
+    "Can the gold label and the lead label both be true, or both be false?",
+    "If exactly one of the gold and lead labels is true, what must the silver label be?"
+  ],
+  "solution": "**In the silver box.**\n\nThe gold label says the prize is in the gold box; the lead label says it isn't. Those two statements are exact opposites, so exactly one of them is true. Only one label in total is true, so the silver label must be false. The silver label says the prize is not in the silver box, so it is.\n\nChecking every case confirms it:\n\n- Prize in gold: the gold and silver labels are true. Two.\n- Prize in silver: only the lead label is true. One.\n- Prize in lead: the silver and lead labels are true. Two.",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "truth tellers"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

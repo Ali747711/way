@@ -1,0 +1,133 @@
+{
+  "id": "c-003",
+  "area": "code",
+  "difficulty": 3,
+  "title": "Is it a word ladder?",
+  "prompt": "In a word ladder, each word turns into the next by changing exactly one letter and keeping every other letter in place: `cold → cord → card`.\n\nWrite `isLadder(words)` that takes an array of lowercase words and returns `true` if every word turns into the next by changing exactly one letter, and `false` otherwise. Words of different lengths can never be neighbours, and repeating a word (changing nothing) is not a step. The array always has at least one word, and a single word counts as a valid ladder. The words don't need to be real.\n\nExamples:\n\n- `isLadder([\"cold\", \"cord\", \"card\", \"ward\", \"warm\"])` returns `true`\n- `isLadder([\"cat\", \"cart\"])` returns `false`",
+  "answer": {
+    "type": "code",
+    "signature": "function isLadder(words) {\n  \n}",
+    "entry": "isLadder",
+    "examples": [
+      {
+        "input": [
+          [
+            "cold",
+            "cord",
+            "card",
+            "ward",
+            "warm"
+          ]
+        ],
+        "expected": true
+      },
+      {
+        "input": [
+          [
+            "cat",
+            "cart"
+          ]
+        ],
+        "expected": false
+      }
+    ],
+    "tests": [
+      {
+        "input": [
+          [
+            "word"
+          ]
+        ],
+        "expected": true
+      },
+      {
+        "input": [
+          [
+            "cat",
+            "cot",
+            "dot",
+            "dog"
+          ]
+        ],
+        "expected": true
+      },
+      {
+        "input": [
+          [
+            "cat",
+            "cat"
+          ]
+        ],
+        "expected": false
+      },
+      {
+        "input": [
+          [
+            "abcd",
+            "abdc"
+          ]
+        ],
+        "expected": false
+      },
+      {
+        "input": [
+          [
+            "ship",
+            "shop",
+            "stop",
+            "step",
+            "stem",
+            "seem"
+          ]
+        ],
+        "expected": true
+      },
+      {
+        "input": [
+          [
+            "a",
+            "b",
+            "c"
+          ]
+        ],
+        "expected": true
+      },
+      {
+        "input": [
+          [
+            "one",
+            "two"
+          ]
+        ],
+        "expected": false
+      },
+      {
+        "input": [
+          [
+            "play",
+            "plan",
+            "plain"
+          ]
+        ],
+        "expected": false
+      }
+    ],
+    "timeLimitMs": 2000,
+    "reference": "function isLadder(words) {\n  for (let i = 1; i < words.length; i++) {\n    const a = words[i - 1];\n    const b = words[i];\n    if (a.length !== b.length) return false;\n    let changed = 0;\n    for (let j = 0; j < a.length; j++) {\n      if (a[j] !== b[j]) changed++;\n    }\n    if (changed !== 1) return false;\n  }\n  return true;\n}"
+  },
+  "hints": [
+    "What has to be true of each pair of neighbouring words, and does any pair depend on the others?",
+    "For one pair, how do you count the positions where the letters differ, and what should happen when the lengths differ?",
+    "Should a valid step have zero differences, exactly one, or at most one?"
+  ],
+  "solution": "Check each neighbouring pair on its own. A pair is a valid step when the words have the same length and differ in exactly one position.\n\n```js\nfunction isLadder(words) {\n  for (let i = 1; i < words.length; i++) {\n    const a = words[i - 1];\n    const b = words[i];\n    if (a.length !== b.length) return false;\n    let changed = 0;\n    for (let j = 0; j < a.length; j++) {\n      if (a[j] !== b[j]) changed++;\n    }\n    if (changed !== 1) return false;\n  }\n  return true;\n}\n```\n\nThe tests probe three easy mistakes. Comparing only up to the shorter word's length lets `plan → plain` through. Accepting \"at most one\" difference lets a repeated word (`cat → cat`) through. And checking whether the words share the same letters, rather than the same letters *in place*, accepts the swap `abcd → abdc`, which changes two positions.",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "strings",
+    "arrays"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

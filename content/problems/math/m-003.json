@@ -1,0 +1,28 @@
+{
+  "id": "m-003",
+  "area": "math",
+  "difficulty": 3,
+  "title": "A prime total on two dice",
+  "prompt": "Roll two fair six-sided dice and add the two numbers. (A prime is a whole number greater than 1 whose only divisors are 1 and itself.)\n\nThe probability that the total is prime can be written as a fraction p/q in lowest terms. What is p + q?",
+  "answer": {
+    "type": "number",
+    "value": 17,
+    "tolerance": 0
+  },
+  "hints": [
+    "Which totals from 2 to 12 are prime?",
+    "Of the 36 equally likely ways the two dice can land, how many give each of those totals?",
+    "What fraction of the 36 outcomes is that, and what does it reduce to?"
+  ],
+  "solution": "**17.**\n\nTreat the dice as different colours: there are 6 × 6 = 36 equally likely outcomes. The prime totals between 2 and 12 are 2, 3, 5, 7 and 11.\n\n- 2: 1+1, so 1 way\n- 3: 1+2, 2+1, so 2 ways\n- 5: 1+4, 2+3, 3+2, 4+1, so 4 ways\n- 7: six ways, from 1+6 to 6+1\n- 11: 5+6, 6+5, so 2 ways\n\nThat's 1 + 2 + 4 + 6 + 2 = 15 outcomes, and 15/36 = 5/12 in lowest terms. So p + q = 5 + 12 = **17**.\n\nThe usual slip is counting 2+3 and 3+2 as one outcome. The 21 unordered pairs are not equally likely (a double can happen only one way), so only the 36 ordered outcomes can be counted as equals.",
+  "solver": "const isPrime = (n) => {\n  if (n < 2) return false;\n  for (let d = 2; d * d <= n; d++) if (n % d === 0) return false;\n  return true;\n};\nlet hits = 0;\nlet total = 0;\nfor (let a = 1; a <= 6; a++) {\n  for (let b = 1; b <= 6; b++) {\n    total++;\n    if (isPrime(a + b)) hits++;\n  }\n}\nconst gcd = (x, y) => (y === 0 ? x : gcd(y, x % y));\nconst g = gcd(hits, total);\nreturn hits / g + total / g;",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "probability",
+    "dice"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

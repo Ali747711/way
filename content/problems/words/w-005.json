@@ -1,0 +1,28 @@
+{
+  "id": "w-005",
+  "area": "words",
+  "difficulty": 1,
+  "title": "Lead into gold",
+  "prompt": "Turn LEAD into GOLD in exactly three steps. Each step changes one letter and keeps the other three in place, and every step must be a common English word.\n\nLEAD → ____ → ____ → GOLD\n\nWhat word comes just before GOLD?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "goad"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "LEAD and GOLD differ in three places and you have three steps, so what must every step do?",
+    "Which single letter of LEAD can you change to its GOLD letter and still have a word?",
+    "From that first step, which letter can become a G and still leave a word?"
+  ],
+  "solution": "**GOAD** (to prod or provoke someone).\n\nLEAD and GOLD differ in three places, and there are only three steps, so every step must swap one letter for its final GOLD letter: L to G, E to O, A to L, in some order.\n\n- From LEAD the options are GEAD, LOAD and LELD. Only LOAD is a word.\n- From LOAD the options are GOAD and LOLD. Only GOAD is a word.\n- GOAD becomes GOLD.\n\nThe trap is working backwards: GELD is also one step from GOLD, but the word before it would have to be GEAD or LELD, and neither is a word.",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "word ladder"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

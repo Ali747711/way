@@ -1,0 +1,29 @@
+{
+  "id": "w-001",
+  "area": "words",
+  "difficulty": 1,
+  "title": "An animal in the sentence",
+  "prompt": "An animal is hiding in this sentence. Its letters sit side by side, in order, but they run across the gaps between words. Ignore spaces and punctuation.\n\n> \"Pull up a chair: I'll amaze you with a card trick.\"\n\nWhich animal is it?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "llama",
+      "a llama"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "What do you see if you write the sentence as one unbroken run of letters?",
+    "Could the short word with an apostrophe be hiding the start of the animal?",
+    "Which woolly mountain animal begins with a double L?"
+  ],
+  "solution": "**Llama.**\n\nWritten without spaces or punctuation, the sentence reads pullupachairi**llama**zeyouwithacardtrick. The letters of *I'll amaze* contain L-L-A-M-A, and the apostrophe and the space hide the join.\n\nHidden-word puzzles work because your eye reads whole words, not letters. To solve one, slow down and read the letters as a single string.",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "hidden word"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

@@ -1,0 +1,30 @@
+{
+  "id": "w-002",
+  "area": "words",
+  "difficulty": 1,
+  "title": "A broken heart",
+  "prompt": "A cryptic clue has two parts. One end of the clue is a plain definition of the answer. The rest is wordplay that builds the same answer another way. The number in brackets is the length of the answer.\n\nIn this clue, the wordplay is an anagram, and one word tells you to rearrange letters.\n\n> \"Heart broken? It's home to all of us.\" (5)\n\nWhat is the answer?",
+  "answer": {
+    "type": "exact",
+    "accepted": [
+      "earth",
+      "the earth"
+    ],
+    "normalize": "trim-lower"
+  },
+  "hints": [
+    "Which word in the clue sounds like an instruction to mix something up?",
+    "Which five letters get rearranged, and which part of the clue is left over as the definition?",
+    "What five-letter place is home to every person, and can you spell it with the letters of HEART?"
+  ],
+  "solution": "**Earth.**\n\nThe clue splits into wordplay and definition. *Heart broken* means \"rearrange the letters of HEART\", and *home to all of us* is the definition. HEART rearranged gives EARTH, which is home to all of us.\n\nOther rearrangements of HEART, such as HATER, don't fit the definition, so EARTH is the only answer that satisfies both halves. That double check is the point of a cryptic clue: each half confirms the other.",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "cryptic",
+    "anagram"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

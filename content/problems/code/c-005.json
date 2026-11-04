@@ -1,0 +1,190 @@
+{
+  "id": "c-005",
+  "area": "code",
+  "difficulty": 4,
+  "title": "Minutes in meetings",
+  "prompt": "A calendar stores meetings as `[start, end]` pairs of whole minutes after midnight, with `start < end`. A meeting covers the time from `start` up to `end`, so `[60, 90]` lasts 30 minutes. Meetings can overlap, sit inside one another, touch end to start, and come in any order.\n\nWrite `busyMinutes(meetings)` that returns how many minutes are covered by at least one meeting. An empty calendar returns 0.\n\nExamples:\n\n- `busyMinutes([[60, 90]])` returns `30`\n- `busyMinutes([[0, 30], [10, 40]])` returns `40` (the overlap counts once)",
+  "answer": {
+    "type": "code",
+    "signature": "function busyMinutes(meetings) {\n  \n}",
+    "entry": "busyMinutes",
+    "examples": [
+      {
+        "input": [
+          [
+            [
+              60,
+              90
+            ]
+          ]
+        ],
+        "expected": 30
+      },
+      {
+        "input": [
+          [
+            [
+              0,
+              30
+            ],
+            [
+              10,
+              40
+            ]
+          ]
+        ],
+        "expected": 40
+      }
+    ],
+    "tests": [
+      {
+        "input": [
+          []
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          [
+            [
+              0,
+              30
+            ],
+            [
+              30,
+              60
+            ]
+          ]
+        ],
+        "expected": 60
+      },
+      {
+        "input": [
+          [
+            [
+              100,
+              200
+            ],
+            [
+              0,
+              50
+            ],
+            [
+              150,
+              300
+            ],
+            [
+              40,
+              60
+            ]
+          ]
+        ],
+        "expected": 260
+      },
+      {
+        "input": [
+          [
+            [
+              0,
+              100
+            ],
+            [
+              20,
+              30
+            ]
+          ]
+        ],
+        "expected": 100
+      },
+      {
+        "input": [
+          [
+            [
+              5,
+              10
+            ],
+            [
+              5,
+              10
+            ],
+            [
+              5,
+              10
+            ]
+          ]
+        ],
+        "expected": 5
+      },
+      {
+        "input": [
+          [
+            [
+              0,
+              1440
+            ]
+          ]
+        ],
+        "expected": 1440
+      },
+      {
+        "input": [
+          [
+            [
+              50,
+              60
+            ],
+            [
+              10,
+              20
+            ],
+            [
+              15,
+              55
+            ]
+          ]
+        ],
+        "expected": 50
+      },
+      {
+        "input": [
+          [
+            [
+              300,
+              400
+            ],
+            [
+              0,
+              10
+            ],
+            [
+              395,
+              500
+            ],
+            [
+              10,
+              20
+            ]
+          ]
+        ],
+        "expected": 220
+      }
+    ],
+    "timeLimitMs": 2000,
+    "reference": "function busyMinutes(meetings) {\n  const sorted = [...meetings].sort((a, b) => a[0] - b[0]);\n  let total = 0;\n  let blockStart = 0;\n  let blockEnd = -Infinity;\n  for (const [start, end] of sorted) {\n    if (start > blockEnd) {\n      if (blockEnd > blockStart) total += blockEnd - blockStart;\n      blockStart = start;\n      blockEnd = end;\n    } else {\n      blockEnd = Math.max(blockEnd, end);\n    }\n  }\n  if (blockEnd > blockStart) total += blockEnd - blockStart;\n  return total;\n}"
+  },
+  "hints": [
+    "If the meetings were sorted by start time, what would you need to remember as you walk through them?",
+    "When the next meeting starts before the current busy block ends, what happens to the block, and what if it starts after?",
+    "Have you handled a meeting that sits entirely inside the current block, so that the end of the block never moves backwards?"
+  ],
+  "solution": "Sort the meetings by start time and sweep through them, keeping one busy block open at a time. A meeting that starts inside the block (or exactly at its end) stretches it; a meeting that starts later closes the block, adds its length to the total and opens a new one.\n\n```js\nfunction busyMinutes(meetings) {\n  const sorted = [...meetings].sort((a, b) => a[0] - b[0]);\n  let total = 0;\n  let blockStart = 0;\n  let blockEnd = -Infinity;\n  for (const [start, end] of sorted) {\n    if (start > blockEnd) {\n      if (blockEnd > blockStart) total += blockEnd - blockStart;\n      blockStart = start;\n      blockEnd = end;\n    } else {\n      blockEnd = Math.max(blockEnd, end);\n    }\n  }\n  if (blockEnd > blockStart) total += blockEnd - blockStart;\n  return total;\n}\n```\n\nTwo details carry the tests. `Math.max` keeps a meeting nested inside the block, like `[20, 30]` inside `[0, 100]`, from pulling the end backwards. And sorting a copy (`[...meetings]`) leaves the caller's array untouched. Adding up each meeting's length without merging fails as soon as two meetings overlap, which is the whole point of the problem.",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "intervals",
+    "sorting"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "m-002",
+  "area": "math",
+  "difficulty": 3,
+  "title": "The last two digits of a huge power",
+  "prompt": "Multiply 2026 sevens together: 7 × 7 × 7 × … × 7, which is 7²⁰²⁶.\n\nWhat are the last two digits of the result? Answer with a two-digit number.",
+  "answer": {
+    "type": "number",
+    "value": 49,
+    "tolerance": 0
+  },
+  "hints": [
+    "What are the last two digits of 7, 7 × 7, 7 × 7 × 7 and 7 × 7 × 7 × 7?",
+    "Once a power of 7 ends in 01, what happens to the last two digits each time you multiply by 7 four more times?",
+    "How many complete groups of four sevens fit into 2026, and how many sevens are left over?"
+  ],
+  "solution": "**49.**\n\nOnly the last two digits matter when you multiply, so track just those:\n\n- 7\n- 7 × 7 = 49\n- 49 × 7 = 343, ending in 43\n- 43 × 7 = 301, ending in 01\n\nSo 7⁴ ends in 01. Multiplying anything that ends in 01 by anything that ends in 01 gives a number ending in 01, so every power 7⁴, 7⁸, 7¹², … ends in 01.\n\n2026 = 4 × 506 + 2, so 7²⁰²⁶ = (7⁴)⁵⁰⁶ × 7². The first part ends in 01 and the second is 49, so the result ends in **49**.",
+  "solver": "let last = 1;\nfor (let i = 0; i < 2026; i++) {\n  last = (last * 7) % 100;\n}\nreturn last;",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "number theory",
+    "powers"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

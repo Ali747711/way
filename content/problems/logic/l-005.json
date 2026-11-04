@@ -1,0 +1,28 @@
+{
+  "id": "l-005",
+  "area": "logic",
+  "difficulty": 2,
+  "title": "Twenty claims",
+  "prompt": "A page lists 20 numbered claims. Claim 1 says: \"At least 1 of the claims on this page is false.\" Claim 2 says: \"At least 2 of the claims on this page are false.\" And so on, up to claim 20: \"At least 20 of the claims on this page are false.\"\n\nEach claim is either true or false. Add up the numbers of all the true claims. What is the total? (Enter 0 if no claim is true.)",
+  "answer": {
+    "type": "number",
+    "value": 55,
+    "tolerance": 0
+  },
+  "hints": [
+    "Can claim 20 be true, and what does your answer mean for claim 1?",
+    "If some claim is true, what can you say about every claim with a smaller number?",
+    "If the true claims are exactly the first few, how many are true, how many are false, and what must those two counts add up to?"
+  ],
+  "solution": "**55.**\n\nLet F be the number of false claims. Claim k says \"F is at least k\", so claim k is true exactly when k ≤ F. That makes the true claims precisely 1, 2, …, F: there are F of them.\n\nTrue and false claims together make 20, so F + F = 20 and F = 10. Claims 1 to 10 are true and claims 11 to 20 are false.\n\nCheck: there are 10 false claims, so \"at least 10 are false\" is true and \"at least 11 are false\" is false, just as the split says. The true claims add up to 1 + 2 + … + 10 = 55.\n\nA good first foothold: claim 20 can't be true, because it would say every claim, itself included, is false. So at least one claim is false, and claim 1 is true. The rest is pinning down where the switch from true to false happens.",
+  "solver": "const N = 20;\nconst totals = [];\nfor (let falseCount = 0; falseCount <= N; falseCount++) {\n  const trueClaims = [];\n  for (let k = 1; k <= N; k++) {\n    if (falseCount >= k) trueClaims.push(k);\n  }\n  if (N - trueClaims.length === falseCount) {\n    totals.push(trueClaims.reduce((sum, k) => sum + k, 0));\n  }\n}\nreturn totals.length === 1 ? totals[0] : NaN;",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "self-reference",
+    "counting"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}

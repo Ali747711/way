@@ -1,0 +1,28 @@
+{
+  "id": "m-001",
+  "area": "math",
+  "difficulty": 3,
+  "title": "Coffee or cookie, never both",
+  "prompt": "A café numbers its receipts from 1 to 200. Every receipt whose number is a multiple of 4 wins a free coffee. Every receipt whose number is a multiple of 6 wins a free cookie. But a receipt that would win both wins nothing at all.\n\nHow many receipts win something?",
+  "answer": {
+    "type": "number",
+    "value": 51,
+    "tolerance": 0
+  },
+  "hints": [
+    "How many receipts are multiples of 4, and how many are multiples of 6?",
+    "Which numbers are multiples of both 4 and 6: is the smallest one 24, or something smaller?",
+    "A receipt that would win both appears in both of your counts, so how many times do you need to remove it?"
+  ],
+  "solution": "**51.**\n\n- Multiples of 4 up to 200: 200 ÷ 4 = 50.\n- Multiples of 6 up to 200: 33, because 6 × 33 = 198.\n- Multiples of both: a number is a multiple of 4 and of 6 exactly when it is a multiple of 12, their least common multiple. 12 × 16 = 192, so there are 16.\n\nEach of those 16 receipts sits in both lists, and it wins nothing, so it has to come out of both: (50 − 16) + (33 − 16) = 34 + 17 = 51.\n\nTwo traps lead to 67. One is subtracting the overlap only once (50 + 33 − 16), which counts the receipts that would win at least one prize before the café's rule. The other is using 4 × 6 = 24 for \"both\", which misses 12, 36, 60 and the rest.",
+  "solver": "let count = 0;\nfor (let n = 1; n <= 200; n++) {\n  const coffee = n % 4 === 0;\n  const cookie = n % 6 === 0;\n  if (coffee !== cookie) count++;\n}\nreturn count;",
+  "source": {
+    "kind": "original"
+  },
+  "status": "verified",
+  "tags": [
+    "counting",
+    "multiples"
+  ],
+  "createdAt": "2026-11-04T09:00:00.000Z"
+}
