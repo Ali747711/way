@@ -32,7 +32,7 @@ Way borrows Uizze's design *language*: chunky heavy type, glossy "squishy" pill 
 | `--hairline` | `#e8e8e8` | dividers, input borders |
 | `--surface` | `#ffffff` | cards, inputs, neutral pills |
 | `--track` | `#f2f2f2` | segmented tracks, quiet pills |
-| `--blue` / `--blue-hover` | `#3476d8` / `#2868c7` | primary action (Submit, Next) |
+| `--blue` / `--blue-hover` | `#3070d3` / `#2868c7` | primary action (Submit, Next); darkened from the measured `#3476d8` so white labels reach 4.79:1 |
 | `--yellow` / `--yellow-ink` | `#f8c808` / `#241900` | secondary bright action (Run, Hint) |
 | `--red` | `#b91c1c` | accent word in headings, the band, wrong-answer emphasis |
 | `--black` | `#0a0a0a` | dark glass button, wordmark |
@@ -48,7 +48,7 @@ Way borrows Uizze's design *language*: chunky heavy type, glossy "squishy" pill 
 | `--hairline` | `#262628` |
 | `--surface` | `#141416` |
 | `--track` | `#1c1c1f` |
-| `--blue` / `--blue-hover` | `#4a8ae6` / `#3476d8` |
+| `--blue` / `--blue-hover` | `#3070d3` fill (white labels 4.79:1); `#4a8ae6` for rings and edges only |
 | `--yellow` / `--yellow-ink` | `#f8c808` / `#241900` |
 | `--red` | `#ef4444` (text use only on dark; the band keeps `#b91c1c`) |
 | `--black` | `#f5f5f5` fill with `#0a0a0a` text (the "black" button inverts) |
@@ -71,7 +71,7 @@ Each area is an "app tile": a 44–56px rounded square (radius ~28% of size) wit
 
 ## Components
 
-- **Glass button** (`components/ui-way/GlassButton.tsx` or equivalent wrapper around the shadcn `Button`): variants `blue`, `yellow`, `black`, `white`; height 56px on phone (≥44px target), 60–62px on desktop; radius 22–25px; 900 weight; layered inset highlights, soft drop shadow and the 112deg gloss from the measurements; hover darkens fill; active presses `translateY(1px)` and halves the outer shadow; disabled at 60% opacity with no gloss; focus ring 3px `--blue` at 40% outside the border.
+- **Glass button** (`components/ui-way/GlassButton.tsx` or equivalent wrapper around the shadcn `Button`): variants `blue`, `yellow`, `black`, `white`; height 56px on phone (≥44px target), 60–62px on desktop; radius 22–25px; 900 weight; layered inset highlights, soft drop shadow and the 112deg gloss from the measurements; hover darkens fill; active presses `translateY(1px)` and halves the outer shadow; disabled at 60% opacity with no gloss; focus ring a full-strength 3px outline outside the border (visible on every fill).
 - **Quiet text button** (Give up, Keep trying): no fill, ink-muted, 600, underline on hover; still ≥44px tall.
 - **Pill input / textarea**: surface fill, 1px hairline, radius 20px (inputs) / 18px (textareas), 56px tall input, 17px text, inset `0 1px 2px rgba(0,0,0,.04)`, focus border `--blue` plus the focus ring. Code textarea uses the mono face and a `--track` fill.
 - **Choice options**: white pills in a stack, 56px, radius 18px, 1px hairline; selected = 2px `--blue` border and a light blue tint; keep `aria-pressed`.
@@ -90,4 +90,4 @@ Button press (60ms), tile pop when a mark completes (scale 0.9→1, 180ms), prob
 
 ## Accessibility floor
 
-Body and muted text ≥ 4.5:1 on their ground in both modes; button labels ≥ 4.5:1 on their fill (white on `#3476d8` passes at 17px bold; `#241900` on `#f8c808` passes); targets ≥ 44px; visible focus on every control; status never by colour alone; no horizontal scroll at 375px.
+Body and muted text ≥ 4.5:1 on their ground in both modes; button labels ≥ 4.5:1 on their fill (white on `#3070d3` is 4.79:1; `#241900` on `#f8c808` passes); field edges stay light (≈1.4:1) to match the reference, an owner's call; targets ≥ 44px; visible focus on every control; status never by colour alone; no horizontal scroll at 375px.
