@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Outcome } from '@/components/problem/types';
 import { DAILY_HINTS, DEEP_HINTS } from '@/lib/areas';
 import { checkAnswer } from '@/lib/check/checkAnswer';
+import { invalidNotice } from '@/lib/check/invalidNotice';
 import { maxAttempts } from '@/lib/check/attempts';
 import type { Problem } from '@/lib/content/schema';
 import { runCode } from '@/lib/runner/runCode';
@@ -40,6 +41,8 @@ export interface PlaySession {
   outcome: Outcome | null;
   codeResult: RunResult | null;
   busy: boolean;
+  /** Why the last submission was refused; null once the draft changes. */
+  notice: string | null;
   state: WayState | null;
   draft: (d: string) => void;
   hint: () => void;
@@ -70,6 +73,7 @@ export const usePlaySession = (opts: PlaySessionOptions): PlaySession => {
   const { state, update } = useWayState();
   const [codeResult, setCodeResult] = useState<RunResult | null>(null);
   const [busy, setBusy] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
   const ensuredKey = useRef<string | null>(null);
 
   const ready = state !== null && problems !== null;
@@ -97,7 +101,10 @@ export const usePlaySession = (opts: PlaySessionOptions): PlaySession => {
   const guarded = open && !busy;
 
   const draft = useCallback(
-    (d: string) => update((s) => setDraft(s, slot, d)),
+    (d: string) => {
+      setNotice(null);
+      update((s) => setDraft(s, slot, d));
+    },
     [update, slot]
   );
 
@@ -134,6 +141,7 @@ export const usePlaySession = (opts: PlaySessionOptions): PlaySession => {
   const submit = useCallback(async () => {
     if (!guarded || !current) return;
     const { answer } = problem;
+    setNotice(null);
     if (answer.type === 'code') {
       const result = await exec('tests');
       if (result === null) return;
@@ -157,6 +165,9 @@ export const usePlaySession = (opts: PlaySessionOptions): PlaySession => {
           ? completeProblem(wrong, slot, problem, 'failed', now())
           : wrong;
       });
+    } else {
+      // Invalid: no attempt consumed and nothing stored, only explained.
+      setNotice(invalidNotice(answer, current.draft));
     }
   }, [guarded, current, problem, exec, update, slot, deep]);
 
@@ -169,6 +180,7 @@ export const usePlaySession = (opts: PlaySessionOptions): PlaySession => {
     const keyNow = resolveKey();
     update((s) => nextProblem(s, slot, keyNow, now()));
     setCodeResult(null);
+    setNotice(null);
     if (keyNow !== key) onKeyChange?.(keyNow);
   }, [resolveKey, update, slot, key, onKeyChange]);
 
@@ -180,6 +192,7 @@ export const usePlaySession = (opts: PlaySessionOptions): PlaySession => {
     outcome,
     codeResult,
     busy,
+    notice,
     state,
     draft,
     hint,

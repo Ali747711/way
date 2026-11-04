@@ -31,8 +31,25 @@ Problems live in `content/problems/<area>/<id>.json`. The offline scripts move e
 
 `content/wordlist.txt` is `words_alpha.txt` from [dwyl/english-words](https://github.com/dwyl/english-words), released under the Unlicense (public domain). It has one lowercase word per line and is used to check that every answer in the Words area is a real English word.
 
-## Unpublishing a bad problem the same day
+## Unpublishing a bad problem
 
-1. Remove the problem from `content/schedule.json`.
-2. Set its `status` back to `draft` in its problem file.
-3. Rebuild and redeploy the site.
+The schedule schema needs all five areas on every day, so deleting a single problem from a day makes the build fail while the bad key stays live. Use one of these instead, then rebuild and redeploy.
+
+### Swap the problem
+
+1. In `content/schedule.json`, replace the bad id in that day with another `approved` problem of the same area and difficulty band.
+2. Set the replacement's `status` to `published` and the bad problem's back to `draft`.
+3. Rebuild and redeploy.
+
+### Drop the whole day
+
+1. Delete that date's entry from `days` in `content/schedule.json`. The app then shows "Nothing scheduled for today." for it.
+2. Set the five problems you no longer want on that day back to `approved` or `draft`.
+3. Rebuild and redeploy.
+
+## Extending the schedule
+
+1. Run `npm run content:status` to see the approved stock per area.
+2. Run `npm run content:schedule -- --from <first unscheduled date> --days <n>`.
+3. A `shortage` line means an area, or the week's deep problem, has no approved candidate in its band. Nothing is written until every shortage is fixed (approve more problems, then run it again).
+4. Each ISO week needs one approved difficulty-5 problem for the deep slot.

@@ -27,6 +27,8 @@ export interface ProblemViewProps {
   outcome: Outcome | null;
   codeResult: RunResult | null;
   busy: boolean;
+  /** Why the last submission was refused, if it was. */
+  notice?: string | null;
   onDraftChange: (draft: string) => void;
   onHint: () => void;
   onSubmit: () => void;
@@ -47,6 +49,7 @@ export default function ProblemView({
   outcome,
   codeResult,
   busy,
+  notice = null,
   onDraftChange,
   onHint,
   onSubmit,
@@ -92,6 +95,7 @@ export default function ProblemView({
             draft={current.draft}
             readOnly={terminal}
             busy={busy}
+            notice={notice}
             onDraftChange={onDraftChange}
             onSubmit={onSubmit}
           />

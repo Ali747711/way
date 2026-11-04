@@ -88,6 +88,7 @@ export default function DailyPlay() {
             problem.answer.type === 'code' ? session.codeResult : null
           }
           busy={session.busy}
+          notice={session.notice}
           onDraftChange={session.draft}
           onHint={session.hint}
           onSubmit={session.submit}

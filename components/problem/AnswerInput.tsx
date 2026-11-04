@@ -3,6 +3,7 @@ import { useLayoutEffect, useRef, type KeyboardEvent } from 'react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import type { Answer } from '@/lib/content/schema';
+import { wordCountLabel } from '@/lib/check/invalidNotice';
 import { cn } from '@/lib/utils';
 
 import ChoiceOptions from './ChoiceOptions';
@@ -14,11 +15,33 @@ interface AnswerInputProps {
   draft: string;
   readOnly: boolean;
   busy: boolean;
+  notice?: string | null;
   onDraftChange: (draft: string) => void;
   onSubmit: () => void;
 }
 
-export default function AnswerInput({
+export default function AnswerInput(props: AnswerInputProps) {
+  const { answer, draft, notice = null } = props;
+  const count = wordCountLabel(answer, draft);
+  return (
+    <div className="space-y-2">
+      <AnswerField {...props} />
+      {count && (
+        <p className="text-sm font-medium text-ink-muted tabular-nums">
+          {count}
+        </p>
+      )}
+      <p
+        aria-live="polite"
+        className={cn(notice && 'text-sm font-semibold text-ink')}
+      >
+        {notice}
+      </p>
+    </div>
+  );
+}
+
+function AnswerField({
   answer,
   title,
   draft,
