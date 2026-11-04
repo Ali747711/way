@@ -1,7 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-import { COLUMN, TEXT_LINK } from '@/components/classes';
+import { COLUMN } from '@/components/classes';
+import AreaTile from '@/components/way/AreaTile';
+import { Squiggle } from '@/components/way/Doodle';
+import { glass } from '@/components/way/GlassButton';
+import { AREAS, AREA_CONFIG } from '@/lib/areas';
 import { REPO_URL } from '@/lib/config';
 
 export const metadata: Metadata = { title: 'Way · About' };
@@ -16,18 +20,17 @@ const PRINCIPLES = [
   'Free, no ads, no paywall, no data harvesting.'
 ];
 
-const linkClass = `${TEXT_LINK} text-base font-medium`;
-
-const bodyClass = 'font-serif text-[1.1875rem] leading-[1.6] text-pretty';
+const bodyClass = 'text-[1.0625rem] leading-[1.6] text-pretty sm:text-lg';
 
 // The page title is the wordmark at display size, so About has no masthead.
 export default function AboutPage() {
   return (
     <main className={`${COLUMN} way-enter pt-10 pb-16 sm:pt-16`}>
-      <h1 className="border-b border-border pb-5 font-serif text-[3.5rem] leading-none font-medium tracking-[-0.02em] italic">
+      <h1 className="inline-flex items-center gap-2 text-[4rem] leading-none font-black tracking-[-0.035em]">
         Way
+        <Squiggle className="mt-3 h-5 w-12 text-blue-line" />
       </h1>
-      <section className="mt-8 space-y-4">
+      <section className="mt-6 space-y-4">
         <p className={bodyClass}>
           Way is a free web app that replaces late-night scrolling with short
           bursts of real thinking. Each day it offers a small, finite set of
@@ -46,34 +49,36 @@ export default function AboutPage() {
           more, not less.
         </p>
       </section>
-      <section className="mt-12 space-y-4">
-        <h2 className="text-sm font-medium text-muted-foreground">
-          Principles
-        </h2>
-        <ol className="border-t border-border font-serif text-[1.1875rem]">
-          {PRINCIPLES.map((principle, i) => (
-            <li
-              key={principle}
-              className="flex min-h-12 items-baseline gap-4 border-b border-border py-2.5"
-            >
-              <span
-                aria-hidden="true"
-                className="w-4 shrink-0 font-sans text-sm text-muted-foreground tabular-nums"
-              >
-                {i + 1}
-              </span>
+      {/* The five areas, in slot order: the tiles that make up a day. */}
+      <ul role="list" className="mt-10 grid grid-cols-5 gap-2">
+        {AREAS.map((area) => (
+          <li key={area} className="flex flex-col items-center gap-2">
+            <AreaTile area={area} size="lg" />
+            <span className="text-[0.8125rem] font-extrabold">
+              {AREA_CONFIG[area].label}
+            </span>
+          </li>
+        ))}
+      </ul>
+      <section className="mt-12">
+        <h2 className="text-2xl font-black tracking-[-0.02em]">Principles</h2>
+        {/* Real list markers, so the numbering is spoken; they are just
+            drawn large. */}
+        <ol className="mt-4 list-[way-numeral] space-y-1 pl-11 text-lg font-semibold marker:text-[1.75rem] marker:font-black marker:text-blue-line">
+          {PRINCIPLES.map((principle) => (
+            <li key={principle} className="py-1.5 pl-1 leading-snug">
               {principle}
             </li>
           ))}
         </ol>
       </section>
-      <nav className="mt-10 flex flex-col items-start">
-        <a href={REPO_URL} className={linkClass}>
-          Source on GitHub
-        </a>
-        <Link href="/" className={linkClass}>
+      <nav className="mt-10 flex flex-wrap gap-3">
+        <Link href="/" className={glass('blue')}>
           Back to today
         </Link>
+        <a href={REPO_URL} className={glass('black')}>
+          Source on GitHub
+        </a>
       </nav>
     </main>
   );

@@ -17,7 +17,3 @@ export const QUIET = `h-12 rounded-2xl px-4 text-base font-semibold text-ink-mut
 /** Display headings: Done, NoSet, Deep done, About. */
 export const DISPLAY =
   'text-[2.75rem] leading-[1.02] font-black tracking-[-0.025em] text-balance sm:text-[3.5rem]';
-
-/** A text link with a 44px touch target (end screens until they move to glass links). */
-export const TEXT_LINK =
-  'inline-flex min-h-11 items-center underline decoration-1 underline-offset-4';

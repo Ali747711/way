@@ -3,9 +3,10 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import { COLUMN, TEXT_LINK } from '@/components/classes';
+import { COLUMN, DISPLAY } from '@/components/classes';
 import Masthead from '@/components/Masthead';
 import ProblemView from '@/components/problem/ProblemView';
+import { glass } from '@/components/way/GlassButton';
 import { DEEP_HINTS } from '@/lib/areas';
 import { fetchDeep } from '@/lib/content/client';
 import type { DeepFile } from '@/lib/content/schema';
@@ -24,7 +25,9 @@ const thisWeek = (): string => isoWeekKey(toLocalDate(new Date()));
 // The deep page names itself in the masthead; it has no set strip.
 const DeepMasthead = () => (
   <Masthead>
-    <span className="text-sm font-medium text-muted-foreground">Deep</span>
+    <span className="rounded-full bg-track px-3 py-1.5 text-sm leading-none font-extrabold text-ink-muted">
+      Deep
+    </span>
   </Masthead>
 );
 
@@ -32,11 +35,11 @@ function DeepDone() {
   return (
     <>
       <DeepMasthead />
-      <main className={`${COLUMN} way-enter space-y-3 pt-10 pb-16 sm:pt-14`}>
-        <h1 className="font-serif text-[2.25rem] leading-tight font-medium tracking-[-0.015em]">
-          That&apos;s this week.
+      <main className={`${COLUMN} way-enter space-y-8 pt-6 pb-16 sm:pt-10`}>
+        <h1 className={DISPLAY}>
+          That&apos;s <span className="text-red">this week.</span>
         </h1>
-        <Link href="/" className={`${TEXT_LINK} text-base font-medium`}>
+        <Link href="/" className={glass('blue')}>
           Back to today
         </Link>
       </main>
