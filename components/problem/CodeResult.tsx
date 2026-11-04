@@ -17,21 +17,31 @@ export default function CodeResult({ result }: CodeResultProps) {
           : `passed ${result.passed} of ${result.total}`}
       </p>
       {firstFailure && (
-        // Long values wrap rather than widening the page on a phone.
-        <div className="space-y-1 rounded-lg bg-muted px-3 py-2.5 font-mono text-sm leading-relaxed wrap-anywhere">
+        // Labels stay in the line's own text (tests read "Expected: 6"), so
+        // only the values are lifted to full contrast. Long values wrap
+        // rather than widening the page on a phone.
+        <div className="space-y-1 rounded-lg bg-muted px-4 py-3 font-mono text-[0.8125rem] leading-relaxed text-muted-foreground wrap-anywhere">
           <p>
-            Input: <code>{show(firstFailure.input)}</code>
+            Input:{' '}
+            <code className="text-foreground">{show(firstFailure.input)}</code>
           </p>
           <p>
-            Expected: <code>{show(firstFailure.expected)}</code>
+            Expected:{' '}
+            <code className="text-foreground">
+              {show(firstFailure.expected)}
+            </code>
           </p>
           {firstFailure.error !== undefined ? (
             <p>
-              Error: <code>{firstFailure.error}</code>
+              Error:{' '}
+              <code className="text-foreground">{firstFailure.error}</code>
             </p>
           ) : (
             <p>
-              Actual: <code>{show(firstFailure.actual)}</code>
+              Actual:{' '}
+              <code className="text-foreground">
+                {show(firstFailure.actual)}
+              </code>
             </p>
           )}
         </div>

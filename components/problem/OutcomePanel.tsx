@@ -33,9 +33,9 @@ export default function OutcomePanel({
 
   // A hairline separates the response from the prompt above it.
   return (
-    <section className="space-y-4 border-t border-border pt-6">
+    <section className="space-y-5 border-t border-border pt-6">
       <div className="space-y-1">
-        <h2 className="text-xl leading-snug font-semibold">
+        <h2 className="font-serif text-2xl leading-snug font-medium tracking-[-0.01em]">
           {HEADINGS[outcome.kind]}
         </h2>
         {line && (
@@ -45,11 +45,13 @@ export default function OutcomePanel({
       {outcome.kind !== 'wrong' && (
         <>
           {answer.type === 'open' && (
-            <div className="space-y-1">
+            <div className="space-y-2 rounded-lg bg-muted px-4 py-3.5">
               <h3 className="text-sm font-medium text-muted-foreground">
                 What a strong answer does
               </h3>
-              <Markdown>{answer.authorNote}</Markdown>
+              <Markdown className="text-[1.0625rem] sm:text-[1.0625rem]">
+                {answer.authorNote}
+              </Markdown>
             </div>
           )}
           <Markdown>{solution}</Markdown>

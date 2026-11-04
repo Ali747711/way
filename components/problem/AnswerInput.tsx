@@ -1,9 +1,18 @@
 import { useLayoutEffect, useRef, type KeyboardEvent } from 'react';
 
+import { FOCUS_RING } from '@/components/classes';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import type { Answer } from '@/lib/content/schema';
+import { cn } from '@/lib/utils';
+
+// Fields sit on the raised paper with a 3:1 edge. Typed answers use the text
+// serif, like writing on the page; code uses the mono.
+const FIELD = cn(
+  'rounded-lg border-input bg-card dark:bg-card focus-visible:border-ring',
+  FOCUS_RING
+);
 
 interface AnswerInputProps {
   answer: Answer;
@@ -48,9 +57,14 @@ export default function AnswerInput({
             key={i}
             type="button"
             size="lg"
-            variant={draft === String(i) ? 'default' : 'outline'}
+            variant="outline"
             aria-pressed={draft === String(i)}
-            className="h-auto min-h-11 justify-start px-4 py-2.5 text-left text-base whitespace-normal"
+            className={cn(
+              FIELD,
+              'h-auto min-h-12 justify-start px-4 py-3 text-left text-base font-normal whitespace-normal hover:bg-muted dark:hover:bg-muted',
+              // Chosen reads as the amber edge and a faint lamp tint.
+              'aria-pressed:border-ring aria-pressed:bg-primary/12 dark:aria-pressed:bg-primary/12'
+            )}
             disabled={readOnly}
             onClick={() => onDraftChange(String(i))}
           >
@@ -68,7 +82,10 @@ export default function AnswerInput({
         aria-label={title}
         inputMode={answer.type === 'number' ? 'decimal' : undefined}
         autoComplete="off"
-        className="h-12 px-3 text-lg md:text-lg"
+        className={cn(
+          FIELD,
+          'h-12 px-3.5 font-serif text-[1.1875rem] md:text-[1.1875rem]'
+        )}
         readOnly={readOnly}
         onChange={(e) => onDraftChange(e.target.value)}
         onKeyDown={(e) => {
@@ -105,11 +122,12 @@ export default function AnswerInput({
       placeholder={isCode ? answer.signature : undefined}
       spellCheck={!isCode}
       readOnly={readOnly}
-      className={
+      className={cn(
+        FIELD,
         isCode
-          ? 'min-h-48 px-3 py-2.5 font-mono text-sm leading-relaxed'
-          : 'min-h-32 px-3 py-2.5 text-lg leading-relaxed md:text-lg'
-      }
+          ? 'min-h-48 px-3.5 py-3 font-mono text-sm leading-relaxed md:text-sm'
+          : 'min-h-36 px-3.5 py-3 font-serif text-[1.1875rem] leading-relaxed md:text-[1.1875rem]'
+      )}
       onChange={(e) => onDraftChange(e.target.value)}
       onKeyDown={onKeyDown}
     />

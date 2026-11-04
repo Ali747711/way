@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import DoneScreen from '@/components/done/DoneScreen';
+import Masthead from '@/components/Masthead';
 import ProblemView from '@/components/problem/ProblemView';
 import { DAILY_HINTS } from '@/lib/areas';
 import { fetchDay } from '@/lib/content/client';
@@ -10,6 +11,8 @@ import type { DayFile } from '@/lib/content/schema';
 import { toLocalDate } from '@/lib/date/localDate';
 
 import NoSet from './NoSet';
+import SetStrip from './SetStrip';
+import { toMarks } from './setMarks';
 import { usePlaySession } from './usePlaySession';
 
 interface Loaded {
@@ -55,31 +58,50 @@ export default function DailyPlay() {
     return <NoSet message="Nothing scheduled for today." />;
   if (phase === 'done' && state !== null && problems !== null) {
     return (
-      <DoneScreen
-        records={state.records}
-        ids={problems.map((p) => p.id)}
-        today={key}
-      />
+      <>
+        <Masthead />
+        <DoneScreen
+          records={state.records}
+          ids={problems.map((p) => p.id)}
+          today={key}
+        />
+      </>
     );
   }
   if (phase === 'playing' && problem !== null && current !== null) {
+    const marks =
+      state !== null && problems !== null
+        ? toMarks(problems, state.records, session.index)
+        : [];
     return (
-      <ProblemView
-        problem={problem}
-        position={{ index: session.index, total: problems?.length ?? 0 }}
-        current={current}
-        maxHints={DAILY_HINTS}
-        outcome={session.outcome}
-        codeResult={problem.answer.type === 'code' ? session.codeResult : null}
-        busy={session.busy}
-        onDraftChange={session.draft}
-        onHint={session.hint}
-        onSubmit={session.submit}
-        onRun={session.run}
-        onGiveUp={session.giveUp}
-        onNext={session.next}
-      />
+      <>
+        <Masthead>
+          <SetStrip marks={marks} />
+        </Masthead>
+        <ProblemView
+          problem={problem}
+          position={{ index: session.index, total: problems?.length ?? 0 }}
+          current={current}
+          maxHints={DAILY_HINTS}
+          outcome={session.outcome}
+          codeResult={
+            problem.answer.type === 'code' ? session.codeResult : null
+          }
+          busy={session.busy}
+          onDraftChange={session.draft}
+          onHint={session.hint}
+          onSubmit={session.submit}
+          onRun={session.run}
+          onGiveUp={session.giveUp}
+          onNext={session.next}
+        />
+      </>
     );
   }
-  return <div aria-busy="true" />;
+  return (
+    <>
+      <Masthead />
+      <div aria-busy="true" />
+    </>
+  );
 }

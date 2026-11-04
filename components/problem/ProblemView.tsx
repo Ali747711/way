@@ -2,9 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import Markdown from '@/components/Markdown';
-import { Button } from '@/components/ui/button';
-import { AREA_CONFIG } from '@/lib/areas';
+import { COLUMN } from '@/components/classes';
 import { reportIssueUrl } from '@/lib/config';
 import type { Problem } from '@/lib/content/schema';
 import type { RunResult } from '@/lib/runner/types';
@@ -15,6 +13,8 @@ import CodeResult from './CodeResult';
 import GiveUpDialog from './GiveUpDialog';
 import HintLadder from './HintLadder';
 import OutcomePanel from './OutcomePanel';
+import ProblemActions from './ProblemActions';
+import ProblemHeader from './ProblemHeader';
 import type { Outcome } from './types';
 
 export type { Outcome };
@@ -68,22 +68,13 @@ export default function ProblemView({
     return () => document.removeEventListener('keydown', onKeyDown);
   }, [onHint, terminal, current.hints, maxHints]);
 
+  // Keyed by problem, so each new problem enters with the page's one motion.
   return (
-    <main className="mx-auto w-full max-w-160 space-y-8 px-4 pt-8 pb-16 sm:pt-14">
-      {/* Meta, title and prompt read as one block, so they sit close together. */}
-      <div>
-        <header className="flex items-baseline gap-3 text-sm text-muted-foreground tabular-nums">
-          {position.total > 1 && (
-            <span>{`${position.index + 1} of ${position.total}`}</span>
-          )}
-          <span>{AREA_CONFIG[problem.area].label}</span>
-        </header>
-
-        <h1 className="mt-2 text-2xl leading-tight font-semibold tracking-tight text-balance">
-          {problem.title}
-        </h1>
-        <Markdown className="mt-4">{problem.prompt}</Markdown>
-      </div>
+    <main
+      key={problem.id}
+      className={`${COLUMN} way-enter space-y-8 pt-8 pb-16 sm:pt-12`}
+    >
+      <ProblemHeader problem={problem} position={position} />
 
       {outcome && (
         <OutcomePanel
@@ -108,50 +99,15 @@ export default function ProblemView({
 
         {codeResult && <CodeResult result={codeResult} />}
 
-        {terminal ? (
-          <Button
-            type="button"
-            size="lg"
-            className="h-11 px-5 text-base"
-            onClick={onNext}
-          >
-            Next
-          </Button>
-        ) : (
-          <div className="flex flex-wrap gap-2">
-            {isCode && (
-              <Button
-                type="button"
-                variant="outline"
-                size="lg"
-                className="h-11 px-5 text-base"
-                disabled={busy}
-                onClick={onRun}
-              >
-                Run
-              </Button>
-            )}
-            <Button
-              type="button"
-              size="lg"
-              className="h-11 px-5 text-base"
-              disabled={busy}
-              onClick={onSubmit}
-            >
-              Submit
-            </Button>
-            {/* The way out stays available but quieter than the way forward. */}
-            <Button
-              type="button"
-              variant="ghost"
-              size="lg"
-              className="h-11 px-4 text-base text-muted-foreground"
-              onClick={() => setConfirmOpen(true)}
-            >
-              Give up
-            </Button>
-          </div>
-        )}
+        <ProblemActions
+          terminal={terminal}
+          isCode={isCode}
+          busy={busy}
+          onRun={onRun}
+          onSubmit={onSubmit}
+          onAskGiveUp={() => setConfirmOpen(true)}
+          onNext={onNext}
+        />
       </div>
 
       {(!terminal || current.hints > 0) && (
@@ -164,9 +120,9 @@ export default function ProblemView({
         />
       )}
 
-      <footer className="text-sm text-muted-foreground">
+      <footer className="pt-4 text-sm text-muted-foreground">
         <a
-          className="inline-flex min-h-11 items-center underline underline-offset-4 hover:text-foreground"
+          className="inline-flex min-h-11 items-center underline decoration-1 underline-offset-4 hover:text-foreground"
           href={reportIssueUrl(problem.id)}
           target="_blank"
           rel="noreferrer"
