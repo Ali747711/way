@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
+import { COLUMN, TEXT_LINK } from '@/components/classes';
 import { REPO_URL } from '@/lib/config';
 
 export const metadata: Metadata = { title: 'Way · About' };
@@ -15,18 +16,18 @@ const PRINCIPLES = [
   'Free, no ads, no paywall, no data harvesting.'
 ];
 
-const linkClass =
-  'inline-flex min-h-11 items-center text-base font-medium underline underline-offset-4';
+const linkClass = `${TEXT_LINK} text-base font-medium`;
 
-const bodyClass = 'text-base leading-relaxed text-pretty';
+const bodyClass = 'font-serif text-[1.1875rem] leading-[1.6] text-pretty';
 
+// The page title is the wordmark at display size, so About has no masthead.
 export default function AboutPage() {
   return (
-    <main className="mx-auto w-full max-w-160 space-y-12 px-4 pt-10 pb-16 sm:pt-16">
-      <section className="space-y-4">
-        <h1 className="text-3xl leading-tight font-semibold tracking-tight">
-          Way
-        </h1>
+    <main className={`${COLUMN} way-enter pt-10 pb-16 sm:pt-16`}>
+      <h1 className="border-b border-border pb-5 font-serif text-[3.5rem] leading-none font-medium tracking-[-0.02em] italic">
+        Way
+      </h1>
+      <section className="mt-8 space-y-4">
         <p className={bodyClass}>
           Way is a free web app that replaces late-night scrolling with short
           bursts of real thinking. Each day it offers a small, finite set of
@@ -45,17 +46,28 @@ export default function AboutPage() {
           more, not less.
         </p>
       </section>
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold tracking-tight">Principles</h2>
-        <ol className="list-decimal space-y-2 pl-6 text-base leading-relaxed marker:text-muted-foreground">
-          {PRINCIPLES.map((principle) => (
-            <li key={principle} className="pl-1">
+      <section className="mt-12 space-y-4">
+        <h2 className="text-sm font-medium text-muted-foreground">
+          Principles
+        </h2>
+        <ol className="border-t border-border font-serif text-[1.1875rem]">
+          {PRINCIPLES.map((principle, i) => (
+            <li
+              key={principle}
+              className="flex min-h-12 items-baseline gap-4 border-b border-border py-2.5"
+            >
+              <span
+                aria-hidden="true"
+                className="w-4 shrink-0 font-sans text-sm text-muted-foreground tabular-nums"
+              >
+                {i + 1}
+              </span>
               {principle}
             </li>
           ))}
         </ol>
       </section>
-      <nav className="flex flex-col items-start">
+      <nav className="mt-10 flex flex-col items-start">
         <a href={REPO_URL} className={linkClass}>
           Source on GitHub
         </a>

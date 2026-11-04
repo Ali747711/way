@@ -1,3 +1,5 @@
+import AreaGlyph from '@/components/AreaGlyph';
+import { areaVars } from '@/components/areaStyle';
 import { AREAS, AREA_CONFIG } from '@/lib/areas';
 import {
   areaCaption,
@@ -11,27 +13,26 @@ interface AreaMapProps {
   today: string;
 }
 
-// Phone: one row per area, label left and caption right. Wider screens: five
-// tiles in a row. Tiles sit on the card colour so the muted caption keeps at
-// least 4.5:1 contrast.
+// One ruled line per area, like a notebook page. The area's glyph fades with
+// the days since it was last exercised; the text stays at full contrast.
 export default function AreaMap({ records, today }: AreaMapProps) {
   return (
-    <ul className="grid grid-cols-1 gap-2 sm:grid-cols-5">
+    <ul className="border-t border-border">
       {AREAS.map((area) => {
         const days = daysSinceExercised(records, area, today);
         return (
           <li
             key={area}
             data-tone={areaTone(days)}
-            className="group flex items-center gap-3 rounded-lg border border-border bg-card px-4 py-3 sm:flex-col sm:items-stretch sm:gap-2 sm:px-3"
+            style={areaVars(area)}
+            className="group flex min-h-13 items-center gap-3.5 border-b border-border"
           >
-            {/* Only the swatch fades; text stays at full contrast. */}
-            <div
-              aria-hidden="true"
-              className="size-2.5 shrink-0 rounded-full bg-foreground group-data-[tone=fresh]:opacity-100 group-data-[tone=recent]:opacity-75 group-data-[tone=fading]:opacity-50 group-data-[tone=quiet]:opacity-25 sm:h-1.5 sm:w-auto"
+            <AreaGlyph
+              area={area}
+              className="size-4 text-(--area) group-data-[tone=fading]:opacity-50 group-data-[tone=quiet]:opacity-25 group-data-[tone=recent]:opacity-75"
             />
             <p className="text-base font-medium">{AREA_CONFIG[area].label}</p>
-            <p className="ml-auto text-sm text-muted-foreground sm:ml-0">
+            <p className="ml-auto text-sm text-muted-foreground">
               {areaCaption(days)}
             </p>
           </li>

@@ -1,17 +1,23 @@
 import Link from 'next/link';
 
+import { COLUMN, TEXT_LINK } from '@/components/classes';
+import Masthead from '@/components/Masthead';
+
 export default function NoSet({ message }: { message: string }) {
   return (
-    <main className="mx-auto w-full max-w-160 space-y-3 px-4 pt-10 pb-16 sm:pt-16">
-      <p className="text-3xl leading-tight font-semibold tracking-tight text-balance">
-        {message}
-      </p>
-      <Link
-        href="/about"
-        className="inline-flex min-h-11 items-center text-base text-muted-foreground underline underline-offset-4 hover:text-foreground"
-      >
-        About Way
-      </Link>
-    </main>
+    <>
+      <Masthead />
+      <main className={`${COLUMN} way-enter space-y-3 pt-10 pb-16 sm:pt-14`}>
+        <p className="font-serif text-[2rem] leading-tight font-medium tracking-[-0.015em] text-balance">
+          {message}
+        </p>
+        <Link
+          href="/about"
+          className={`${TEXT_LINK} text-base text-muted-foreground hover:text-foreground`}
+        >
+          About Way
+        </Link>
+      </main>
+    </>
   );
 }

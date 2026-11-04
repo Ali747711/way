@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
+import { COLUMN, TEXT_LINK } from '@/components/classes';
+import Masthead from '@/components/Masthead';
 import ProblemView from '@/components/problem/ProblemView';
 import { DEEP_HINTS } from '@/lib/areas';
 import { fetchDeep } from '@/lib/content/client';
@@ -19,19 +21,26 @@ interface Loaded {
 
 const thisWeek = (): string => isoWeekKey(toLocalDate(new Date()));
 
+// The deep page names itself in the masthead; it has no set strip.
+const DeepMasthead = () => (
+  <Masthead>
+    <span className="text-sm font-medium text-muted-foreground">Deep</span>
+  </Masthead>
+);
+
 function DeepDone() {
   return (
-    <main className="mx-auto w-full max-w-160 space-y-3 px-4 pt-10 pb-16 sm:pt-16">
-      <h1 className="text-3xl leading-tight font-semibold tracking-tight">
-        That&apos;s this week.
-      </h1>
-      <Link
-        href="/"
-        className="inline-flex min-h-11 items-center text-base font-medium underline underline-offset-4"
-      >
-        Back to today
-      </Link>
-    </main>
+    <>
+      <DeepMasthead />
+      <main className={`${COLUMN} way-enter space-y-3 pt-10 pb-16 sm:pt-14`}>
+        <h1 className="font-serif text-[2.25rem] leading-tight font-medium tracking-[-0.015em]">
+          That&apos;s this week.
+        </h1>
+        <Link href="/" className={`${TEXT_LINK} text-base font-medium`}>
+          Back to today
+        </Link>
+      </main>
+    </>
   );
 }
 
@@ -72,22 +81,32 @@ export default function DeepPlay() {
   if (phase === 'done') return <DeepDone />;
   if (phase === 'playing' && problem !== null && current !== null) {
     return (
-      <ProblemView
-        problem={problem}
-        position={{ index: 0, total: 1 }}
-        current={current}
-        maxHints={DEEP_HINTS}
-        outcome={session.outcome}
-        codeResult={problem.answer.type === 'code' ? session.codeResult : null}
-        busy={session.busy}
-        onDraftChange={session.draft}
-        onHint={session.hint}
-        onSubmit={session.submit}
-        onRun={session.run}
-        onGiveUp={session.giveUp}
-        onNext={session.next}
-      />
+      <>
+        <DeepMasthead />
+        <ProblemView
+          problem={problem}
+          position={{ index: 0, total: 1 }}
+          current={current}
+          maxHints={DEEP_HINTS}
+          outcome={session.outcome}
+          codeResult={
+            problem.answer.type === 'code' ? session.codeResult : null
+          }
+          busy={session.busy}
+          onDraftChange={session.draft}
+          onHint={session.hint}
+          onSubmit={session.submit}
+          onRun={session.run}
+          onGiveUp={session.giveUp}
+          onNext={session.next}
+        />
+      </>
     );
   }
-  return <div aria-busy="true" />;
+  return (
+    <>
+      <DeepMasthead />
+      <div aria-busy="true" />
+    </>
+  );
 }
