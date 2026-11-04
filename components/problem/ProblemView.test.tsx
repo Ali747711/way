@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -27,6 +27,21 @@ function makeProblem(overrides: Partial<Problem> = {}): Problem {
     createdAt: '2026-01-01',
     ...overrides
   };
+}
+
+function codeProblem(): Problem {
+  return makeProblem({
+    area: 'code',
+    answer: {
+      type: 'code',
+      signature: 'function f(x) {}',
+      entry: 'f',
+      examples: [{ input: [1], expected: 2 }],
+      tests: [{ input: [1], expected: 2 }],
+      timeLimitMs: 2000,
+      reference: ''
+    }
+  });
 }
 
 function makeCurrent(overrides: Partial<Current> = {}): Current {
@@ -220,5 +235,135 @@ describe('ProblemView', () => {
     await user.click(document.body);
     await user.keyboard('?');
     expect(onHint).toHaveBeenCalledTimes(1);
+  });
+
+  it('ignores Enter and Submit while busy', async () => {
+    const { user, onSubmit } = setup({ busy: true });
+    expect(screen.getByRole('button', { name: 'Submit' })).toBeDisabled();
+    await user.type(
+      screen.getByRole('textbox', { name: 'Missing number' }),
+      '{Enter}'
+    );
+    expect(onSubmit).not.toHaveBeenCalled();
+  });
+
+  it('disables Run while busy', () => {
+    setup({ problem: codeProblem(), busy: true });
+    expect(screen.getByRole('button', { name: 'Run' })).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Submit' })).toBeDisabled();
+  });
+
+  it('submits a textarea on Ctrl+Enter and Cmd+Enter', async () => {
+    const { user, onSubmit } = setup({
+      problem: makeProblem({
+        answer: { type: 'open', authorNote: 'note' }
+      })
+    });
+    const box = screen.getByRole('textbox', { name: 'Missing number' });
+    await user.click(box);
+    await user.keyboard('{Control>}{Enter}{/Control}');
+    await user.keyboard('{Meta>}{Enter}{/Meta}');
+    expect(onSubmit).toHaveBeenCalledTimes(2);
+  });
+
+  it('does not submit Ctrl+Enter on the read-only code textarea after a terminal outcome', async () => {
+    const { user, onSubmit } = setup({
+      problem: codeProblem(),
+      outcome: { kind: 'solved' }
+    });
+    const box = screen.getByRole('textbox', { name: 'Missing number' });
+    expect(box).toHaveAttribute('readonly');
+    await user.click(box);
+    await user.keyboard('{Control>}{Enter}{/Control}');
+    expect(onSubmit).not.toHaveBeenCalled();
+  });
+
+  it('ignores ? at the hint cap', async () => {
+    const { user, onHint } = setup({ current: makeCurrent({ hints: 3 }) });
+    await user.click(document.body);
+    await user.keyboard('?');
+    expect(onHint).not.toHaveBeenCalled();
+  });
+
+  it('inserts two spaces on Tab at the caret in the code textarea', async () => {
+    const user = userEvent.setup();
+    function Harness() {
+      const [draft, setDraft] = useState('ab');
+      return (
+        <ProblemView
+          problem={codeProblem()}
+          position={{ index: 0, total: 1 }}
+          current={makeCurrent({ draft })}
+          maxHints={3}
+          outcome={null}
+          codeResult={null}
+          busy={false}
+          onDraftChange={setDraft}
+          onHint={vi.fn()}
+          onSubmit={vi.fn()}
+          onRun={vi.fn()}
+          onGiveUp={vi.fn()}
+          onNext={vi.fn()}
+        />
+      );
+    }
+    render(<Harness />);
+    const box = screen.getByRole('textbox', {
+      name: 'Missing number'
+    }) as HTMLTextAreaElement;
+    box.focus();
+    box.setSelectionRange(1, 1);
+    await user.keyboard('{Tab}');
+    expect(box.value).toBe('a  b');
+    expect(box.selectionStart).toBe(3);
+  });
+
+  it('leaves Shift+Tab alone in the code textarea', () => {
+    const { onDraftChange } = setup({ problem: codeProblem() });
+    const box = screen.getByRole('textbox', { name: 'Missing number' });
+    const notPrevented = fireEvent.keyDown(box, { key: 'Tab', shiftKey: true });
+    expect(notPrevented).toBe(true);
+    expect(onDraftChange).not.toHaveBeenCalled();
+  });
+
+  it('shows the author note above the solution for open answers', () => {
+    setup({
+      problem: makeProblem({
+        answer: { type: 'open', authorNote: 'A strong one is brief.' }
+      }),
+      outcome: { kind: 'solved' }
+    });
+    expect(screen.getByText('What a strong answer does')).toBeInTheDocument();
+    expect(screen.getByText('A strong one is brief.')).toBeInTheDocument();
+    expect(screen.getByText('reasons')).toBeInTheDocument();
+  });
+
+  it('omits the attempts line when attempts are unlimited', () => {
+    setup({ outcome: { kind: 'wrong', attemptsLeft: Infinity } });
+    expect(
+      screen.getByRole('heading', { name: 'Not quite' })
+    ).toBeInTheDocument();
+    expect(screen.queryByText(/attempts? left/)).not.toBeInTheDocument();
+  });
+
+  it('shows only the area when there is a single problem', () => {
+    setup({ position: { index: 0, total: 1 } });
+    expect(screen.getByText('Logic')).toBeInTheDocument();
+    expect(screen.queryByText(/^\d+ of \d+$/)).not.toBeInTheDocument();
+  });
+
+  it('shows the solution heading and Next for gave_up and failed', () => {
+    setup({ outcome: { kind: 'gave_up' } });
+    expect(
+      screen.getByRole('heading', { name: 'The solution' })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Next' })).toBeInTheDocument();
+    cleanup();
+    setup({ outcome: { kind: 'failed' } });
+    expect(
+      screen.getByRole('heading', { name: 'Out of attempts' })
+    ).toBeInTheDocument();
+    expect(screen.getByText('reasons')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Next' })).toBeInTheDocument();
   });
 });

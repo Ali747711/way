@@ -1,7 +1,7 @@
 import Markdown from '@/components/Markdown';
 import type { Answer } from '@/lib/content/schema';
 
-import type { Outcome } from './ProblemView';
+import type { Outcome } from './types';
 
 interface OutcomePanelProps {
   outcome: Outcome;

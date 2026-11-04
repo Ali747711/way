@@ -15,12 +15,9 @@ import CodeResult from './CodeResult';
 import GiveUpDialog from './GiveUpDialog';
 import HintLadder from './HintLadder';
 import OutcomePanel from './OutcomePanel';
+import type { Outcome } from './types';
 
-export type Outcome =
-  | { kind: 'solved' }
-  | { kind: 'wrong'; attemptsLeft: number }
-  | { kind: 'gave_up' }
-  | { kind: 'failed' };
+export type { Outcome };
 
 export interface ProblemViewProps {
   problem: Problem;
@@ -63,13 +60,13 @@ export default function ProblemView({
   const isCode = answer.type === 'code';
 
   useEffect(() => {
-    if (terminal) return;
+    if (terminal || current.hints >= maxHints) return;
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === '?' && !isEditableTarget(e.target)) onHint();
     };
     document.addEventListener('keydown', onKeyDown);
     return () => document.removeEventListener('keydown', onKeyDown);
-  }, [onHint, terminal]);
+  }, [onHint, terminal, current.hints, maxHints]);
 
   return (
     <main className="mx-auto w-full max-w-160 space-y-6 px-4 py-6">
@@ -97,6 +94,7 @@ export default function ProblemView({
           title={problem.title}
           draft={current.draft}
           readOnly={terminal}
+          busy={busy}
           onDraftChange={onDraftChange}
           onSubmit={onSubmit}
         />
@@ -134,22 +132,15 @@ export default function ProblemView({
               Give up
             </Button>
           </div>
-          <HintLadder
-            hints={problem.hints}
-            revealed={current.hints}
-            maxHints={maxHints}
-            disabled={false}
-            onHint={onHint}
-          />
         </div>
       )}
 
-      {terminal && current.hints > 0 && (
+      {(!terminal || current.hints > 0) && (
         <HintLadder
           hints={problem.hints}
           revealed={current.hints}
           maxHints={maxHints}
-          disabled
+          disabled={terminal}
           onHint={onHint}
         />
       )}

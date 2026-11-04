@@ -1,4 +1,4 @@
-import type { KeyboardEvent } from 'react';
+import { useLayoutEffect, useRef, type KeyboardEvent } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,6 +10,7 @@ interface AnswerInputProps {
   title: string;
   draft: string;
   readOnly: boolean;
+  busy: boolean;
   onDraftChange: (draft: string) => void;
   onSubmit: () => void;
 }
@@ -19,9 +20,24 @@ export default function AnswerInput({
   title,
   draft,
   readOnly,
+  busy,
   onDraftChange,
   onSubmit
 }: AnswerInputProps) {
+  const areaRef = useRef<HTMLTextAreaElement>(null);
+  const pendingCaret = useRef<number | null>(null);
+  const canSubmit = !busy && !readOnly;
+
+  // Restore the caret once the parent's new draft has actually rendered.
+  useLayoutEffect(() => {
+    if (pendingCaret.current === null || !areaRef.current) return;
+    areaRef.current.setSelectionRange(
+      pendingCaret.current,
+      pendingCaret.current
+    );
+    pendingCaret.current = null;
+  }, [draft]);
+
   if (answer.type === 'choice') {
     return (
       <div className="flex flex-col gap-2" role="group" aria-label={title}>
@@ -53,7 +69,7 @@ export default function AnswerInput({
         readOnly={readOnly}
         onChange={(e) => onDraftChange(e.target.value)}
         onKeyDown={(e) => {
-          if (e.key === 'Enter') onSubmit();
+          if (e.key === 'Enter' && canSubmit) onSubmit();
         }}
       />
     );
@@ -64,23 +80,23 @@ export default function AnswerInput({
   const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
       e.preventDefault();
-      onSubmit();
+      if (canSubmit) onSubmit();
       return;
     }
-    if (isCode && e.key === 'Tab' && !readOnly) {
+    if (isCode && e.key === 'Tab' && !e.shiftKey && !readOnly) {
       e.preventDefault();
       const el = e.currentTarget;
       const { selectionStart, selectionEnd, value } = el;
       onDraftChange(
         `${value.slice(0, selectionStart)}  ${value.slice(selectionEnd)}`
       );
-      const caret = selectionStart + 2;
-      requestAnimationFrame(() => el.setSelectionRange(caret, caret));
+      pendingCaret.current = selectionStart + 2;
     }
   };
 
   return (
     <Textarea
+      ref={areaRef}
       value={draft}
       aria-label={title}
       placeholder={isCode ? answer.signature : undefined}
