@@ -17,7 +17,7 @@ export default function AreaGlyph({ area, className }: AreaGlyphProps) {
       viewBox="0 0 16 16"
       fill="none"
       stroke="currentColor"
-      strokeWidth={weight ?? 1.75}
+      strokeWidth={weight ?? 2.25}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={cn('size-3.5 shrink-0', className)}

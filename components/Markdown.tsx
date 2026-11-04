@@ -7,20 +7,20 @@ interface MarkdownProps {
   className?: string;
 }
 
-// Problem prose is set in the text serif. The typography plugin is not
+// Problem prose in Figtree at reading size. The typography plugin is not
 // installed, so spacing is handled with child selectors: every top-level
 // block after the first gets the same gap, so lists and code keep the
-// paragraph rhythm. Code uses the mono; quotes are set in italic against a
-// hairline, like a clue copied into a notebook.
+// paragraph rhythm. A quoted clue becomes a white card, code sits on the
+// grey track in the mono.
 const PROSE = [
-  'font-serif text-[1.1875rem] leading-[1.6] text-pretty sm:text-[1.25rem] [&>*+*]:mt-4',
-  '[&_a]:underline [&_a]:decoration-1 [&_a]:underline-offset-4',
-  '[&_blockquote]:border-l [&_blockquote]:border-input [&_blockquote]:pl-4 [&_blockquote]:italic',
-  '[&_code]:rounded [&_code]:bg-muted [&_code]:px-1 [&_code]:font-mono [&_code]:text-[0.84em] [&_code]:wrap-break-word',
-  '[&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:bg-muted [&_pre]:px-4 [&_pre]:py-3 [&_pre]:text-[0.95rem] [&_pre]:leading-relaxed',
+  'max-w-[66ch] text-[1.0625rem] leading-[1.6] text-pretty sm:text-[1.125rem] [&>*+*]:mt-4',
+  '[&_a]:font-semibold [&_a]:text-blue-line [&_a]:underline [&_a]:decoration-2 [&_a]:underline-offset-4',
+  '[&_blockquote]:rounded-[18px] [&_blockquote]:border [&_blockquote]:border-hairline [&_blockquote]:bg-surface [&_blockquote]:px-4 [&_blockquote]:py-3 [&_blockquote]:font-semibold [&_blockquote]:shadow-[0_1px_2px_rgb(0_0_0/0.04)]',
+  '[&_code]:rounded-md [&_code]:bg-track [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.85em] [&_code]:wrap-break-word',
+  '[&_pre]:overflow-x-auto [&_pre]:rounded-[18px] [&_pre]:bg-track [&_pre]:px-4 [&_pre]:py-3 [&_pre]:text-[0.875rem] [&_pre]:leading-relaxed',
   '[&_pre_code]:bg-transparent [&_pre_code]:p-0',
-  '[&_li]:mt-1.5 [&_li]:pl-1 [&_li]:marker:text-muted-foreground [&_ol]:list-decimal [&_ol]:pl-6 [&_ul]:list-disc [&_ul]:pl-6',
-  '[&_strong]:font-semibold'
+  '[&_li]:mt-1.5 [&_li]:pl-1 [&_li]:marker:text-ink-muted [&_ol]:list-decimal [&_ol]:pl-6 [&_ul]:list-disc [&_ul]:pl-6',
+  '[&_strong]:font-bold'
 ].join(' ');
 
 export default function Markdown({ children, className }: MarkdownProps) {

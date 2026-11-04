@@ -2,16 +2,21 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 
+/* Shown only where there is a precise pointer and hover, i.e. a keyboard is
+   likely: the "?" keycap on the Hint button. */
+@custom-variant pointer-fine (@media (hover: hover) and (pointer: fine));
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  /* next/font sets --font-text, --font-ui and --font-code on <html>. The
-     names differ from the theme keys on purpose: a self-reference here once
-     made font-family invalid. */
-  --font-sans: var(--font-ui), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-text), ui-serif, Georgia, serif;
-  --font-mono: var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-heading: var(--font-text), ui-serif, Georgia, serif;
+  /* next/font sets --font-figtree, --font-caveat and --font-jetbrains on
+     <html>. The names differ from the theme keys on purpose: a
+     self-reference here makes font-family invalid. */
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  --font-hand: var(--font-caveat), ui-rounded, cursive;
+  --font-mono:
+    var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -28,8 +33,22 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  /* Way's own names, from docs/2026-11-04-way-design-system.md. */
+  --color-ground: var(--ground);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-hairline: var(--hairline);
+  --color-field: var(--field-edge);
+  --color-surface: var(--surface);
+  --color-track: var(--track);
+  --color-blue: var(--blue);
+  --color-blue-hover: var(--blue-hover);
+  --color-blue-line: var(--blue-line);
+  --color-blue-tint: var(--blue-tint);
+  --color-yellow: var(--yellow);
+  --color-yellow-ink: var(--yellow-ink);
+  --color-red: var(--red);
   --color-mark-empty: var(--mark-empty);
-  --color-mark-muted: var(--mark-muted);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -39,73 +58,113 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* Evening notebook. Light: warm paper, ink, hairline rules. Dark: warm ink
-   ground and off-white text with low glare. Lamp amber is the one accent:
-   the primary action, focus and the current mark. Area colours are identity
-   only, never success or failure. */
+/* Bold, playful and glossy: a near-white ground with a faint tile grid,
+   heavy Figtree, saturated blue / yellow / red / black. Blue is the one
+   action colour; yellow is the bright secondary (Run, Hint); red is an
+   accent word and wrong-answer emphasis. */
 :root {
   color-scheme: light;
-  --background: #f5f0e6;
-  --foreground: #231e18;
-  --card: #fbf8f2;
-  --card-foreground: #231e18;
-  --popover: #fbf8f2;
-  --popover-foreground: #231e18;
-  --primary: #e0a045;
-  --primary-foreground: #231e18;
-  --secondary: #ebe4d7;
-  --secondary-foreground: #231e18;
-  --muted: #ebe4d7;
-  --muted-foreground: #6a6054;
-  --accent: #ebe4d7;
-  --accent-foreground: #231e18;
-  --destructive: #b4372b;
-  --border: #ddd4c4;
-  /* Field edges reach 3:1 against the paper. */
-  --input: #8f8474;
-  /* The amber fill is too light to mark focus on paper, so the ring is a
-     deeper amber of the same hue. */
-  --ring: #9a5b0c;
-  /* Gave-up marks reach 3:1 so the strip reads without colour. */
-  --mark-empty: #b3a895;
-  --mark-muted: #928672;
-  --area-words: #a8473a;
-  --area-logic: #3f5f9e;
-  --area-math: #2b735f;
-  --area-code: #7f4f95;
-  --area-create: #566d2d;
-  --radius: 0.5rem;
+  --ground: #fafafa;
+  --ground-tile: #efefef;
+  --ink: #030303;
+  --ink-muted: #5c5c5c;
+  --hairline: #e8e8e8;
+  /* Field edges are a step darker than the hairline so a white field still
+     reads as a field on the near-white ground. */
+  --field-edge: #d9d9d9;
+  --surface: #ffffff;
+  --track: #f2f2f2;
+  /* #3476d8 (the reference blue) gives white labels 4.44:1; one step deeper
+     reaches 4.79:1 with the same hue. Fills use --blue; rings, borders and
+     the selected edge use --blue-line. */
+  --blue: #3070d3;
+  --blue-hover: #2868c7;
+  --blue-line: #3070d3;
+  --blue-tint: color-mix(in srgb, #3070d3 8%, #ffffff);
+  --yellow: #f8c808;
+  --yellow-hover: #f0c106;
+  --yellow-ink: #241900;
+  --red: #b91c1c;
+  --black: #0a0a0a;
+  --black-hover: #262626;
+  --black-ink: #ffffff;
+  /* Upcoming marks are outlines at 3:1, darker than the decorative grid. */
+  --mark-empty: #8f8f8f;
+  /* Area tiles: saturated fills with a white glyph (math: ink glyph). */
+  --area-words: #b91c1c;
+  --area-logic: #3070d3;
+  --area-math: #f8c808;
+  --area-code: #0a0a0a;
+  --area-create: #16a34a;
+  --area-light-ink: #ffffff;
+  --area-math-ink: #241900;
+  /* Glass: a pale rim with gloss bands around a saturated inner pill. */
+  --glass-rim: #ffffff;
+  --glass-rim-hi: #f8fbff;
+  --glass-band: rgb(255 255 255 / 0.95);
+  --glass-hi: #ffffff;
+  --glass-hi-soft: rgb(255 255 255 / 0.8);
+  --glass-inner-edge: rgb(255 255 255 / 0.65);
+  --glass-drop-line: rgb(126 148 181 / 0.25);
+  --glass-drop: rgb(35 56 85 / 0.08);
+  --tile-grid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='84'%3E%3Crect x='6.75' y='6.75' width='70.5' height='70.5' rx='18' fill='none' stroke='%23efefef' stroke-width='1.5'/%3E%3C/svg%3E");
+
+  /* shadcn names, mapped onto Way's tokens for the primitives. */
+  --background: var(--ground);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--blue);
+  --primary-foreground: #ffffff;
+  --secondary: var(--track);
+  --secondary-foreground: var(--ink);
+  --muted: var(--track);
+  --muted-foreground: var(--ink-muted);
+  --accent: var(--track);
+  --accent-foreground: var(--ink);
+  --destructive: var(--red);
+  --border: var(--hairline);
+  --input: var(--field-edge);
+  --ring: var(--blue-line);
+  --radius: 1rem;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     /* Native scrollbars and form controls follow the theme too. */
     color-scheme: dark;
-    --background: #171512;
-    --foreground: #eae3d3;
-    --card: #1f1c18;
-    --card-foreground: #eae3d3;
-    --popover: #1f1c18;
-    --popover-foreground: #eae3d3;
-    --primary: #e2a548;
-    --primary-foreground: #171512;
-    --secondary: #26231e;
-    --secondary-foreground: #eae3d3;
-    --muted: #26231e;
-    --muted-foreground: #a2988a;
-    --accent: #26231e;
-    --accent-foreground: #eae3d3;
-    --destructive: #e07a6e;
-    --border: #2e2a24;
-    --input: #736b5e;
-    --ring: #e2a548;
-    --mark-empty: #554e44;
-    --mark-muted: #6e665a;
-    --area-words: #d98c7e;
-    --area-logic: #93a9d9;
-    --area-math: #7dbfaa;
-    --area-code: #c29cd0;
-    --area-create: #a9be7f;
+    --ground: #0c0c0d;
+    --ground-tile: #18181a;
+    --ink: #f5f5f5;
+    --ink-muted: #a3a3a3;
+    --hairline: #262628;
+    --field-edge: #303034;
+    --surface: #141416;
+    --track: #1c1c1f;
+    /* The fill stays deep enough for white labels; the line is lighter so
+       rings and the selected edge read on the dark ground. */
+    --blue: #3070d3;
+    --blue-hover: #2868c7;
+    --blue-line: #4a8ae6;
+    --blue-tint: color-mix(in srgb, #4a8ae6 14%, #141416);
+    --red: #ef4444;
+    /* The "black" button inverts. */
+    --black: #f5f5f5;
+    --black-hover: #d9d9d9;
+    --black-ink: #0a0a0a;
+    --mark-empty: #606066;
+    --area-code: #2a2a2e;
+    --glass-rim: #0c0c0d;
+    --glass-rim-hi: #0c0c0d;
+    --glass-band: rgb(255 255 255 / 0.35);
+    --glass-hi: rgb(255 255 255 / 0.25);
+    --glass-hi-soft: rgb(255 255 255 / 0.2);
+    --glass-inner-edge: rgb(255 255 255 / 0.18);
+    --glass-drop-line: rgb(0 0 0 / 0.6);
+    --glass-drop: rgb(0 0 0 / 0.4);
+    --tile-grid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='84'%3E%3Crect x='6.75' y='6.75' width='70.5' height='70.5' rx='18' fill='none' stroke='%2318181a' stroke-width='1.5'/%3E%3C/svg%3E");
   }
 }
 
@@ -114,22 +173,198 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply relative isolate bg-background text-foreground;
   }
   html {
     @apply font-sans;
   }
-  ::selection {
-    background-color: color-mix(in oklab, var(--primary) 40%, transparent);
+  /* The rounded-tile grid sits behind the masthead and fades out before
+     the prompt, so it never runs under body text. */
+  body::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: -1;
+    height: 13rem;
+    pointer-events: none;
+    background-image: var(--tile-grid);
+    background-position: center -12px;
+    background-size: 84px 84px;
+    mask-image: linear-gradient(to bottom, #000 25%, transparent 100%);
   }
-  /* Text links get a clear keyboard focus mark; controls draw their own ring. */
+  ::selection {
+    background-color: color-mix(in oklab, var(--yellow) 55%, transparent);
+  }
+  /* Text links get a clear keyboard focus mark; controls draw their own. */
   a:focus-visible {
-    @apply rounded-xs outline-2 outline-offset-2 outline-ring;
+    @apply rounded-md outline-3 outline-offset-2 outline-blue-line;
   }
 }
 
-/* A new problem is laid onto the page: a short rise and fade. Under reduced
-   motion it simply appears. */
+@layer components {
+  .glass {
+    --glass-fill: var(--blue);
+    --glass-fill-hover: var(--blue-hover);
+    --glass-text: #ffffff;
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    padding: 0 1.75rem 2px;
+    border: 1px solid
+      color-mix(in srgb, var(--glass-fill) 30%, var(--glass-rim));
+    border-radius: 24px;
+    color: var(--glass-text);
+    font-weight: 900;
+    font-size: 1.0625rem;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    background:
+      linear-gradient(
+        112deg,
+        transparent 12%,
+        var(--glass-band) 14%,
+        transparent 19%,
+        transparent 70%,
+        var(--glass-band) 74%,
+        transparent 82%
+      ),
+      linear-gradient(
+        180deg,
+        var(--glass-rim-hi) 0%,
+        color-mix(in srgb, var(--glass-fill) 24%, var(--glass-rim)) 35%,
+        var(--glass-rim-hi) 60%,
+        color-mix(in srgb, var(--glass-fill) 32%, var(--glass-rim)) 86%,
+        var(--glass-rim-hi) 100%
+      );
+    box-shadow:
+      inset 0 1px 0 var(--glass-hi),
+      inset 1px 0 0 var(--glass-hi),
+      inset -1px 0 0 var(--glass-hi-soft),
+      inset 0 -2px 1px var(--glass-hi),
+      0 1px 0 var(--glass-drop-line),
+      0 4px 8px var(--glass-drop);
+  }
+  /* The saturated pill inside the rim carries the label. */
+  .glass::before {
+    content: '';
+    position: absolute;
+    inset: 2px 2px 4px;
+    z-index: -1;
+    border: 1px solid var(--glass-inner-edge);
+    border-radius: 21px;
+    background: var(--glass-fill);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.4),
+      0 1px 3px rgb(26 49 83 / 0.25);
+    pointer-events: none;
+  }
+  @media (hover: hover) {
+    .glass:hover:not(:disabled)::before {
+      background: var(--glass-fill-hover);
+    }
+  }
+  /* Press: the pill and its label sink 2px and the outer shadow halves. */
+  .glass:active:not(:disabled) {
+    padding-top: 4px;
+    padding-bottom: 0;
+    box-shadow:
+      inset 0 1px 0 var(--glass-hi),
+      inset 1px 0 0 var(--glass-hi),
+      inset -1px 0 0 var(--glass-hi-soft),
+      inset 0 -2px 1px var(--glass-hi),
+      0 1px 0 var(--glass-drop-line),
+      0 2px 4px var(--glass-drop);
+  }
+  .glass:active:not(:disabled)::before {
+    translate: 0 2px;
+  }
+  .glass:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    background: var(--glass-rim);
+  }
+  .glass:focus-visible {
+    outline: 3px solid var(--blue-line);
+    outline-offset: 2px;
+  }
+  .glass-yellow {
+    --glass-fill: var(--yellow);
+    --glass-fill-hover: var(--yellow-hover);
+    --glass-text: var(--yellow-ink);
+  }
+  .glass-black {
+    --glass-fill: var(--black);
+    --glass-fill-hover: var(--black-hover);
+    --glass-text: var(--black-ink);
+  }
+  .glass-white {
+    --glass-fill: var(--surface);
+    --glass-fill-hover: var(--track);
+    --glass-text: var(--ink);
+  }
+
+  /* An area "app tile": saturated fill, glyph, and the glass gloss. */
+  .area-tile {
+    position: relative;
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 28%;
+    background-color: var(--area);
+    background-image: linear-gradient(
+      112deg,
+      transparent 12%,
+      rgb(255 255 255 / 0.22) 14%,
+      transparent 22%,
+      transparent 68%,
+      rgb(255 255 255 / 0.14) 74%,
+      transparent 82%
+    );
+    color: var(--area-ink);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.45),
+      inset 0 -2px 1px rgb(0 0 0 / 0.12),
+      0 1px 2px rgb(26 49 83 / 0.18);
+  }
+
+  /* Hints: numbered yellow dots. The numbers are generated, so the list
+     items' text stays the hints themselves. */
+  .hint-list {
+    counter-reset: hint;
+  }
+  .hint-list > li {
+    counter-increment: hint;
+  }
+  .hint-list > li::before {
+    content: counter(hint);
+    position: absolute;
+    top: 0.05rem;
+    left: 0;
+    display: grid;
+    place-items: center;
+    width: 1.625rem;
+    height: 1.625rem;
+    border-radius: 9999px;
+    background: var(--yellow);
+    color: var(--yellow-ink);
+    font-size: 0.875rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+}
+
+@counter-style way-numeral {
+  system: extends decimal;
+  suffix: ' ';
+}
+
+/* A new problem slides up into place; a finished mark pops. Under reduced
+   motion both simply appear. */
 @keyframes way-enter {
   from {
     opacity: 0;
@@ -137,10 +372,27 @@
   }
 }
 
+@keyframes way-pop {
+  from {
+    transform: scale(0.9);
+  }
+}
+
 @layer components {
   @media (prefers-reduced-motion: no-preference) {
     .way-enter {
       animation: way-enter 220ms cubic-bezier(0.23, 1, 0.32, 1) both;
+    }
+    .way-pop {
+      animation: way-pop 180ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .glass,
+    .glass::before {
+      transition:
+        padding 60ms ease-out,
+        translate 60ms ease-out,
+        box-shadow 60ms ease-out,
+        background-color 150ms ease-out;
     }
   }
 }
