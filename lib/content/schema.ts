@@ -56,46 +56,46 @@ export const contentStatusSchema = z.enum([
 ]);
 export type ContentStatus = z.infer<typeof contentStatusSchema>;
 
-export const problemSchema = z
-  .object({
-    id: z.string(),
-    area: areaSchema,
-    difficulty: z.number().int().min(1).max(5),
-    title: z.string(),
-    prompt: z.string(),
-    answer: answerSchema,
-    hints: z.array(z.string()),
-    solution: z.string(),
-    solver: z.string().optional(),
-    source: z.object({
-      kind: z.enum(['original', 'adapted', 'generated']),
-      attribution: z.string().optional()
-    }),
-    status: contentStatusSchema,
-    tags: z.array(z.string()).default([]),
-    createdAt: z.string()
-  })
-  .superRefine((problem, ctx) => {
-    const expectedHints =
-      problem.difficulty === DEEP_DIFFICULTY ? DEEP_HINTS : DAILY_HINTS;
-    if (problem.hints.length !== expectedHints) {
-      ctx.addIssue({
-        code: 'custom',
-        path: ['hints'],
-        message: `Difficulty ${problem.difficulty} requires exactly ${expectedHints} hints, got ${problem.hints.length}`
-      });
-    }
-    if (
-      problem.answer.type === 'choice' &&
-      problem.answer.correctIndex >= problem.answer.options.length
-    ) {
-      ctx.addIssue({
-        code: 'custom',
-        path: ['answer', 'correctIndex'],
-        message: `correctIndex ${problem.answer.correctIndex} is outside options (length ${problem.answer.options.length})`
-      });
-    }
-  });
+export const problemObjectSchema = z.object({
+  id: z.string(),
+  area: areaSchema,
+  difficulty: z.number().int().min(1).max(5),
+  title: z.string(),
+  prompt: z.string(),
+  answer: answerSchema,
+  hints: z.array(z.string()),
+  solution: z.string(),
+  solver: z.string().optional(),
+  source: z.object({
+    kind: z.enum(['original', 'adapted', 'generated']),
+    attribution: z.string().optional()
+  }),
+  status: contentStatusSchema,
+  tags: z.array(z.string()).default([]),
+  createdAt: z.string()
+});
+
+export const problemSchema = problemObjectSchema.superRefine((problem, ctx) => {
+  const expectedHints =
+    problem.difficulty === DEEP_DIFFICULTY ? DEEP_HINTS : DAILY_HINTS;
+  if (problem.hints.length !== expectedHints) {
+    ctx.addIssue({
+      code: 'custom',
+      path: ['hints'],
+      message: `Difficulty ${problem.difficulty} requires exactly ${expectedHints} hints, got ${problem.hints.length}`
+    });
+  }
+  if (
+    problem.answer.type === 'choice' &&
+    problem.answer.correctIndex >= problem.answer.options.length
+  ) {
+    ctx.addIssue({
+      code: 'custom',
+      path: ['answer', 'correctIndex'],
+      message: `correctIndex ${problem.answer.correctIndex} is outside options (length ${problem.answer.options.length})`
+    });
+  }
+});
 export type Problem = z.infer<typeof problemSchema>;
 
 export const scheduleSchema = z.object({

@@ -50,3 +50,4 @@ coverage/
 .claude
 .agents
 skills-lock.json
+!.env.example
