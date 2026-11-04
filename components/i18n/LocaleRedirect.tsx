@@ -14,8 +14,9 @@ const browserLanguages = (): readonly string[] =>
 
 /**
  * Moves the reader to the same page in their language: the one they picked
- * with the switch, or, before any pick, an Uzbek browser's. The decision is
- * the pure `chooseLocale`; this only applies it.
+ * with the switch, or, before any pick and when arriving from another site,
+ * an Uzbek browser's. The decision is the pure `chooseLocale`; this only
+ * applies it.
  */
 export default function LocaleRedirect() {
   const locale = useLocale();
@@ -28,7 +29,9 @@ export default function LocaleRedirect() {
     const target = chooseLocale({
       page: locale,
       stored: readStoredLocale(),
-      languages: browserLanguages()
+      languages: browserLanguages(),
+      referrer: document.referrer,
+      origin: window.location.origin
     });
     if (target !== null) router.replace(localeHref(here.page, target));
   }, [locale, pathname, router]);

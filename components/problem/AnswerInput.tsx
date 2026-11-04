@@ -22,8 +22,9 @@ interface AnswerInputProps {
 }
 
 export default function AnswerInput(props: AnswerInputProps) {
+  const messages = useMessages();
   const { answer, draft, notice = null } = props;
-  const count = wordCountLabel(answer, draft, useMessages());
+  const count = wordCountLabel(answer, draft, messages);
   return (
     <div className="space-y-2">
       <AnswerField {...props} />

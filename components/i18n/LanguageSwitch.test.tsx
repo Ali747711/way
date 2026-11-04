@@ -30,8 +30,9 @@ describe('LanguageSwitch', () => {
     renderAt('/about', 'en');
     const nav = screen.getByRole('navigation', { name: 'Language' });
     expect(nav).toBeInTheDocument();
-    const english = screen.getByRole('link', { name: 'English' });
-    const uzbek = screen.getByRole('link', { name: 'Oʻzbekcha' });
+    // The names contain the visible codes (label in name).
+    const english = screen.getByRole('link', { name: 'English (EN)' });
+    const uzbek = screen.getByRole('link', { name: 'Oʻzbekcha (UZ)' });
     expect(english).toHaveAttribute('aria-current', 'page');
     expect(uzbek).not.toHaveAttribute('aria-current');
     expect(english).toHaveTextContent('EN');
@@ -41,11 +42,10 @@ describe('LanguageSwitch', () => {
 
   it('links to the same page in the other language', () => {
     renderAt('/about', 'en');
-    expect(screen.getByRole('link', { name: 'Oʻzbekcha' })).toHaveAttribute(
-      'href',
-      '/uz/about'
-    );
-    expect(screen.getByRole('link', { name: 'English' })).toHaveAttribute(
+    expect(
+      screen.getByRole('link', { name: 'Oʻzbekcha (UZ)' })
+    ).toHaveAttribute('href', '/uz/about');
+    expect(screen.getByRole('link', { name: 'English (EN)' })).toHaveAttribute(
       'href',
       '/about'
     );
@@ -54,27 +54,26 @@ describe('LanguageSwitch', () => {
   it('maps the Uzbek pages back to English', () => {
     renderAt('/uz/deep', 'uz');
     expect(screen.getByRole('navigation', { name: 'Til' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'English' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'English (EN)' })).toHaveAttribute(
       'href',
       '/deep'
     );
-    expect(screen.getByRole('link', { name: 'Oʻzbekcha' })).toHaveAttribute(
-      'aria-current',
-      'page'
-    );
+    expect(
+      screen.getByRole('link', { name: 'Oʻzbekcha (UZ)' })
+    ).toHaveAttribute('aria-current', 'page');
   });
 
   it('remembers the pick when a language is chosen', () => {
     renderAt('/', 'en');
     // jsdom does not navigate; the click handler is what is under test.
-    fireEvent.click(screen.getByRole('link', { name: 'Oʻzbekcha' }));
+    fireEvent.click(screen.getByRole('link', { name: 'Oʻzbekcha (UZ)' }));
     expect(window.localStorage.getItem(LOCALE_KEY)).toBe('uz');
   });
 
   it('stays on the page when the current language is chosen', () => {
     renderAt('/uz', 'uz');
     const notPrevented = fireEvent.click(
-      screen.getByRole('link', { name: 'Oʻzbekcha' })
+      screen.getByRole('link', { name: 'Oʻzbekcha (UZ)' })
     );
     expect(notPrevented).toBe(false);
     expect(window.localStorage.getItem(LOCALE_KEY)).toBe('uz');
@@ -82,7 +81,7 @@ describe('LanguageSwitch', () => {
 
   it('is reachable by keyboard', () => {
     renderAt('/', 'en');
-    for (const name of ['English', 'Oʻzbekcha']) {
+    for (const name of ['English (EN)', 'Oʻzbekcha (UZ)']) {
       const link = screen.getByRole('link', { name });
       link.focus();
       expect(link).toHaveFocus();

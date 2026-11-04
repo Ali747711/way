@@ -37,6 +37,11 @@ describe('uz messages', () => {
     expect(keyPaths(uz)).toEqual(keyPaths(en));
   });
 
+  it('has as many intro paragraphs and principles as English', () => {
+    expect(uz.about.intro).toHaveLength(en.about.intro.length);
+    expect(uz.about.principles).toHaveLength(en.about.principles.length);
+  });
+
   it('has no empty string', () => {
     // The accented headings start with the accent word, so `lead` is empty.
     const empty = strings.filter(
@@ -85,11 +90,17 @@ describe('uz messages with numbers', () => {
   });
 
   it('reads code results and the day summary', () => {
-    expect(t.code.passed(0, 2)).toBe('2 tadan 0 tasi oʻtdi');
-    expect(t.code.passed(2, 2)).toBe('2 tadan 2 tasi oʻtdi');
+    expect(t.code.passed(0, 2)).toBe('2 ta testdan 0 tasi oʻtdi');
+    expect(t.code.passed(2, 2)).toBe('2 ta testdan 2 tasi oʻtdi');
     expect(t.done.summary(5, 5, 1, 12)).toBe(
-      '5 tadan 5 tasi yechildi · 1 ta maslahat · 12 daqiqa'
+      '5\u00a0tadan 5\u00a0tasi yechildi · 1\u00a0ta maslahat · 12\u00a0daqiqa'
     );
+  });
+
+  it('never lets the summary break between a number and its unit', () => {
+    const line = t.done.summary(3, 5, 0, 0);
+    expect(line).not.toMatch(/\d /);
+    expect(line.match(/\d\u00a0/g)).toHaveLength(4);
   });
 
   it('gives each word limit as an instruction', () => {
@@ -102,7 +113,7 @@ describe('uz messages with numbers', () => {
   it('captions the area map', () => {
     expect(areaCaption(null, uz)).toBe('hali yoʻq');
     expect(areaCaption(0, uz)).toBe('oxirgi: bugun');
-    expect(areaCaption(1, uz)).toBe('oxirgi: 1 kun oldin');
+    expect(areaCaption(1, uz)).toBe('oxirgi: kecha');
     expect(areaCaption(2, uz)).toBe('oxirgi: 2 kun oldin');
   });
 

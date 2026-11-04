@@ -16,13 +16,10 @@ export default function HintLadder({
   disabled,
   onHint
 }: HintLadderProps) {
-  const shown = hints.slice(0, revealed);
-  const label = useMessages().problem.hint(
-    Math.min(revealed + 1, maxHints),
-    maxHints
-  );
-
+  const t = useMessages().problem;
   const lang = useContentLang();
+  const shown = hints.slice(0, revealed);
+  const label = t.hint(Math.min(revealed + 1, maxHints), maxHints);
 
   return (
     <div className="space-y-4">

@@ -75,7 +75,7 @@ Each area is an "app tile": a 44–56px rounded square (radius ~28% of size) wit
 - **Quiet text button** (Give up, Keep trying): no fill, ink-muted, 600, underline on hover; still ≥44px tall.
 - **Pill input / textarea**: surface fill, 1px hairline, radius 20px (inputs) / 18px (textareas), 56px tall input, 17px text, inset `0 1px 2px rgba(0,0,0,.04)`, focus border `--blue` plus the focus ring. Code textarea uses the mono face and a `--track` fill.
 - **Choice options**: white pills in a stack, 56px, radius 18px, 1px hairline; selected = 2px `--blue` border and a light blue tint; keep `aria-pressed`.
-- **Segmented / tab pills** (only where an existing toggle exists; do not invent navigation).
+- **Segmented / tab pills** (only where an existing toggle exists; do not invent navigation). Also used for the EN/UZ language switch on About, Done and NoSet (not on the Problem screen).
 - **Set strip**: five small area tiles (28–32px) in slot order in the header. Current = full tile with a 2px ring; solved = full tile with a small white check; gave up / failed = tile at 35% saturation with a small dash; upcoming = outline-only tile. Status is never colour-only (check, dash, ring, outline).
 - **Outcome panel**: a white card with radius 24px and the soft shadow. `Solved` heading in Figtree 900 with a hand-drawn squiggle underline in `--blue`. `Not quite` uses `--red` text. `Out of attempts` / `The solution` neutral.
 - **Hints**: numbered yellow-dot list items in a `--track` card; the Hint button is a yellow glass button.

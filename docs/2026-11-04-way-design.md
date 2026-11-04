@@ -71,7 +71,7 @@ Explicitly not in v1. Several are strong candidates for v2 (§13).
 - A live AI coach you can chat with
 - AI feedback on creative submissions
 - Native mobile apps
-- Multiple languages
+- Multiple languages. Exception added 2026-11-05 at the owner's request: an Uzbek interface at `/uz` (problems stay English), with an EN/UZ switch.
 - Analytics or telemetry
 - Monetization of any kind
 

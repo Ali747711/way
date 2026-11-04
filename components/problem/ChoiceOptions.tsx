@@ -45,12 +45,13 @@ export default function ChoiceOptions({
   readOnly,
   onDraftChange
 }: ChoiceOptionsProps) {
+  const lang = useContentLang();
   return (
     <div
       className="flex flex-col gap-2.5"
       role="group"
       aria-label={title}
-      lang={useContentLang()}
+      lang={lang}
     >
       {options.map((option, i) => (
         <Button

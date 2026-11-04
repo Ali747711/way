@@ -1,7 +1,14 @@
 import { describe, expect, it } from 'vitest';
 
 import type { Locale } from './types';
-import { chooseLocale, parseStoredLocale, preferredLocale } from './choose';
+import {
+  chooseLocale,
+  isSameOrigin,
+  parseStoredLocale,
+  preferredLocale
+} from './choose';
+
+const ORIGIN = 'https://way.example';
 
 describe('parseStoredLocale', () => {
   it('accepts the two locales and nothing else', () => {
@@ -34,8 +41,9 @@ describe('preferredLocale', () => {
 });
 
 describe('chooseLocale', () => {
+  // A direct visit: no referrer.
   const pick = (page: Locale, stored: Locale | null, languages: string[]) =>
-    chooseLocale({ page, stored, languages });
+    chooseLocale({ page, stored, languages, referrer: '', origin: ORIGIN });
 
   it('follows the stored pick over the browser', () => {
     expect(pick('en', 'uz', ['en-US'])).toBe('uz');
@@ -63,6 +71,44 @@ describe('chooseLocale', () => {
     expect(pick('uz', null, [])).toBeNull();
   });
 
+  it('skips browser detection when arriving from one of its own pages', () => {
+    // Storage blocked: the switch to English was not kept, but the reader
+    // came from /uz/about by choice and must not be sent back.
+    expect(
+      chooseLocale({
+        page: 'en',
+        stored: null,
+        languages: ['uz-UZ'],
+        referrer: `${ORIGIN}/uz/about`,
+        origin: ORIGIN
+      })
+    ).toBeNull();
+  });
+
+  it('still detects when arriving from another site', () => {
+    expect(
+      chooseLocale({
+        page: 'en',
+        stored: null,
+        languages: ['uz-UZ'],
+        referrer: 'https://search.example/?q=way',
+        origin: ORIGIN
+      })
+    ).toBe('uz');
+  });
+
+  it('lets a stored pick win whatever the referrer', () => {
+    expect(
+      chooseLocale({
+        page: 'en',
+        stored: 'uz',
+        languages: ['en-US'],
+        referrer: `${ORIGIN}/about`,
+        origin: ORIGIN
+      })
+    ).toBe('uz');
+  });
+
   it('cannot loop: after one move the new page stays put', () => {
     const cases: Array<[Locale | null, string[]]> = [
       [null, ['uz-UZ']],
@@ -78,5 +124,16 @@ describe('chooseLocale', () => {
         }
       }
     }
+  });
+});
+
+describe('isSameOrigin', () => {
+  it('matches only this origin', () => {
+    expect(isSameOrigin(`${ORIGIN}/uz`, ORIGIN)).toBe(true);
+    expect(isSameOrigin(`${ORIGIN}/`, ORIGIN)).toBe(true);
+    expect(isSameOrigin('https://other.example/uz', ORIGIN)).toBe(false);
+    expect(isSameOrigin('http://way.example/uz', ORIGIN)).toBe(false);
+    expect(isSameOrigin('', ORIGIN)).toBe(false);
+    expect(isSameOrigin('not a url', ORIGIN)).toBe(false);
   });
 });

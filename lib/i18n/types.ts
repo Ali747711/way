@@ -10,6 +10,20 @@ export interface AccentedText {
   tail: string;
 }
 
+/** The About intro: three paragraphs in every language. */
+export type AboutIntro = readonly [string, string, string];
+
+/** The seven principles, in order, in every language. */
+export type Principles = readonly [
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string
+];
+
 /** How a mark on the set strip is read out. */
 export type SpokenStatus = 'solved' | 'gave_up' | 'failed' | 'open' | 'current';
 
@@ -99,17 +113,16 @@ export interface Messages {
     about: string;
   };
   about: {
-    intro: readonly string[];
+    intro: AboutIntro;
     /** A line under the intro about the problems' language, if any. */
     contentNote: string | null;
     principlesHeading: string;
-    principles: readonly string[];
+    principles: Principles;
     backToToday: string;
     source: string;
   };
   notFound: {
-    title: string;
-    status: string;
+    /** Shown under the 404 status; the page title is `404: <message>`. */
     message: string;
   };
   language: {

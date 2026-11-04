@@ -38,12 +38,12 @@ export const uz: Messages = {
   giveUp: {
     question: 'Yechimni koʻrsataymi? Bugun qayta urinib boʻlmaydi.',
     confirm: 'Yechimni koʻrsatish',
-    keepTrying: 'Urinishda davom etish'
+    keepTrying: 'Yana urinib koʻrish'
   },
   code: {
     timedOut: 'Vaqt tugadi',
-    passed: (passed, total) => `${total} tadan ${passed} tasi oʻtdi`,
-    input: 'Kirish:',
+    passed: (passed, total) => `${total} ta testdan ${passed} tasi oʻtdi`,
+    input: 'Kiritilgan:',
     expected: 'Kutilgan:',
     error: 'Xato:',
     actual: 'Natija:'
@@ -62,7 +62,7 @@ export const uz: Messages = {
     label: 'Bugungi toʻplam',
     status: {
       solved: 'yechildi',
-      gave_up: 'taslim boʻlindi',
+      gave_up: 'voz kechildi',
       failed: 'yechilmadi',
       open: 'boshlanmagan',
       current: 'joriy'
@@ -71,20 +71,22 @@ export const uz: Messages = {
   },
   done: {
     title: { lead: '', accent: 'Bugungisi', tail: ' shu.' },
+    // A no-break space ties each number to its unit, so a line never
+    // breaks between "0" and "daqiqa" on a phone.
     summary: (solved, total, hints, minutes) =>
-      `${total} tadan ${solved} tasi yechildi · ${hints} ta maslahat · ${minutes} daqiqa`,
-    deepLink: 'Haftaning chuqur masalasi',
-    comeBack: 'Ertaga qayting.'
+      `${total}\u00a0tadan ${solved}\u00a0tasi yechildi · ${hints}\u00a0ta maslahat · ${minutes}\u00a0daqiqa`,
+    deepLink: 'Shu haftaning chuqur masalasi',
+    comeBack: 'Ertaga qaytib keling.'
   },
   areaMap: {
     never: 'hali yoʻq',
     today: 'oxirgi: bugun',
-    daysAgo: (n) => `oxirgi: ${n} kun oldin`
+    daysAgo: (n) => (n === 1 ? 'oxirgi: kecha' : `oxirgi: ${n} kun oldin`)
   },
   deep: {
     badge: 'Chuqur',
     title: { lead: '', accent: 'Bu haftaniki', tail: ' shu.' },
-    backToToday: 'Bugungi kunga qaytish'
+    backToToday: 'Bugunga qaytish'
   },
   noSet: {
     today: 'Bugun uchun masala yoʻq.',
@@ -93,9 +95,9 @@ export const uz: Messages = {
   },
   about: {
     intro: [
-      'Way — kechalari lentani behuda varaqlash oʻrniga qisqa, chinakam fikrlash lahzalarini beradigan bepul veb-ilova. Har kuni u turli sohalardan kichik va cheklangan masalalar toʻplamini taklif qiladi, ular birma-bir yechiladi.',
+      'Way — kechalari lentani behuda varaqlash oʻrniga qisqa, chinakam fikrlash lahzalarini beradigan bepul veb-ilova. Har kuni u turli sohalardan birma-bir yechiladigan kichik, cheklangan masalalar toʻplamini taklif qiladi.',
       'Maslahatlar faqat savol beradi. Yechim faqat siz javob berganingizdan soʻng ochiladi. Toʻplam tugagach, Way buni aytadi va toʻxtaydi.',
-      'Way sunʼiy intellekt fikrlashni ixtiyoriy qilib qoʻygani uchun yaratilgan: hayotning kuch talab qiladigan qismlari (oʻqish, mulohaza yuritish, izlanish, muhokama) endi mashq qilinmay qoʻydi. Qurilmadan voz kechishni talab qiladigan yechimlar qurilmalarda yashaydigan odamlarga yordam bermaydi, shuning uchun Way ekran vaqtining ichida yashaydi va uning mazmunini almashtiradi. Bu sunʼiy intellekt davrining mahsuloti boʻlib, maqsadi odamlarni kamroq emas, koʻproq fikrlashga undashdir.'
+      'Way sunʼiy intellekt fikrlashni ixtiyoriy qilib qoʻygani uchun yaratilgan: hayotning kuch talab qiladigan qismlari (oʻqish, mulohaza yuritish, izlanish, muhokama) endi mashq qilinmay qoʻydi. Qurilmadan voz kechishni talab qiladigan usullar kuni qurilmalarda oʻtadigan odamlarga yordam bermaydi, shuning uchun Way ekran vaqti ichida yashaydi va uning mazmunini almashtiradi. Bu sunʼiy intellekt davrining mahsuloti boʻlib, maqsadi odamlarni kamroq emas, koʻproq fikrlashga undashdir.'
     ],
     // Delete this line if the problems are translated too.
     contentNote: 'Masalalar hozircha ingliz tilida.',
@@ -107,14 +109,12 @@ export const uz: Messages = {
       'Murabbiy, tayyor javob emas.',
       'Har kuni: chuqurlikdan koʻra xilma-xillik.',
       'Aybdorlik hissi yoʻq.',
-      'Bepul: reklama yoʻq, pullik qism yoʻq, maʼlumot yigʻilmaydi.'
+      'Bepul: reklama yoʻq, pullik qism yoʻq, maʼlumotlaringiz yigʻilmaydi.'
     ],
-    backToToday: 'Bugungi kunga qaytish',
+    backToToday: 'Bugunga qaytish',
     source: 'Manba kodi GitHubda'
   },
   notFound: {
-    title: '404: Sahifa topilmadi.',
-    status: '404',
     message: 'Sahifa topilmadi.'
   },
   language: {

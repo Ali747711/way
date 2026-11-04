@@ -2,7 +2,14 @@ import { en } from './en';
 import type { Locale, Messages } from './types';
 import { uz } from './uz';
 
-export type { AccentedText, Locale, Messages, SpokenStatus } from './types';
+export type {
+  AboutIntro,
+  AccentedText,
+  Locale,
+  Messages,
+  Principles,
+  SpokenStatus
+} from './types';
 
 export const LOCALES: readonly Locale[] = ['en', 'uz'];
 

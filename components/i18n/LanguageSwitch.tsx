@@ -12,7 +12,8 @@ import { cn } from '@/lib/utils';
 import { useLocale, useMessages } from './LocaleProvider';
 
 // Each language is named in itself, so a reader finds theirs whichever page
-// they are on.
+// they are on. The accessible name keeps the visible code ("English (EN)"),
+// so a voice-control user can say what they see (WCAG 2.5.3).
 const OPTIONS: ReadonlyArray<{ locale: Locale; short: string; name: string }> =
   [
     { locale: 'en', short: 'EN', name: 'English' },
@@ -27,7 +28,8 @@ const OPTIONS: ReadonlyArray<{ locale: Locale; short: string; name: string }> =
 export default function LanguageSwitch({ className }: { className?: string }) {
   const current = useLocale();
   const { language } = useMessages();
-  const page = parsePagePath(usePathname() ?? '')?.page ?? '/';
+  const pathname = usePathname();
+  const page = parsePagePath(pathname ?? '')?.page ?? '/';
 
   const choose = (locale: Locale) => (e: MouseEvent<HTMLAnchorElement>) => {
     storeLocale(locale);
@@ -49,7 +51,7 @@ export default function LanguageSwitch({ className }: { className?: string }) {
                 href={localeHref(page, locale)}
                 hrefLang={locale}
                 lang={locale}
-                aria-label={name}
+                aria-label={`${name} (${short})`}
                 aria-current={active ? 'page' : undefined}
                 onClick={choose(locale)}
                 className={cn(

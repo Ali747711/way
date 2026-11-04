@@ -77,18 +77,18 @@ test.describe('Uzbek interface', () => {
     await expect(
       page.getByRole('heading', { name: 'Bugungisi shu.' })
     ).toBeVisible();
-    await expect(page.getByText(/5 tadan 5 tasi yechildi/)).toBeVisible();
-    await expect(page.getByText('Ertaga qayting.')).toBeVisible();
+    await expect(page.getByText(/5\s+tadan 5\s+tasi yechildi/)).toBeVisible();
+    await expect(page.getByText('Ertaga qaytib keling.')).toBeVisible();
     await expect(page.getByText('oxirgi: bugun')).toHaveCount(5);
     await expect(
-      page.getByRole('link', { name: 'Haftaning chuqur masalasi' })
+      page.getByRole('link', { name: 'Shu haftaning chuqur masalasi' })
     ).toHaveAttribute('href', '/uz/deep');
     const switcher = page.getByRole('navigation', { name: 'Til' });
     await expect(
-      switcher.getByRole('link', { name: 'Oʻzbekcha' })
+      switcher.getByRole('link', { name: 'Oʻzbekcha (UZ)' })
     ).toHaveAttribute('aria-current', 'page');
     await expect(
-      switcher.getByRole('link', { name: 'English' })
+      switcher.getByRole('link', { name: 'English (EN)' })
     ).toHaveAttribute('href', '/');
   });
 
@@ -110,10 +110,10 @@ test.describe('Uzbek interface', () => {
       page.getByText('Masalalar hozircha ingliz tilida.')
     ).toBeVisible();
     await expect(
-      page.getByRole('link', { name: 'Oʻzbekcha' })
+      page.getByRole('link', { name: 'Oʻzbekcha (UZ)' })
     ).toHaveAttribute('aria-current', 'page');
 
-    await page.getByRole('link', { name: 'English' }).click();
+    await page.getByRole('link', { name: 'English (EN)' }).click();
     await expect(page).toHaveURL((url) => url.pathname === '/about');
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
     await expect(page.getByText('Ten seconds to thinking.')).toBeVisible();
@@ -125,9 +125,22 @@ test.describe('Uzbek interface', () => {
     await expect(page.getByText('1 of 5')).toBeVisible();
   });
 
+  test('a /uz 404 speaks Uzbek as well as English', async ({ page }) => {
+    await page.clock.setFixedTime(DAY_1);
+    const response = await page.goto('/uz/nope');
+    expect(response?.status()).toBe(404);
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    await expect(page.getByText('This page could not be found.')).toBeVisible();
+    const uzbek = page.locator('[lang="uz"]');
+    await expect(uzbek.getByText('Sahifa topilmadi.')).toBeVisible();
+    await expect(
+      uzbek.getByRole('link', { name: 'Bugunga qaytish' })
+    ).toHaveAttribute('href', '/uz');
+  });
+
   test('the switch works from the keyboard', async ({ page }) => {
     await open(page, '/about');
-    const uzbek = page.getByRole('link', { name: 'Oʻzbekcha' });
+    const uzbek = page.getByRole('link', { name: 'Oʻzbekcha (UZ)' });
     await uzbek.focus();
     await expect(uzbek).toBeFocused();
     await page.keyboard.press('Enter');
@@ -148,6 +161,27 @@ test.describe('an Uzbek browser', () => {
     await expect(page).toHaveURL((url) => url.pathname === '/uz');
     await expect(page.locator('html')).toHaveAttribute('lang', 'uz');
     await expect(page.getByRole('button', { name: 'Yuborish' })).toBeVisible();
+  });
+
+  test('stays in English after the switch even when storage is blocked', async ({
+    page
+  }) => {
+    await page.addInitScript(() => {
+      const setItem = Storage.prototype.setItem;
+      Storage.prototype.setItem = function (key: string, value: string) {
+        if (key === 'way:locale') throw new Error('blocked');
+        return setItem.call(this, key, value);
+      };
+    });
+    await open(page, '/uz/about');
+    await page.getByRole('link', { name: 'English (EN)' }).click();
+    await expect(page).toHaveURL((url) => url.pathname === '/about');
+    await expect(page.getByText('Ten seconds to thinking.')).toBeVisible();
+    // Let the page hydrate and any redirect start before checking.
+    await page.waitForLoadState('networkidle');
+    // Arrived from Way's own page, so the browser's Uzbek is not applied.
+    expect(pathOf(page)).toBe('/about');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   });
 
   test('stays on / once English was picked', async ({ page }) => {
