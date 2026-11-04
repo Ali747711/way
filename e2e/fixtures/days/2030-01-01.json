@@ -1,0 +1,127 @@
+{
+  "date": "2030-01-01",
+  "problems": [
+    {
+      "id": "w-e1",
+      "area": "words",
+      "difficulty": 1,
+      "title": "Words puzzle 1",
+      "prompt": "Prompt for Words puzzle 1.",
+      "answer": {
+        "type": "exact",
+        "accepted": ["cat"],
+        "normalize": "trim-lower"
+      },
+      "hints": ["First hint?", "Second hint?", "Third hint?"],
+      "solution": "Solution for Words puzzle 1.",
+      "source": {
+        "kind": "original"
+      },
+      "status": "published",
+      "tags": [],
+      "createdAt": "2030-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "l-e1",
+      "area": "logic",
+      "difficulty": 2,
+      "title": "Logic puzzle 1",
+      "prompt": "Prompt for Logic puzzle 1.",
+      "answer": {
+        "type": "choice",
+        "options": ["Alpha", "Beta", "Gamma"],
+        "correctIndex": 1
+      },
+      "hints": ["First hint?", "Second hint?", "Third hint?"],
+      "solution": "Solution for Logic puzzle 1.",
+      "source": {
+        "kind": "original"
+      },
+      "status": "published",
+      "tags": [],
+      "createdAt": "2030-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "m-e1",
+      "area": "math",
+      "difficulty": 3,
+      "title": "Math puzzle 1",
+      "prompt": "Prompt for Math puzzle 1.",
+      "answer": {
+        "type": "number",
+        "value": 42,
+        "tolerance": 0
+      },
+      "hints": ["First hint?", "Second hint?", "Third hint?"],
+      "solution": "Solution for Math puzzle 1.",
+      "source": {
+        "kind": "original"
+      },
+      "status": "published",
+      "tags": [],
+      "createdAt": "2030-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "c-e1",
+      "area": "code",
+      "difficulty": 3,
+      "title": "Code puzzle 1",
+      "prompt": "Prompt for Code puzzle 1.",
+      "answer": {
+        "type": "code",
+        "signature": "function sumDigits(n) {\n  \n}",
+        "entry": "sumDigits",
+        "examples": [
+          {
+            "input": [123],
+            "expected": 6
+          }
+        ],
+        "tests": [
+          {
+            "input": [0],
+            "expected": 0
+          },
+          {
+            "input": [999],
+            "expected": 27
+          },
+          {
+            "input": [1005],
+            "expected": 6
+          }
+        ],
+        "timeLimitMs": 2000,
+        "reference": "function sumDigits(n) {\n  return String(n).split(\"\").reduce((a, c) => a + Number(c), 0);\n}"
+      },
+      "hints": ["First hint?", "Second hint?", "Third hint?"],
+      "solution": "Solution for Code puzzle 1.",
+      "source": {
+        "kind": "original"
+      },
+      "status": "published",
+      "tags": [],
+      "createdAt": "2030-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "cr-e1",
+      "area": "create",
+      "difficulty": 3,
+      "title": "Create puzzle 1",
+      "prompt": "Prompt for Create puzzle 1.",
+      "answer": {
+        "type": "open",
+        "minWords": 3,
+        "authorNote": "A strong answer is specific."
+      },
+      "hints": ["First hint?", "Second hint?", "Third hint?"],
+      "solution": "Solution for Create puzzle 1.",
+      "source": {
+        "kind": "original"
+      },
+      "status": "published",
+      "tags": [],
+      "createdAt": "2030-01-01T00:00:00.000Z"
+    }
+  ]
+}

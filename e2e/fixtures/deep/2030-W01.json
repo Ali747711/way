@@ -1,0 +1,23 @@
+{
+  "week": "2030-W01",
+  "problem": {
+    "id": "d-e1",
+    "area": "math",
+    "difficulty": 5,
+    "title": "Deep puzzle",
+    "prompt": "Prompt for Deep puzzle.",
+    "answer": {
+      "type": "number",
+      "value": 99,
+      "tolerance": 0
+    },
+    "hints": ["H1?", "H2?", "H3?", "H4?", "H5?"],
+    "solution": "Solution for Deep puzzle.",
+    "source": {
+      "kind": "original"
+    },
+    "status": "published",
+    "tags": [],
+    "createdAt": "2030-01-01T00:00:00.000Z"
+  }
+}
