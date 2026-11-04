@@ -47,6 +47,11 @@ describe('buildGenerationPrompt', () => {
     expect(prompt).toContain('ends with a question mark');
   });
 
+  it('states the choice index bound and plausible distractors', () => {
+    expect(prompt).toContain('less than the number of `options`');
+    expect(prompt).toContain('every distractor is plausible');
+  });
+
   it('states hint count 3, or 5 for deep problems', () => {
     expect(prompt).toContain('exactly 3 hints');
     expect(buildGenerationPrompt({ ...req, difficulty: 5 })).toContain(

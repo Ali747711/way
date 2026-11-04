@@ -19,6 +19,9 @@ const MAX_EXAMPLES = 3;
 const USAGE =
   'usage: generate --area <area> --difficulty N --count N [--dry-run]';
 
+/** A bad command line; only these print the usage line, runtime failures do not. */
+class UsageError extends Error {}
+
 interface Args {
   area: Area;
   difficulty: number;
@@ -35,20 +38,20 @@ const parseArgs = (argv: string[]): Args => {
   const area = AREAS.find((a) => a === flagValue(argv, '--area'));
   const difficulty = Number(flagValue(argv, '--difficulty'));
   const count = Number(flagValue(argv, '--count'));
-  if (!area) throw new Error(`--area must be one of ${AREAS.join(', ')}`);
+  if (!area) throw new UsageError(`--area must be one of ${AREAS.join(', ')}`);
   if (!Number.isInteger(difficulty) || difficulty < 1 || difficulty > 5) {
-    throw new Error('--difficulty must be an integer from 1 to 5');
+    throw new UsageError('--difficulty must be an integer from 1 to 5');
   }
   if (
     difficulty !== DEEP_DIFFICULTY &&
     !AREA_CONFIG[area].difficulty.includes(difficulty)
   ) {
-    throw new Error(
+    throw new UsageError(
       `difficulty ${difficulty} is outside the ${area} band (${AREA_CONFIG[area].difficulty.join(', ')}, or 5)`
     );
   }
   if (!Number.isInteger(count) || count < 1 || count > 20) {
-    throw new Error('--count must be an integer from 1 to 20');
+    throw new UsageError('--count must be an integer from 1 to 20');
   }
   return { area, difficulty, count, dryRun: argv.includes('--dry-run') };
 };
@@ -142,7 +145,7 @@ main().then(
   (code) => process.exit(code),
   (error: unknown) => {
     console.error(error instanceof Error ? error.message : String(error));
-    console.error(USAGE);
+    if (error instanceof UsageError) console.error(USAGE);
     process.exit(1);
   }
 );

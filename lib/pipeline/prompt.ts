@@ -46,6 +46,7 @@ const rules = (hintCount: number): string =>
     '- Exact answers list every alternative accepted spelling in `accepted` where wording varies.',
     '- Number answers give `tolerance` only when it is needed.',
     '- Answers of type exact in the Words area, and all accepted words, must be real dictionary words.',
+    '- Choice answers give a 0-based `correctIndex` that is less than the number of `options`, and every distractor is plausible: a wrong answer a careful solver could reach.',
     '- Code answers give `signature` (a JavaScript function stub), `entry` (the function name), 1-3 `examples`, 4-8 `tests`, and a correct `reference` implementation.',
     '- Create answers give `minWords` and `maxWords` when useful, and an `authorNote` describing what a good response contains.',
     '- A `solver` (JavaScript that returns the answer) is required for number answers and welcome for exact ones.',
