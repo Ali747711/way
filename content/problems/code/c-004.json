@@ -94,7 +94,7 @@
   "source": {
     "kind": "original"
   },
-  "status": "approved",
+  "status": "published",
   "tags": [
     "graphs",
     "breadth-first search"
