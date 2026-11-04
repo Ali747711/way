@@ -56,6 +56,24 @@ describe('checkReference', () => {
     expect(failures[0].message).toContain('timed out');
   });
 
+  it('times out when the function body loops forever', () => {
+    const failures = checkReference(
+      makeProblem('function sumDigits(n) { while (true) {} }')
+    );
+    expect(failures).toHaveLength(1);
+    expect(failures[0].message).toContain('timed out');
+  });
+
+  it('times out on a never-ending microtask in the reference', () => {
+    const failures = checkReference(
+      makeProblem(
+        'Promise.resolve().then(() => { while (true) {} }); function sumDigits(n) { return n; }'
+      )
+    );
+    expect(failures).toHaveLength(1);
+    expect(failures[0].message).toContain('timed out');
+  });
+
   it('returns nothing for non-code answers', () => {
     expect(
       checkReference(
@@ -92,6 +110,20 @@ describe('checkSolver', () => {
       solver: 'return " Cat "'
     });
     expect(checkSolver(p)).toEqual([]);
+  });
+
+  it('times out on a never-ending microtask in the solver', () => {
+    const failures = checkSolver(
+      numberProblem(
+        'Promise.resolve().then(() => { while (true) {} }); return 42'
+      )
+    );
+    expect(failures).toHaveLength(1);
+    expect(failures[0].message).toContain('timed out');
+  });
+
+  it('survives a trailing line comment in the solver', () => {
+    expect(checkSolver(numberProblem('return 42 // done'))).toEqual([]);
   });
 
   it('returns nothing without a solver', () => {

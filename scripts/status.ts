@@ -21,7 +21,11 @@ const main = async (): Promise<void> => {
       return [status, row];
     })
   );
-  console.table(table);
+  const totals: Record<string, number> = Object.fromEntries(
+    AREAS.map((area) => [area, problems.filter((p) => p.area === area).length])
+  );
+  totals.total = problems.length;
+  console.table({ ...table, total: totals });
 
   console.log('');
   for (const p of problems.filter((p) => p.status === 'verified')) {

@@ -1,4 +1,9 @@
 // Node only (uses node:vm): never import this from browser code.
+//
+// Trust: node:vm is not a sandbox. The reference and solver code is generated
+// by our own prompt and read by the builder and the owner before approval.
+// verify runs it on the owner's machine with the same trust as the repo's own
+// scripts. There is no child-process sandbox in v1.
 import vm from 'node:vm';
 
 import { normalizeText } from '@/lib/check/normalize';
@@ -34,7 +39,8 @@ export const checkReference = (p: Problem): CheckFailure[] => {
       `${answer.reference}\n;${answer.entry}`,
       {},
       {
-        timeout
+        timeout,
+        microtaskMode: 'afterEvaluate'
       }
     );
   } catch (error) {
@@ -51,7 +57,7 @@ export const checkReference = (p: Problem): CheckFailure[] => {
       const actual: unknown = vm.runInNewContext(
         'fn(...args)',
         { fn, args: input },
-        { timeout }
+        { timeout, microtaskMode: 'afterEvaluate' }
       );
       if (!isEqual(actual, expected)) {
         return fail(
@@ -90,10 +96,11 @@ export const checkSolver = (p: Problem): CheckFailure[] => {
   let result: unknown;
   try {
     result = vm.runInNewContext(
-      `(() => { ${p.solver} })()`,
+      `(() => {\n${p.solver}\n})()`,
       {},
       {
-        timeout: SOLVER_TIMEOUT_MS
+        timeout: SOLVER_TIMEOUT_MS,
+        microtaskMode: 'afterEvaluate'
       }
     );
   } catch (error) {

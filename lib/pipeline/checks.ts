@@ -37,7 +37,7 @@ export const checkHintsHideAnswer = (p: Problem): CheckFailure[] => {
   if (answer.type === 'number') {
     const token = String(answer.value);
     return p.hints.flatMap((hint, i) =>
-      hint.split(/[^0-9]+/).includes(token)
+      (hint.match(/-?\d+(\.\d+)?/g) ?? ([] as string[])).includes(token)
         ? [fail(check, `hint ${i} contains the answer ${token}`)]
         : []
     );

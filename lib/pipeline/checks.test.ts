@@ -67,6 +67,19 @@ describe('checkHintsHideAnswer', () => {
     expect(checkHintsHideAnswer(number('Is it near 420?'))).toEqual([]);
   });
 
+  it('catches negative and decimal answers', () => {
+    const number = (value: number, hint: string) =>
+      makeProblem({
+        area: 'math',
+        difficulty: 3,
+        answer: { type: 'number', value, tolerance: 0 },
+        hints: [hint, 'Is it small?', 'Is it odd?']
+      });
+    expect(checkHintsHideAnswer(number(-5, 'Is it -5?'))).toHaveLength(1);
+    expect(checkHintsHideAnswer(number(3.5, 'Is it 3.5?'))).toHaveLength(1);
+    expect(checkHintsHideAnswer(number(3.5, 'Is it 3.55?'))).toEqual([]);
+  });
+
   it('fails when a hint contains the correct choice text', () => {
     const p = makeProblem({
       answer: { type: 'choice', options: ['Red', 'Blue'], correctIndex: 1 },

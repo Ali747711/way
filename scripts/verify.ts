@@ -16,28 +16,37 @@ const loadWords = async (): Promise<Set<string>> => {
   return new Set(words);
 };
 
-const parseIds = (argv: string[]): Set<string> | null => {
+const parseIds = (argv: string[]): string[] | null => {
   const i = argv.indexOf('--ids');
   if (i === -1) return null;
-  const value = argv[i + 1] ?? '';
-  return new Set(
-    value
-      .split(',')
-      .map((id) => id.trim())
-      .filter(Boolean)
-  );
+  const ids = (argv[i + 1] ?? '')
+    .split(',')
+    .map((id) => id.trim())
+    .filter(Boolean);
+  if (ids.length === 0) {
+    throw new Error('usage: verify [--ids id1,id2]');
+  }
+  return ids;
 };
 
 const main = async (): Promise<void> => {
   const ids = parseIds(process.argv.slice(2));
   const files = await readProblemFiles();
-  const selected = files.filter(({ problem }) =>
-    ids ? ids.has(problem.id) : problem.status === 'draft'
+  const unknown = (ids ?? []).filter(
+    (id) => !files.some(({ problem }) => problem.id === id)
   );
-  if (selected.length === 0) return;
+  for (const id of unknown) console.log(`unknown id ${id}`);
+  let failed = unknown.length > 0;
+
+  const selected = files.filter(({ problem }) =>
+    ids ? ids.includes(problem.id) : problem.status === 'draft'
+  );
+  if (selected.length === 0) {
+    if (failed) process.exitCode = 1;
+    return;
+  }
 
   const words = await loadWords();
-  let failed = false;
   for (const { path, problem } of selected) {
     const failures: CheckFailure[] = [
       ...runChecks(problem, { words }),
@@ -45,8 +54,13 @@ const main = async (): Promise<void> => {
       ...checkSolver(problem)
     ];
     if (failures.length === 0) {
-      await writeProblemFile(path, { ...problem, status: 'verified' });
-      console.log(`ok ${problem.id}`);
+      // Only drafts are promoted; never downgrade an approved problem.
+      if (problem.status === 'draft') {
+        await writeProblemFile(path, { ...problem, status: 'verified' });
+        console.log(`ok ${problem.id}`);
+      } else {
+        console.log(`ok ${problem.id} (status kept)`);
+      }
       continue;
     }
     failed = true;
