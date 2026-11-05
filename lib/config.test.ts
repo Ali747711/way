@@ -14,7 +14,7 @@ describe('config', () => {
   });
 
   it('falls back when the env value is missing, empty or blank', () => {
-    const fallback = 'https://github.com/OWNER/way';
+    const fallback = 'https://github.com/Ali747711/way';
     expect(resolveRepoUrl(undefined)).toBe(fallback);
     expect(resolveRepoUrl('')).toBe(fallback);
     expect(resolveRepoUrl('   ')).toBe(fallback);

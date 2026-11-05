@@ -93,7 +93,7 @@ const buildModel = (
     baseURL: OPENROUTER_BASE_URL,
     apiKey: provider.apiKey,
     headers: {
-      'HTTP-Referer': 'https://github.com/OWNER/way',
+      'HTTP-Referer': 'https://github.com/Ali747711/way',
       'X-Title': 'Way'
     }
   })(provider.model);

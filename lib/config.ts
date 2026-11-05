@@ -1,4 +1,4 @@
-const FALLBACK_REPO_URL = 'https://github.com/OWNER/way';
+const FALLBACK_REPO_URL = 'https://github.com/Ali747711/way';
 
 /** An empty or blank value (as in a stub `.env.local`) counts as unset. */
 export const resolveRepoUrl = (value: string | undefined): string =>
