@@ -16,9 +16,13 @@
     "test:coverage": "vitest run --coverage",
     "e2e": "playwright test",
     "content:generate": "tsx scripts/generate.ts",
+    "content:generate:templates": "tsx scripts/generate-from-templates.ts",
     "content:verify": "tsx scripts/verify.ts",
     "content:status": "tsx scripts/status.ts",
-    "content:schedule": "tsx scripts/schedule.ts"
+    "content:schedule": "tsx scripts/schedule.ts",
+    "content:review": "tsx scripts/review-sheet.ts",
+    "content:approve": "tsx scripts/approve.ts",
+    "content:reject": "tsx scripts/reject.ts"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^4.0.96",

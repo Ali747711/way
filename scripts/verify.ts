@@ -1,20 +1,8 @@
-import fs from 'node:fs/promises';
-
 import { runChecks, type CheckFailure } from '@/lib/pipeline/checks';
 import { checkReference, checkSolver } from '@/lib/pipeline/reference';
 
 import { readProblemFiles, writeProblemFile } from './lib/files';
-
-const WORDLIST_PATH = 'content/wordlist.txt';
-
-const loadWords = async (): Promise<Set<string>> => {
-  const text = await fs.readFile(WORDLIST_PATH, 'utf8');
-  const words = text
-    .split('\n')
-    .map((line) => line.trim().toLowerCase())
-    .filter((line) => line !== '');
-  return new Set(words);
-};
+import { loadWords } from './lib/words';
 
 const parseIds = (argv: string[]): string[] | null => {
   const i = argv.indexOf('--ids');

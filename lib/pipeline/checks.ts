@@ -1,5 +1,6 @@
 import { AREA_CONFIG, DEEP_DIFFICULTY } from '@/lib/areas';
-import { normalizeText } from '@/lib/check/normalize';
+import { checkConstraints } from '@/lib/check/constraints';
+import { countWords, normalizeText } from '@/lib/check/normalize';
 import type { Problem } from '@/lib/content/schema';
 
 export interface CheckFailure {
@@ -80,6 +81,36 @@ export const checkWordList = (
   );
 };
 
+/**
+ * A Create problem with checkable rules must carry an example answer that
+ * follows them and fits the word limits, which proves the prompt is fair.
+ */
+export const checkOpenExample = (p: Problem): CheckFailure[] => {
+  const { answer } = p;
+  if (answer.type !== 'open') return [];
+  const check = 'open-example';
+  const { constraints = [], example, minWords, maxWords } = answer;
+  if (example === undefined) {
+    return constraints.length > 0
+      ? [fail(check, 'constraints need an example answer that meets them')]
+      : [];
+  }
+  const words = countWords(example);
+  const limits: CheckFailure[] = [];
+  if (minWords !== undefined && words < minWords) {
+    limits.push(fail(check, `example has ${words} words, below ${minWords}`));
+  }
+  if (maxWords !== undefined && words > maxWords) {
+    limits.push(fail(check, `example has ${words} words, above ${maxWords}`));
+  }
+  return [
+    ...limits,
+    ...checkConstraints(example, constraints).map((message) =>
+      fail(check, `example ${message}`)
+    )
+  ];
+};
+
 export const runChecks = (
   p: Problem,
   ctx: { words: Set<string> }
@@ -87,5 +118,6 @@ export const runChecks = (
   ...checkHintsAreQuestions(p),
   ...checkHintsHideAnswer(p),
   ...checkDifficultyBand(p),
-  ...checkWordList(p, ctx.words)
+  ...checkWordList(p, ctx.words),
+  ...checkOpenExample(p)
 ];

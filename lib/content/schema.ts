@@ -13,6 +13,44 @@ export const testCaseSchema = z.object({
 });
 export type TestCase = z.infer<typeof testCaseSchema>;
 
+const letterSchema = z.string().regex(/^[a-z]$/);
+// One word as the checker splits text: no spaces, so a phrase can never silently never match.
+const ruleWordSchema = z.string().regex(/^[\p{L}\p{N}'’-]+$/u);
+
+/**
+ * A rule a Create answer must follow that a script can check, such as a
+ * forbidden letter. Craft is never checked; only the hard rule is.
+ */
+export const constraintSchema = z.discriminatedUnion('type', [
+  z.object({ type: z.literal('no-letter'), letter: letterSchema }),
+  z.object({
+    type: z.literal('max-word-length'),
+    letters: z.number().int().positive()
+  }),
+  z.object({
+    type: z.literal('sentence-count'),
+    count: z.number().int().positive()
+  }),
+  z.object({
+    type: z.literal('sentence-words'),
+    words: z.number().int().positive()
+  }),
+  z.object({ type: z.literal('all-questions') }),
+  z.object({ type: z.literal('acrostic'), word: z.string().regex(/^[a-z]+$/) }),
+  z.object({ type: z.literal('alphabet-run'), from: letterSchema }),
+  z.object({
+    type: z.literal('must-include'),
+    words: z.array(ruleWordSchema).min(1)
+  }),
+  z.object({
+    type: z.literal('forbid-words'),
+    words: z.array(ruleWordSchema).min(1)
+  }),
+  z.object({ type: z.literal('same-start'), letter: letterSchema }),
+  z.object({ type: z.literal('no-repeat') })
+]);
+export type Constraint = z.infer<typeof constraintSchema>;
+
 export const answerSchema = z.discriminatedUnion('type', [
   z.object({
     type: z.literal('exact'),
@@ -42,7 +80,10 @@ export const answerSchema = z.discriminatedUnion('type', [
     type: z.literal('open'),
     minWords: z.number().int().positive().optional(),
     maxWords: z.number().int().positive().optional(),
-    authorNote: z.string()
+    authorNote: z.string(),
+    // Checkable rules, plus an example answer that proves they can be met.
+    constraints: z.array(constraintSchema).optional(),
+    example: z.string().optional()
   })
 ]);
 export type Answer = z.infer<typeof answerSchema>;
@@ -52,7 +93,9 @@ export const contentStatusSchema = z.enum([
   'draft',
   'verified',
   'approved',
-  'published'
+  'published',
+  // Kept on disk so a generator never makes the same problem again.
+  'rejected'
 ]);
 export type ContentStatus = z.infer<typeof contentStatusSchema>;
 

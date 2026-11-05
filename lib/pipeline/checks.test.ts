@@ -6,6 +6,7 @@ import {
   checkDifficultyBand,
   checkHintsAreQuestions,
   checkHintsHideAnswer,
+  checkOpenExample,
   checkWordList,
   runChecks
 } from './checks';
@@ -132,5 +133,72 @@ describe('checkWordList', () => {
 describe('runChecks', () => {
   it('returns no failures for a clean problem', () => {
     expect(runChecks(makeProblem(), { words })).toEqual([]);
+  });
+});
+
+describe('checkOpenExample', () => {
+  const open = (extra: Record<string, unknown> = {}): Problem['answer'] =>
+    ({
+      type: 'open',
+      minWords: 3,
+      maxWords: 6,
+      authorNote: 'note',
+      ...extra
+    }) as Problem['answer'];
+  const createProblem = (answer: Problem['answer']): Problem =>
+    makeProblem({ area: 'create', difficulty: 3, answer });
+
+  it('ignores problems that are not open', () => {
+    expect(checkOpenExample(makeProblem())).toEqual([]);
+  });
+
+  it('passes an open problem with no constraints and no example', () => {
+    expect(checkOpenExample(createProblem(open()))).toEqual([]);
+  });
+
+  it('passes an example that meets every constraint and the word limits', () => {
+    const answer = open({
+      constraints: [{ type: 'no-letter', letter: 'e' }],
+      example: 'A cat sat down.'
+    });
+    expect(checkOpenExample(createProblem(answer))).toEqual([]);
+  });
+
+  it('fails constraints that come without an example', () => {
+    const answer = open({ constraints: [{ type: 'no-letter', letter: 'e' }] });
+    const failures = checkOpenExample(createProblem(answer));
+    expect(failures).toHaveLength(1);
+    expect(failures[0].check).toBe('open-example');
+  });
+
+  it('fails an example that breaks a constraint', () => {
+    const answer = open({
+      constraints: [{ type: 'no-letter', letter: 'e' }],
+      example: 'The cat sat down.'
+    });
+    expect(checkOpenExample(createProblem(answer))[0].message).toContain('"e"');
+  });
+
+  it('fails an example outside the word limits', () => {
+    const short = open({ example: 'Too short.' });
+    const long = open({ example: 'This one has far too many words in it.' });
+    expect(checkOpenExample(createProblem(short))).toHaveLength(1);
+    expect(checkOpenExample(createProblem(long))).toHaveLength(1);
+  });
+
+  it('runs as part of runChecks', () => {
+    const answer = open({
+      constraints: [{ type: 'no-letter', letter: 'e' }],
+      example: 'The cat sat down.'
+    });
+    const p = makeProblem({
+      area: 'create',
+      difficulty: 3,
+      answer,
+      hints: ['Why?', 'How?', 'What?']
+    });
+    expect(runChecks(p, { words }).map((f) => f.check)).toContain(
+      'open-example'
+    );
   });
 });

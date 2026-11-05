@@ -43,6 +43,7 @@ next-env.d.ts
 # way
 public/content/
 public/runner.worker.js
+content/review.md
 .env*.local
 test-results/
 playwright-report/

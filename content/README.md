@@ -4,22 +4,38 @@ Problems live in `content/problems/<area>/<id>.json`. The offline scripts move e
 
 ## Status flow
 
-`draft -> verified -> approved -> published`
+`draft -> verified -> approved -> published`, or `rejected` at any point before publishing
 
-- `draft`: set by `npm run content:generate` (or by hand when authoring).
-- `verified`: set by `npm run content:verify` once every automatic check passes (hint rules, difficulty band, word list, reference solution, solver).
+- `draft`: set by `npm run content:generate`, `npm run content:generate:templates`, or by hand when authoring.
+- `verified`: set by `npm run content:verify` once every automatic check passes (hint rules, difficulty band, word list, reference solution, solver, and for Create the example answer against its rules).
 - `approved`: set by the owner after reading the problem.
 - `published`: set by `npm run content:schedule` when the problem is placed on the schedule.
+- `rejected`: set by `npm run content:reject`. The file stays so generators never recreate it.
 
 ## Choosing the provider
 
 `npm run content:generate` reads `.env.local`. If `OPENROUTER_API_KEY` is set it uses OpenRouter (default model `anthropic/claude-sonnet-5.5`); otherwise it uses `ANTHROPIC_API_KEY` directly (default `claude-sonnet-5-5`). Set `GENERATE_MODEL` to override the model for either. It prints `using <provider> <model>` before the call.
 
+## Template generators
+
+`npm run content:generate:templates -- --area <area> --count <n> [--deep <n>] [--seed <s>] [--dry-run]` writes new `draft` problems from the template families in `lib/generators/`. It costs nothing and needs no API key.
+
+- Each family is TypeScript that builds a problem from parameters and computes the answer in code. Math problems carry a brute-force `solver`. Code problems compute every expected output from the family's reference and check each one, and each input's range, against a second, independent implementation while the batch is built; a mismatch stops the run. Create problems carry checkable `constraints` and an `example` answer that verify proves meets them.
+- A batch takes families in turn, so consecutive days differ. It never reuses a family and parameter set already in the bank (tracked through `source.attribution`, `template:<family>:<key>`), and it avoids repeating a title.
+- The batch runs every verify check before writing. If any problem fails, nothing is written.
+- `--deep <n>` adds weekly difficulty-5 problems (ids `d-…`) from the area's deep families.
+- `--seed` makes a run repeatable; the seed used is printed.
+- `--families math/staircase,math/page-digits` limits a run to those families. The scheduler takes the lowest ids first, so generate families that echo a recently published problem in a later run to place them later in the schedule.
+- To drop a generated problem, reject it (`npm run content:reject -- --ids …`) instead of deleting the file. The file keeps its attribution, so the generator never makes it again.
+- Adding a family: write it next to the others in `lib/generators/<area>/`, register it in that folder's `index.ts`, and give it a test that calls `auditFamily` (from `lib/generators/testing.ts`) and checks answers by an independent method.
+
 ## Reviewing
 
 1. Run `npm run content:status` to see counts per status and area, plus the `verified` problems waiting for review.
-2. Open each listed file under `content/problems/`, read it, and fix anything wrong.
-3. Set `"status": "approved"` in the file. Problems left at `verified` are never scheduled.
+2. Run `npm run content:review` to write every `verified` problem to one page, `content/review.md` (not committed): prompt, answer, hints and solution.
+3. Fix anything wrong in the problem's file under `content/problems/`.
+4. Approve the ones you accept with `npm run content:approve -- --ids id1,id2` (the sheet starts with the full command). It re-runs every verify check first, so an edit made while reviewing cannot ship unchecked, and it only moves `verified` problems to `approved`. It reports anything it skipped. Problems left at `verified` are never scheduled.
+5. Reject the ones you do not want with `npm run content:reject -- --ids id1,id2`. Rejected problems are never scheduled.
 
 ## Verify details
 
