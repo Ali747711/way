@@ -27,9 +27,13 @@ Problems, schedule, and generation are documented in `content/README.md`.
 ## Deploy
 
 - Hosted on Vercel as a static export.
-- Set `NEXT_PUBLIC_REPO_URL` at build time, otherwise "Report a problem"
-  links point at a placeholder.
+- "Report a problem" links point at github.com/Ali747711/way. Set
+  `NEXT_PUBLIC_REPO_URL` at build time to use a different repo.
 - `prebuild` needs devDependencies installed (it runs a TypeScript script).
 - After the first deploy, confirm the worker CSP header:
   `curl -I <site>/runner.worker.js`
 - `.env.local` (generation keys) is never needed at build or deploy time.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
