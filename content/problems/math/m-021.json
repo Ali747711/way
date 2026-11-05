@@ -1,0 +1,30 @@
+{
+  "id": "m-021",
+  "area": "math",
+  "difficulty": 3,
+  "title": "Numbering a book",
+  "prompt": "A printer numbers the pages of a book from 1 to 405, printing one number on each page. Page 7 gets the single digit 7, and page 120 gets three digits.\n\nHow many digits does the printer use in total?",
+  "answer": {
+    "type": "number",
+    "value": 1107,
+    "tolerance": 0
+  },
+  "hints": [
+    "Do all page numbers use the same number of digits?",
+    "How many pages have a one-digit number, how many have a two-digit number, and how many are left?",
+    "How many digits does each of those groups of pages use, and what is the total?"
+  ],
+  "solution": "**1107.**\n\nSplit the pages by how many digits their numbers have:\n\n- 1-digit pages (1 to 9): 9 pages × 1 = 9 digits\n- 2-digit pages (10 to 99): 90 pages × 2 = 180 digits\n- 3-digit pages (100 to 405): 306 pages × 3 = 918 digits\n\nAdd them up: **1107** digits.\n\nThe common slip is multiplying 405 by the number of digits of the last page. That counts the one-digit and two-digit pages as if they were also that long.",
+  "solver": "let digits = 0;\nfor (let page = 1; page <= 405; page++) {\n  digits += String(page).length;\n}\nreturn digits;",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/page-digits:digits-405"
+  },
+  "status": "verified",
+  "tags": [
+    "counting",
+    "place value",
+    "digits"
+  ],
+  "createdAt": "2026-11-05T03:18:00.902Z"
+}

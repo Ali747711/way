@@ -1,0 +1,44 @@
+{
+  "id": "cr-026",
+  "area": "create",
+  "difficulty": 3,
+  "title": "A thank-you note without the words",
+  "prompt": "A stranger found your lost wallet, cash and all, and posted it back with only a return address on the envelope. Write them a thank-you note, without using the words that usually do the job.\n\nDo not use the words *thank*, *thanks*, *thankful*, *grateful*, *gratitude*, *appreciate*. Write 30 to 70 words.\n\nWords are counted by the spaces between them.",
+  "answer": {
+    "type": "open",
+    "minWords": 30,
+    "maxWords": 70,
+    "authorNote": "Gratitude is strongest when it is specific, and the banned words force that. A strong answer names what came back, what the stranger could have done instead, and what the writer would now like to give, so the thanks is felt, not announced.",
+    "constraints": [
+      {
+        "type": "forbid-words",
+        "words": [
+          "thank",
+          "thanks",
+          "thankful",
+          "grateful",
+          "gratitude",
+          "appreciate"
+        ]
+      }
+    ],
+    "example": "Dear stranger, I opened the envelope and found my whole week folded inside: the bus pass, the photo, the coupon I will never use. You could have kept every bit of it. Instead you licked a stamp and walked to a postbox. I owe you a coffee, a favour, and a slightly better opinion of everyone."
+  },
+  "hints": [
+    "What exactly was in the wallet, and what did it mean to you?",
+    "What could the stranger have done, and what did they do instead?",
+    "What would you like to give back, and how can you say it without sounding stiff?"
+  ],
+  "solution": "One example answer (56 words):\n\n> Dear stranger, I opened the envelope and found my whole week folded inside: the bus pass, the photo, the coupon I will never use. You could have kept every bit of it. Instead you licked a stamp and walked to a postbox. I owe you a coffee, a favour, and a slightly better opinion of everyone.\n\nThe note lists what came back and shows the small, deliberate effort the stranger chose to make, so the kindness is clear. The last line says what the gift changed, which is better than any single word of thanks.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/stories:thank-you-no-thanks"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "letter",
+    "gratitude"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}

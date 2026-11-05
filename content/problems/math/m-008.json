@@ -1,0 +1,30 @@
+{
+  "id": "m-008",
+  "area": "math",
+  "difficulty": 3,
+  "title": "A longer stride",
+  "prompt": "You climb 8 steps, and each move can be a single step, a double step or a triple step. The order of the moves matters.\n\nHow many different climbs reach the top exactly?",
+  "answer": {
+    "type": "number",
+    "value": 81,
+    "tolerance": 0
+  },
+  "hints": [
+    "Think about the very last move onto the top step: from which steps could it have started?",
+    "If you knew the number of ways to reach each of those steps, how would you get the number for the top?",
+    "Can you start from the bottom and build the whole table one step at a time?"
+  ],
+  "solution": "**81.**\n\nLet w(k) be the number of ways to reach step k. The last move into step k was a step of 1, 2 or 3, so w(k) = w(k − 1) + w(k − 2) + w(k − 3), with w(0) = 1 and anything below zero counting as 0.\n\nThe table for steps 0 to 8 reads 1, 1, 2, 4, 7, 13, 24, 44, 81. From w(3) on, each number is the sum of the three before it. The last one is **81**.\n\nThe common slip is adding only the two numbers before, as you would if each move were only 1 or 2 steps.",
+  "solver": "const sizes = [1,2,3];\nconst top = 8;\nconst banned = -1;\nconst climb = (position) => {\n  if (position === top) return 1;\n  let count = 0;\n  for (const s of sizes) {\n    const next = position + s;\n    if (next <= top && next !== banned) count += climb(next);\n  }\n  return count;\n};\nreturn climb(0);",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/staircase:three-8"
+  },
+  "status": "verified",
+  "tags": [
+    "counting",
+    "recursion",
+    "sequences"
+  ],
+  "createdAt": "2026-11-05T03:18:00.052Z"
+}

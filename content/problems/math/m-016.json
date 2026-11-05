@@ -1,0 +1,30 @@
+{
+  "id": "m-016",
+  "area": "math",
+  "difficulty": 3,
+  "title": "Seats nobody marked",
+  "prompt": "A theatre has 240 seats numbered 1 to 240. An usher puts a ribbon on every seat whose number is a multiple of 6, and a cushion on every seat whose number is a multiple of 10. Some seats get both.\n\nHow many seats get no ribbon and no cushion?",
+  "answer": {
+    "type": "number",
+    "value": 184,
+    "tolerance": 0
+  },
+  "hints": [
+    "How many numbers from 1 to 240 are multiples of 6, and how many are multiples of 10?",
+    "Which numbers are multiples of both 6 and 10, and did you count each of them twice?",
+    "Once you know how many numbers get at least one of the two, how many of the 240 are left over?"
+  ],
+  "solution": "**184.**\n\nFrom 1 to 240 there are 40 multiples of 6 (240 ÷ 6, rounded down) and 24 multiples of 10. A number is a multiple of both exactly when it is a multiple of 30, the least common multiple. It is not 6 × 10 = 60, because 6 and 10 share a factor. There are 8 of those.\n\nThose 8 numbers were counted twice, once in each list, so the numbers with at least one are 40 + 24 − 8 = 56. Everything else gets neither: 240 − 56 = **184**.\n\nThe common slip is forgetting the overlap, which gives 176: it takes the shared numbers away twice.",
+  "solver": "let count = 0;\nfor (let k = 1; k <= 240; k++) {\n  const first = k % 6 === 0;\n  const second = k % 10 === 0;\n  if (!first && !second) count++;\n}\nreturn count;",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/either-not-both:240-6-10-neither"
+  },
+  "status": "verified",
+  "tags": [
+    "counting",
+    "multiples",
+    "inclusion-exclusion"
+  ],
+  "createdAt": "2026-11-05T03:18:00.486Z"
+}

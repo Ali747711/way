@@ -1,0 +1,30 @@
+{
+  "id": "m-006",
+  "area": "math",
+  "difficulty": 3,
+  "title": "Counting pages from digits",
+  "prompt": "The page numbers of a ledger run 1, 2, 3 and so on, with nothing skipped. Printing all of them took 369 digit stamps.\n\nHow many pages are in the ledger?",
+  "answer": {
+    "type": "number",
+    "value": 159,
+    "tolerance": 0
+  },
+  "hints": [
+    "Do all page numbers use the same number of digits?",
+    "How many digits are used up by the pages with one-digit numbers, and then by the pages with two-digit numbers?",
+    "How many digits are left over for the longer numbers, and how many pages is that?"
+  ],
+  "solution": "**159.**\n\nFirst use up the short pages. Counting complete blocks: 1-digit pages (1 to 9): 9 pages × 1 = 9 digits; 2-digit pages (10 to 99): 90 pages × 2 = 180 digits. That is 189 digits.\n\nThat leaves 369 − 189 = 180 digits, all in 3-digit page numbers, so there are 180 ÷ 3 = 60 more pages after page 99. The last page is 99 + 60 = **159**.\n\nThe common slip is dividing 369 by 3 straight away. That treats every page as having a 3-digit number, including pages 1 to 9.",
+  "solver": "let digits = 0;\nfor (let page = 1; page <= 100000; page++) {\n  digits += String(page).length;\n  if (digits === 369) return page;\n  if (digits > 369) return NaN;\n}\nreturn NaN;",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/page-digits:pages-159"
+  },
+  "status": "verified",
+  "tags": [
+    "counting",
+    "place value",
+    "digits"
+  ],
+  "createdAt": "2026-11-05T03:18:00.052Z"
+}

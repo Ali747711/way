@@ -1,0 +1,119 @@
+{
+  "id": "c-026",
+  "area": "code",
+  "difficulty": 3,
+  "title": "Unpack the runs",
+  "prompt": "A packed string stores repeated letters as a count followed by the letter: `3a2b` means `aaabb`. Counts can have more than one digit, so `12x` means the letter `x` twelve times.\n\nWrite `unpackRuns(s)` that takes a packed string and returns the full string. The input is made of zero or more runs. Each run is a count from 1 to 99 (no leading zeros) followed by one lowercase letter. Two neighbouring runs may use the same letter: `2a3a` unpacks to `aaaaa`. An empty input returns an empty string.\n\nExamples:\n\n- `unpackRuns(\"3a2b\")` returns `\"aaabb\"`\n- `unpackRuns(\"12x1y\")` returns `\"xxxxxxxxxxxxy\"`",
+  "answer": {
+    "type": "code",
+    "signature": "function unpackRuns(s) {\n  \n}",
+    "entry": "unpackRuns",
+    "examples": [
+      {
+        "input": [
+          "3a2b"
+        ],
+        "expected": "aaabb"
+      },
+      {
+        "input": [
+          "12x1y"
+        ],
+        "expected": "xxxxxxxxxxxxy"
+      }
+    ],
+    "tests": [
+      {
+        "input": [
+          ""
+        ],
+        "expected": ""
+      },
+      {
+        "input": [
+          "1a"
+        ],
+        "expected": "a"
+      },
+      {
+        "input": [
+          "2a3a"
+        ],
+        "expected": "aaaaa"
+      },
+      {
+        "input": [
+          "10z"
+        ],
+        "expected": "zzzzzzzzzz"
+      },
+      {
+        "input": [
+          "99q"
+        ],
+        "expected": "qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq"
+      },
+      {
+        "input": [
+          "1a1b1c1d"
+        ],
+        "expected": "abcd"
+      },
+      {
+        "input": [
+          "9c10c"
+        ],
+        "expected": "ccccccccccccccccccc"
+      },
+      {
+        "input": [
+          "25d18c8a1d24a25e"
+        ],
+        "expected": "dddddddddddddddddddddddddccccccccccccccccccaaaaaaaadaaaaaaaaaaaaaaaaaaaaaaaaeeeeeeeeeeeeeeeeeeeeeeeee"
+      },
+      {
+        "input": [
+          "9d23c"
+        ],
+        "expected": "dddddddddccccccccccccccccccccccc"
+      },
+      {
+        "input": [
+          "21e24c25e"
+        ],
+        "expected": "eeeeeeeeeeeeeeeeeeeeecccccccccccccccccccccccceeeeeeeeeeeeeeeeeeeeeeeee"
+      },
+      {
+        "input": [
+          "25e"
+        ],
+        "expected": "eeeeeeeeeeeeeeeeeeeeeeeee"
+      },
+      {
+        "input": [
+          "19a19d10d"
+        ],
+        "expected": "aaaaaaaaaaaaaaaaaaaddddddddddddddddddddddddddddd"
+      }
+    ],
+    "timeLimitMs": 2000,
+    "reference": "function unpackRuns(s) {\n  let result = '';\n  let count = 0;\n  for (const ch of s) {\n    if (ch >= '0' && ch <= '9') {\n      count = count * 10 + Number(ch);\n    } else {\n      result += ch.repeat(count);\n      count = 0;\n    }\n  }\n  return result;\n}"
+  },
+  "hints": [
+    "When you meet a digit, you cannot act yet. What do you need to keep track of until the letter arrives?",
+    "How do you build up a count like 12 from the characters 1 and 2, one at a time?",
+    "After you write out a run, what must you reset so that the next run starts counting from nothing?"
+  ],
+  "solution": "Walk through the string once. Digits build up the current count (`count * 10 + digit`); a letter writes itself `count` times and resets the count.\n\n```js\nfunction unpackRuns(s) {\n  let result = '';\n  let count = 0;\n  for (const ch of s) {\n    if (ch >= '0' && ch <= '9') {\n      count = count * 10 + Number(ch);\n    } else {\n      result += ch.repeat(count);\n      count = 0;\n    }\n  }\n  return result;\n}\n```\n\nReading only one digit per count is the classic slip: `12x` would become one `x` after a lone `1` and then break. The input always has a count before every letter, so there is no run to guess.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:code/run-length-decode:only"
+  },
+  "status": "verified",
+  "tags": [
+    "strings",
+    "loops",
+    "parsing"
+  ],
+  "createdAt": "2026-11-05T03:18:01.755Z"
+}

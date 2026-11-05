@@ -1,0 +1,46 @@
+{
+  "id": "cr-016",
+  "area": "create",
+  "difficulty": 4,
+  "title": "One star for the moon",
+  "prompt": "Write a one-star review of the moon from a guest who stayed overnight.\n\nWrite exactly 4 sentences. Do not use the words *bright*, *dark*, *night*, *light*. Write 30 to 65 words.\n\nWords are counted by the spaces between them. A sentence ends with a full stop, a question mark or an exclamation mark.",
+  "answer": {
+    "type": "open",
+    "minWords": 30,
+    "maxWords": 65,
+    "authorNote": "The banned words are the first four a writer reaches for. A strong answer complains about the right things (no air, no neighbours, no kettle) in the voice of someone who expected a hotel, and keeps one honest compliment hidden in the grumbling.",
+    "constraints": [
+      {
+        "type": "sentence-count",
+        "count": 4
+      },
+      {
+        "type": "forbid-words",
+        "words": [
+          "bright",
+          "dark",
+          "night",
+          "light"
+        ]
+      }
+    ],
+    "example": "No air, no welcome, no kettle, and the carpet is nothing but dust. The view of home was lovely, but the neighbours are all craters and silence. Nobody warned me that a single footprint here lasts for millions of years. One star, awarded only for the view."
+  },
+  "hints": [
+    "What would a hotel guest expect that the moon cannot supply?",
+    "Which real facts about the moon (craters, dust, footprints, silence) could sound like complaints?",
+    "Why would a reviewer give one star and not zero?"
+  ],
+  "solution": "One example answer (47 words):\n\n> No air, no welcome, no kettle, and the carpet is nothing but dust. The view of home was lovely, but the neighbours are all craters and silence. Nobody warned me that a single footprint here lasts for millions of years. One star, awarded only for the view.\n\nReal moon facts are dressed as customer complaints. The review ends on the one star it grudgingly gives, which is also the only sincere line.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/forms:moon-one-star-review"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "review",
+    "humour"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}

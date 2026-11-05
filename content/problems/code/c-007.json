@@ -1,0 +1,198 @@
+{
+  "id": "c-007",
+  "area": "code",
+  "difficulty": 4,
+  "title": "Stepping stones, no neighbours",
+  "prompt": "A row of stepping stones each holds some coins. You may collect the coins from any stones you like, but never from two stones that sit next to each other.\n\nWrite `bestPick(values)` that takes an array of 0 to 14 whole numbers from 0 to 50, the coins on each stone in order, and returns the largest total you can collect. You may collect from no stones at all. An empty array returns `0`.\n\nExamples:\n\n- `bestPick([4,1,1,5])` returns `9`\n- `bestPick([3,9,3])` returns `9`",
+  "answer": {
+    "type": "code",
+    "signature": "function bestPick(values) {\n  \n}",
+    "entry": "bestPick",
+    "examples": [
+      {
+        "input": [
+          [
+            4,
+            1,
+            1,
+            5
+          ]
+        ],
+        "expected": 9
+      },
+      {
+        "input": [
+          [
+            3,
+            9,
+            3
+          ]
+        ],
+        "expected": 9
+      }
+    ],
+    "tests": [
+      {
+        "input": [
+          []
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          [
+            7
+          ]
+        ],
+        "expected": 7
+      },
+      {
+        "input": [
+          [
+            7,
+            8
+          ]
+        ],
+        "expected": 8
+      },
+      {
+        "input": [
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          [
+            5,
+            5,
+            5,
+            5
+          ]
+        ],
+        "expected": 10
+      },
+      {
+        "input": [
+          [
+            2,
+            7,
+            9,
+            3,
+            1
+          ]
+        ],
+        "expected": 12
+      },
+      {
+        "input": [
+          [
+            10,
+            1,
+            1,
+            10,
+            1,
+            1,
+            10
+          ]
+        ],
+        "expected": 30
+      },
+      {
+        "input": [
+          [
+            11,
+            16,
+            37,
+            40,
+            19,
+            21,
+            17,
+            11,
+            32,
+            45
+          ]
+        ],
+        "expected": 133
+      },
+      {
+        "input": [
+          [
+            32,
+            21
+          ]
+        ],
+        "expected": 32
+      },
+      {
+        "input": [
+          [
+            23,
+            29,
+            47,
+            21,
+            2,
+            46,
+            45,
+            23,
+            24,
+            23,
+            3,
+            24,
+            2,
+            49
+          ]
+        ],
+        "expected": 235
+      },
+      {
+        "input": [
+          [
+            30,
+            39,
+            9,
+            8,
+            15,
+            32,
+            38,
+            17
+          ]
+        ],
+        "expected": 96
+      },
+      {
+        "input": [
+          [
+            23,
+            5,
+            49,
+            20
+          ]
+        ],
+        "expected": 72
+      }
+    ],
+    "timeLimitMs": 2000,
+    "reference": "function bestPick(values) {\n  let skipLast = 0;\n  let takeLast = 0;\n  for (const value of values) {\n    const next = Math.max(skipLast, takeLast);\n    takeLast = skipLast + value;\n    skipLast = next;\n  }\n  return Math.max(skipLast, takeLast);\n}"
+  },
+  "hints": [
+    "For the very last stone, what are your two choices, and what must be true about the stones before it in each case?",
+    "If you know the best total for the stones so far in two situations, with the previous stone taken and not taken, can you work out the same two numbers for one more stone?",
+    "Is a greedy rule such as \"always take the biggest stone\" safe, or can you find a row where it loses coins?"
+  ],
+  "solution": "Walk along the row keeping two numbers: the best total if the previous stone was skipped, and the best total if it was taken. A new stone can be taken only after a skipped one, or skipped after either.\n\n```js\nfunction bestPick(values) {\n  let skipLast = 0;\n  let takeLast = 0;\n  for (const value of values) {\n    const next = Math.max(skipLast, takeLast);\n    takeLast = skipLast + value;\n    skipLast = next;\n  }\n  return Math.max(skipLast, takeLast);\n}\n```\n\nGreedy fails: in `[3, 4, 3]` the biggest stone is 4, but taking it blocks both 3s, and 3 + 3 = 6 beats it. You only ever need the last two totals, so no table is needed.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:code/best-pick:only"
+  },
+  "status": "verified",
+  "tags": [
+    "dynamic-programming",
+    "arrays"
+  ],
+  "createdAt": "2026-11-05T03:18:01.755Z"
+}

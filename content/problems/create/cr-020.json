@@ -1,0 +1,37 @@
+{
+  "id": "cr-020",
+  "area": "create",
+  "difficulty": 3,
+  "title": "Why ice floats",
+  "prompt": "Explain to a seven-year-old why ice floats on water, even though ice is made of water.\n\nWrite exactly 3 sentences. Write 25 to 60 words.\n\nWords are counted by the spaces between them. A sentence ends with a full stop, a question mark or an exclamation mark.",
+  "answer": {
+    "type": "open",
+    "minWords": 25,
+    "maxWords": 60,
+    "authorNote": "Three sentences leave room for one cause and its effect. A strong answer says what is odd about freezing (the water spreads into a roomier pattern), what follows from that (more room, same stuff, so lighter for its size), and then gives an everyday picture to hold on to.",
+    "constraints": [
+      {
+        "type": "sentence-count",
+        "count": 3
+      }
+    ],
+    "example": "When water freezes, its tiny pieces lock into a roomy, open pattern with empty gaps in between. Those gaps make a block of ice take up more room than the same water did. Bigger and lighter for its size, the ice has to sit on top, like a beach ball in a bath."
+  },
+  "hints": [
+    "What changes about the tiny pieces of water when it freezes?",
+    "If the same water takes up more room, what happens to how heavy it feels for its size?",
+    "What everyday object floats because it is light for its size?"
+  ],
+  "solution": "One example answer (53 words):\n\n> When water freezes, its tiny pieces lock into a roomy, open pattern with empty gaps in between. Those gaps make a block of ice take up more room than the same water did. Bigger and lighter for its size, the ice has to sit on top, like a beach ball in a bath.\n\nEach sentence does one job: what freezing does, why that matters, and a picture to remember. The beach ball makes the idea something a child can hold.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/explain:ice-floats-explained"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "explain",
+    "science"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}

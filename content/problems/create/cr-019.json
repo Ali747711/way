@@ -1,0 +1,37 @@
+{
+  "id": "cr-019",
+  "area": "create",
+  "difficulty": 3,
+  "title": "A key's complaint",
+  "prompt": "A house key writes a short note to the person who keeps losing it. Let it be fond, tired and a little threatening.\n\nThe first letters of your sentences, in order, must spell *LOST*. Write 25 to 70 words.\n\nWords are counted by the spaces between them. A sentence ends with a full stop, a question mark or an exclamation mark.",
+  "answer": {
+    "type": "open",
+    "minWords": 25,
+    "maxWords": 70,
+    "authorNote": "A strong answer makes the four opening words feel natural, so the acrostic hides in plain sight. The key has a clear personality (patient, dry, slightly hurt) and the final sentence lands a gentle threat or a forgiveness.",
+    "constraints": [
+      {
+        "type": "acrostic",
+        "word": "lost"
+      }
+    ],
+    "example": "Last Tuesday you looked for me for forty minutes. Once, I was in your pocket the whole time. Sooner or later I will learn to hide on purpose. Tonight, hang me on the hook and I will forgive everything."
+  },
+  "hints": [
+    "What does a key know about its owner that the owner would rather forget?",
+    "For each of L, O, S and T, which opening word could begin a sentence in the key's voice?",
+    "Should the ending forgive the owner, or warn them?"
+  ],
+  "solution": "One example answer (39 words):\n\n> Last Tuesday you looked for me for forty minutes. Once, I was in your pocket the whole time. Sooner or later I will learn to hide on purpose. Tonight, hang me on the hook and I will forgive everything.\n\nThe four openings (Last, Once, Sooner, Tonight) are ordinary words that time the story, so the hidden word never shows. The key is wounded but funny, and it ends on a deal.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/forms:key-acrostic-letter"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "acrostic",
+    "voice"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}

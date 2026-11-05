@@ -1,0 +1,46 @@
+{
+  "id": "cr-025",
+  "area": "create",
+  "difficulty": 4,
+  "title": "The sofa that swallows Sundays",
+  "prompt": "Write the warning label for a sofa that is far too comfortable. It should sound official on the surface and be funny underneath.\n\nWrite exactly 4 sentences. Do not use the words *warning*, *danger*, *caution*, *risk*. Write 25 to 60 words.\n\nWords are counted by the spaces between them. A sentence ends with a full stop, a question mark or an exclamation mark.",
+  "answer": {
+    "type": "open",
+    "minWords": 25,
+    "maxWords": 60,
+    "authorNote": "A strong answer keeps the flat, legal voice of a real label and lets the absurd detail do the work. Banning the usual warning words forces fresh official-sounding openings, and the best labels escalate: a small claim, a bigger one, then an instruction nobody could follow.",
+    "constraints": [
+      {
+        "type": "sentence-count",
+        "count": 4
+      },
+      {
+        "type": "forbid-words",
+        "words": [
+          "warning",
+          "danger",
+          "caution",
+          "risk"
+        ]
+      }
+    ],
+    "example": "Notice: this sofa has been known to swallow whole afternoons. Users who sit down for a minute may rise hours later, holding a cold cup of tea and no plans. Do not operate the sofa while any chores are waiting. If you feel a nap approaching, accept it."
+  },
+  "hints": [
+    "Which phrases make a label sound official, and which of them are not the banned words?",
+    "What is the first harmless-sounding effect of sitting down, and what is the bigger one that follows it?",
+    "Could your last sentence be a calm instruction that the reader cannot possibly obey?"
+  ],
+  "solution": "One example answer (48 words):\n\n> Notice: this sofa has been known to swallow whole afternoons. Users who sit down for a minute may rise hours later, holding a cold cup of tea and no plans. Do not operate the sofa while any chores are waiting. If you feel a nap approaching, accept it.\n\nThe voice never winks: it says *notice*, *users* and *operate* as a real label would. The jokes grow from lost afternoons to cold tea to surrender, and the last line breaks the rule that labels only say no.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/forms:sofa-warning-label"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "humour",
+    "voice"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}

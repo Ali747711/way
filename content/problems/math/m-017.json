@@ -1,0 +1,30 @@
+{
+  "id": "m-017",
+  "area": "math",
+  "difficulty": 3,
+  "title": "The last digit of giant powers",
+  "prompt": "Look at the sum 14²⁰²⁷ + 23²⁰²⁸ + 2²⁰²⁶. Each term is a very large power.\n\nWhat is the last digit of 14²⁰²⁷ + 23²⁰²⁸ + 2²⁰²⁶?",
+  "answer": {
+    "type": "number",
+    "value": 9,
+    "tolerance": 0
+  },
+  "hints": [
+    "If you only want the last digit of a power, which digits of the base actually matter?",
+    "Write out the last digits of the first few powers of one base: after how many steps does the pattern start repeating?",
+    "When you divide each exponent by the length of its pattern, what remainder tells you where you land, and what is the last digit of the sum of the results?"
+  ],
+  "solution": "**9.**\n\nOnly the last digit of each number matters for the last digit of a sum, and only the last digit of the base matters for the last digit of a power. So each term can be replaced by the repeating pattern of last digits.\n\n- The base 14 ends in 4, so the last digits of the powers of 4 go 4, 6, then repeat every 2 steps. 2027 = 2 × 1013 + 1, so it lands on place 1 of the cycle: 14²⁰²⁷ ends in 4.\n- The base 23 ends in 3, so the last digits of the powers of 3 go 3, 9, 7, 1, then repeat every 4 steps. 2028 is a multiple of 4, so it lands on the last place in the cycle: 23²⁰²⁸ ends in 1.\n- The last digits of the powers of 2 go 2, 4, 8, 6, then repeat every 4 steps. 2026 = 4 × 506 + 2, so it lands on place 2 of the cycle: 2²⁰²⁶ ends in 4.\n\nAdding the last digits: 4 + 1 + 4 = 9, whose last digit is **9**.\n\nThe common slip is mixing up the place in the cycle: when the exponent is an exact multiple of the cycle length, the answer is the last digit of the cycle, not the first.",
+  "solver": "const terms = [[14,2027],[23,2028],[2,2026]];\nlet total = 0;\nfor (const [base, exponent] of terms) {\n  let digit = 1;\n  for (let i = 0; i < exponent; i++) digit = (digit * base) % 10;\n  total += digit;\n}\nreturn total % 10;",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/last-digit-powers:14p2027-23p2028-2p2026"
+  },
+  "status": "verified",
+  "tags": [
+    "number theory",
+    "last digit",
+    "cycles"
+  ],
+  "createdAt": "2026-11-05T03:18:00.486Z"
+}

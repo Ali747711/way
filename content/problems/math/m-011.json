@@ -1,0 +1,30 @@
+{
+  "id": "m-011",
+  "area": "math",
+  "difficulty": 3,
+  "title": "Three painters",
+  "prompt": "Three painters can each paint a hall alone in 8, 12 and 24 hours. Each works at a steady pace.\n\nHow many hours will they take to paint the hall if all three work together?",
+  "answer": {
+    "type": "number",
+    "value": 4,
+    "tolerance": 0
+  },
+  "hints": [
+    "If one painter working alone needs a given number of hours for the whole hall, what fraction of the hall does it do in one hour?",
+    "When all three painters work at once, how do the fractions of the hall done in an hour combine?",
+    "If that combined fraction is done every hour, how many hours does the whole hall take?"
+  ],
+  "solution": "**4 hours.**\n\nThink in fractions of the hall per hour. Working alone, the painters do 1/8, 1/12 and 1/24 of the hall in one hour. Working together, their rates add: 1/8 + 1/12 + 1/24 = 6/24 = 1/4 of the hall per hour.\n\nIf 1/4 of the hall is done each hour, the whole hall takes **4** hours with all three painters at work.\n\nThe common slip is adding or averaging the times. Times do not add, but rates do.",
+  "solver": "const times = [8,12,24];\nfor (let hours = 1; hours <= 10000; hours++) {\n  const done = times.reduce((sum, t) => sum + hours / t, 0);\n  if (Math.abs(done - 1) < 1e-9) return hours;\n}\nreturn NaN;",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/work-rates:three-8-12-24"
+  },
+  "status": "verified",
+  "tags": [
+    "rates",
+    "work",
+    "fractions"
+  ],
+  "createdAt": "2026-11-05T03:18:00.052Z"
+}

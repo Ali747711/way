@@ -1,0 +1,119 @@
+{
+  "id": "c-023",
+  "area": "code",
+  "difficulty": 3,
+  "title": "Brackets inside brackets",
+  "prompt": "Round brackets can sit inside each other, like the sentence `(a (b) (c (d)))`. The *depth* of a spot is how many brackets are open there. The sentence above reaches depth 3, inside the `d`.\n\nWrite `maxDepth(text)` that takes a string of 0 to 40 characters and returns the largest depth reached. Only `(` and `)` count; every other character is ignored. If the brackets are not properly matched (a `)` closes nothing, or a `(` is never closed), return `-1`. A text with no brackets has depth `0`.\n\nExamples:\n\n- `maxDepth(\"(a (b) (c (d)))\")` returns `3`\n- `maxDepth(\"())(\")` returns `-1`",
+  "answer": {
+    "type": "code",
+    "signature": "function maxDepth(text) {\n  \n}",
+    "entry": "maxDepth",
+    "examples": [
+      {
+        "input": [
+          "(a (b) (c (d)))"
+        ],
+        "expected": 3
+      },
+      {
+        "input": [
+          "())("
+        ],
+        "expected": -1
+      }
+    ],
+    "tests": [
+      {
+        "input": [
+          ""
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          "no brackets"
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          "()"
+        ],
+        "expected": 1
+      },
+      {
+        "input": [
+          "(("
+        ],
+        "expected": -1
+      },
+      {
+        "input": [
+          ")("
+        ],
+        "expected": -1
+      },
+      {
+        "input": [
+          "()()()"
+        ],
+        "expected": 1
+      },
+      {
+        "input": [
+          "((()))"
+        ],
+        "expected": 3
+      },
+      {
+        "input": [
+          "(a)(b)((c))"
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          "))"
+        ],
+        "expected": -1
+      },
+      {
+        "input": [
+          "((( )(("
+        ],
+        "expected": -1
+      },
+      {
+        "input": [
+          "bb(()a))(b((a)"
+        ],
+        "expected": -1
+      },
+      {
+        "input": [
+          ")()b()((b)"
+        ],
+        "expected": -1
+      }
+    ],
+    "timeLimitMs": 2000,
+    "reference": "function maxDepth(text) {\n  let depth = 0;\n  let deepest = 0;\n  for (const ch of text) {\n    if (ch === '(') {\n      depth++;\n      deepest = Math.max(deepest, depth);\n    } else if (ch === ')') {\n      depth--;\n      if (depth < 0) return -1;\n    }\n  }\n  return depth === 0 ? deepest : -1;\n}"
+  },
+  "hints": [
+    "What single number could you update every time you meet a bracket, so that it always says how deep you are right now?",
+    "Which bracket makes the number go up, which makes it go down, and what should you record each time it reaches a new high?",
+    "Which two situations mean the brackets are not matched, and when can you tell each one?"
+  ],
+  "solution": "Keep a running depth: add 1 for `(`, subtract 1 for `)`. Track the highest value reached. A negative depth at any moment, or a non-zero depth at the end, means the brackets do not match.\n\n```js\nfunction maxDepth(text) {\n  let depth = 0;\n  let deepest = 0;\n  for (const ch of text) {\n    if (ch === '(') {\n      depth++;\n      deepest = Math.max(deepest, depth);\n    } else if (ch === ')') {\n      depth--;\n      if (depth < 0) return -1;\n    }\n  }\n  return depth === 0 ? deepest : -1;\n}\n```\n\nTwo different failures give `-1`: closing too early (the depth drops below zero, so stop right away) and never closing (the depth is above zero at the end). The text `\")(\"` has equal numbers of each but is still wrong, which is why counting both is not enough.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:code/max-depth:only"
+  },
+  "status": "verified",
+  "tags": [
+    "strings",
+    "loops",
+    "brackets"
+  ],
+  "createdAt": "2026-11-05T03:18:01.755Z"
+}

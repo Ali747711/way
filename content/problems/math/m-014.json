@@ -1,0 +1,30 @@
+{
+  "id": "m-014",
+  "area": "math",
+  "difficulty": 3,
+  "title": "A die of 5 or more",
+  "prompt": "Two fair six-sided dice are rolled together, one red and one blue.\n\nThe probability that at least one of the two dice shows 5 or more can be written as a fraction p/q in lowest terms. What is p + q?",
+  "answer": {
+    "type": "number",
+    "value": 14,
+    "tolerance": 0
+  },
+  "hints": [
+    "How many equally likely (red, blue) outcomes are there altogether?",
+    "Is it easier to count the outcomes where the event happens, or the outcomes where it does not?",
+    "How many of the equally likely outcomes work in all, and what does that fraction reduce to?"
+  ],
+  "solution": "**14.**\n\nThere are 6 × 6 = 36 equally likely (red, blue) outcomes, because the two dice are different colours. Go through the red die one value at a time:\n\n- Red shows 1: blue can show 5, 6 (2 of 6).\n- Red shows 2: blue can show 5, 6 (2 of 6).\n- Red shows 3: blue can show 5, 6 (2 of 6).\n- Red shows 4: blue can show 5, 6 (2 of 6).\n- Red shows 5: blue can show 1, 2, 3, 4, 5, 6 (6 of 6).\n- Red shows 6: blue can show 1, 2, 3, 4, 5, 6 (6 of 6).\n\nThat is 20 outcomes out of 36. (A quicker count: the opposite, both dice showing 4 or less, happens in 4 × 4 = 16 ways, and 36 − 16 = 20.) 20/36 reduces to 5/9, so p + q = 5 + 9 = **14**.\n\nThe common slip is counting unordered pairs, such as 2 and 5, as one outcome. A pair of different numbers can happen in two ways, a double in only one, so only the 36 ordered outcomes are equally likely.",
+  "solver": "const outcomes = [];\nfor (let a = 1; a <= 6; a++) {\n  for (let b = 1; b <= 6; b++) outcomes.push([a, b]);\n}\nconst hits = outcomes.filter(([a, b]) => Math.max(a, b) >= 5).length;\nconst gcd = (x, y) => (y === 0 ? x : gcd(y, x % y));\nconst g = gcd(hits, outcomes.length);\nreturn hits / g + outcomes.length / g;",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/dice-events:some-die-at-least-5"
+  },
+  "status": "verified",
+  "tags": [
+    "probability",
+    "dice",
+    "counting"
+  ],
+  "createdAt": "2026-11-05T03:18:00.486Z"
+}

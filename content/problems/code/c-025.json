@@ -1,0 +1,234 @@
+{
+  "id": "c-025",
+  "area": "code",
+  "difficulty": 3,
+  "title": "First come, first kept",
+  "prompt": "A guest list has some names written down twice. Keep only the **first** time each name appears and drop every later copy, without changing the order of the names that stay.\n\nWrite `keepFirst(names)` that takes an array of 0 to 30 strings (each 1 to 3 lowercase letters) and returns a new array with every repeated string removed except its first appearance. Two strings are the same only if they are exactly equal. The input array must not be changed.\n\nExamples:\n\n- `keepFirst([\"bo\",\"al\",\"bo\",\"cy\",\"al\"])` returns `[\"bo\",\"al\",\"cy\"]`\n- `keepFirst([\"x\",\"y\"])` returns `[\"x\",\"y\"]`",
+  "answer": {
+    "type": "code",
+    "signature": "function keepFirst(names) {\n  \n}",
+    "entry": "keepFirst",
+    "examples": [
+      {
+        "input": [
+          [
+            "bo",
+            "al",
+            "bo",
+            "cy",
+            "al"
+          ]
+        ],
+        "expected": [
+          "bo",
+          "al",
+          "cy"
+        ]
+      },
+      {
+        "input": [
+          [
+            "x",
+            "y"
+          ]
+        ],
+        "expected": [
+          "x",
+          "y"
+        ]
+      }
+    ],
+    "tests": [
+      {
+        "input": [
+          []
+        ],
+        "expected": []
+      },
+      {
+        "input": [
+          [
+            "a"
+          ]
+        ],
+        "expected": [
+          "a"
+        ]
+      },
+      {
+        "input": [
+          [
+            "a",
+            "a",
+            "a"
+          ]
+        ],
+        "expected": [
+          "a"
+        ]
+      },
+      {
+        "input": [
+          [
+            "ab",
+            "a",
+            "b",
+            "ab",
+            "a"
+          ]
+        ],
+        "expected": [
+          "ab",
+          "a",
+          "b"
+        ]
+      },
+      {
+        "input": [
+          [
+            "c",
+            "b",
+            "a",
+            "a",
+            "b",
+            "c"
+          ]
+        ],
+        "expected": [
+          "c",
+          "b",
+          "a"
+        ]
+      },
+      {
+        "input": [
+          [
+            "z",
+            "y",
+            "x"
+          ]
+        ],
+        "expected": [
+          "z",
+          "y",
+          "x"
+        ]
+      },
+      {
+        "input": [
+          [
+            "c",
+            "b",
+            "a",
+            "cc",
+            "c"
+          ]
+        ],
+        "expected": [
+          "c",
+          "b",
+          "a",
+          "cc"
+        ]
+      },
+      {
+        "input": [
+          [
+            "ab",
+            "cb",
+            "aa",
+            "bb",
+            "a",
+            "ca",
+            "a",
+            "a",
+            "bc",
+            "cb"
+          ]
+        ],
+        "expected": [
+          "ab",
+          "cb",
+          "aa",
+          "bb",
+          "a",
+          "ca",
+          "bc"
+        ]
+      },
+      {
+        "input": [
+          [
+            "a",
+            "c",
+            "ab",
+            "bc",
+            "a",
+            "c",
+            "b",
+            "b"
+          ]
+        ],
+        "expected": [
+          "a",
+          "c",
+          "ab",
+          "bc",
+          "b"
+        ]
+      },
+      {
+        "input": [
+          [
+            "aa",
+            "ab",
+            "ca",
+            "bc",
+            "aa"
+          ]
+        ],
+        "expected": [
+          "aa",
+          "ab",
+          "ca",
+          "bc"
+        ]
+      },
+      {
+        "input": [
+          [
+            "b",
+            "a",
+            "ca",
+            "aa"
+          ]
+        ],
+        "expected": [
+          "b",
+          "a",
+          "ca",
+          "aa"
+        ]
+      }
+    ],
+    "timeLimitMs": 2000,
+    "reference": "function keepFirst(names) {\n  const seen = new Set();\n  const result = [];\n  for (const name of names) {\n    if (!seen.has(name)) {\n      seen.add(name);\n      result.push(name);\n    }\n  }\n  return result;\n}"
+  },
+  "hints": [
+    "As you walk through the list, what do you need to remember about the names you have already met?",
+    "Which tool can answer \"have I seen this one before?\" quickly, without scanning the whole result each time?",
+    "When you meet a name for the second time, should you add it to the result, and should it change what you remember?"
+  ],
+  "solution": "Walk through the names once, keeping a set of names already seen. Add a name to the result only if it is not in the set yet, and put it in the set.\n\n```js\nfunction keepFirst(names) {\n  const seen = new Set();\n  const result = [];\n  for (const name of names) {\n    if (!seen.has(name)) {\n      seen.add(name);\n      result.push(name);\n    }\n  }\n  return result;\n}\n```\n\nIn JavaScript a `Set` also keeps insertion order, so `[...new Set(names)]` is a correct one-liner; the loop shows what it does. Strings such as `\"ab\"` and `\"a\"` are different values, so only exact matches are dropped.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:code/keep-first:only"
+  },
+  "status": "verified",
+  "tags": [
+    "arrays",
+    "sets",
+    "loops"
+  ],
+  "createdAt": "2026-11-05T03:18:01.755Z"
+}

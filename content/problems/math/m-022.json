@@ -1,0 +1,30 @@
+{
+  "id": "m-022",
+  "area": "math",
+  "difficulty": 3,
+  "title": "Ways to the top",
+  "prompt": "You climb a flight of 10 steps, taking 1 step or 2 steps at a time. Climbing 1 then 2 is different from climbing 2 then 1.\n\nHow many different ways are there to reach the top?",
+  "answer": {
+    "type": "number",
+    "value": 89,
+    "tolerance": 0
+  },
+  "hints": [
+    "Think about the very last move onto the top step: from which steps could it have started?",
+    "If you knew the number of ways to reach each of those two steps, how would you get the number for the top?",
+    "Can you start from the first two steps and build the whole table one step at a time?"
+  ],
+  "solution": "**89.**\n\nLet w(k) be the number of ways to reach step k. The last move into step k came from step k − 1 (a single step) or from step k − 2 (a double step), so w(k) = w(k − 1) + w(k − 2). To start the table, w(0) = 1 (do nothing) and w(1) = 1.\n\nThe table for steps 0 to 10 reads 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, each number being the sum of the two before it. The last one is **89**.\n\nThe common slip is starting with w(2) = 1, forgetting that two single steps and one double step are different climbs, so w(2) = 2.",
+  "solver": "const sizes = [1,2];\nconst top = 10;\nconst banned = -1;\nconst climb = (position) => {\n  if (position === top) return 1;\n  let count = 0;\n  for (const s of sizes) {\n    const next = position + s;\n    if (next <= top && next !== banned) count += climb(next);\n  }\n  return count;\n};\nreturn climb(0);",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/staircase:plain-10"
+  },
+  "status": "verified",
+  "tags": [
+    "counting",
+    "recursion",
+    "sequences"
+  ],
+  "createdAt": "2026-11-05T03:18:00.902Z"
+}

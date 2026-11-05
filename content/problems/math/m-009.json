@@ -1,0 +1,30 @@
+{
+  "id": "m-009",
+  "area": "math",
+  "difficulty": 3,
+  "title": "The first factorial with enough zeros",
+  "prompt": "The number m! is the product 1 × 2 × 3 × … × m. For some values of m, m! ends in exactly 15 zeros.\n\nWhat is the smallest such m?",
+  "answer": {
+    "type": "number",
+    "value": 65,
+    "tolerance": 0
+  },
+  "hints": [
+    "A zero at the end of a number comes from a factor of 10: which prime factor of 10 is the scarce one in a factorial?",
+    "How does the number of fives in m! change as m grows by one at a time? When does it first go up?",
+    "Is it enough to multiply the number of zeros by 5, or do multiples of 25 change the count?"
+  ],
+  "solution": "**65.**\n\nThe number of trailing zeros of m! is the number of factors of 5 in it, and that count goes up only when m reaches a multiple of 5, so the answer is a multiple of 5.\n\nTry m = 65. Count the factors of 5 in 65!: each of the 13 multiples of 5 gives one five and the 2 multiples of 25 give one more each, so 13 + 2 = 15. So 65! ends in exactly 15 zeros. One multiple of 5 earlier, 60!, has 14, which is too few. So the smallest is **65**.\n\nThe common slip is answering 5 × 15 = 75. That works only while no multiple of 25 has appeared, and here 75! has 18 zeros, 3 too many.",
+  "solver": "const zerosOf = (value) => {\n  let count = 0;\n  while (value % 10n === 0n) {\n    value /= 10n;\n    count++;\n  }\n  return count;\n};\nlet product = 1n;\nfor (let m = 1n; m <= 2000n; m++) {\n  product *= m;\n  if (zerosOf(product) === 15) return Number(m);\n}\nreturn NaN;",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/trailing-zeros:smallest-15"
+  },
+  "status": "verified",
+  "tags": [
+    "number theory",
+    "factorials",
+    "prime factors"
+  ],
+  "createdAt": "2026-11-05T03:18:00.052Z"
+}

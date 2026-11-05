@@ -1,0 +1,50 @@
+{
+  "id": "cr-008",
+  "area": "create",
+  "difficulty": 4,
+  "title": "How a vaccine trains the body",
+  "prompt": "Explain to a child how a vaccine trains the body to fight a germ. Be accurate: the vaccine cannot give you the illness, and the body must really learn something.\n\nUse the word *practice*. Do not use the words *immune*, *immunity*, *antibody*, *antibodies*, *virus*, *viruses*. Write 40 to 90 words.\n\nWords are counted by the spaces between them.",
+  "answer": {
+    "type": "open",
+    "minWords": 40,
+    "maxWords": 90,
+    "authorNote": "Banning the jargon forces an image, and a strong answer picks one and keeps to it: guards, a wanted poster, a training drill. It makes clear that the vaccine cannot give you the illness, that the body remembers, and that the real germ meets a body that is ready.",
+    "constraints": [
+      {
+        "type": "must-include",
+        "words": [
+          "practice"
+        ]
+      },
+      {
+        "type": "forbid-words",
+        "words": [
+          "immune",
+          "immunity",
+          "antibody",
+          "antibodies",
+          "virus",
+          "viruses"
+        ]
+      }
+    ],
+    "example": "Imagine your body has a team of guards. A vaccine shows them a harmless picture of a germ, like a wanted poster, so they can get some practice spotting it. It cannot give you the illness, and the guards remember the face. Later, if the real germ ever turns up, the guards know it at once and chase it out before it can make you badly ill."
+  },
+  "hints": [
+    "What image from a child's world also involves practising for something that has not happened yet?",
+    "How can you say that the vaccine is safe, without any scary words?",
+    "What does the body do on the day the real germ turns up, and why is it faster?"
+  ],
+  "solution": "One example answer (67 words):\n\n> Imagine your body has a team of guards. A vaccine shows them a harmless picture of a germ, like a wanted poster, so they can get some practice spotting it. It cannot give you the illness, and the guards remember the face. Later, if the real germ ever turns up, the guards know it at once and chase it out before it can make you badly ill.\n\nOne image carries the whole idea: the poster is the vaccine, the guards are the body, and remembering the face is learning. It is simple, and it is still true to how the body responds.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/explain:vaccine-practice"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "explain",
+    "science"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}

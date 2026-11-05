@@ -1,0 +1,44 @@
+{
+  "id": "cr-013",
+  "area": "create",
+  "difficulty": 4,
+  "title": "The paper clip, behind glass",
+  "prompt": "Write the label a museum would put beside an ordinary paper clip, found in a kitchen drawer, as if it were a treasure from a lost age.\n\nEvery sentence must be exactly 8 words long. Use the words *clip* and *drawer*. Write 24 to 40 words.\n\nWords are counted by the spaces between them. A sentence ends with a full stop, a question mark or an exclamation mark.",
+  "answer": {
+    "type": "open",
+    "minWords": 24,
+    "maxWords": 40,
+    "authorNote": "Short, even sentences give the label its stiff museum rhythm, so a strong answer does not fight them. It states one dull fact, one grand claim, one mystery and one closing line that sounds like wisdom but is really about the object.",
+    "constraints": [
+      {
+        "type": "sentence-words",
+        "words": 8
+      },
+      {
+        "type": "must-include",
+        "words": [
+          "clip",
+          "drawer"
+        ]
+      }
+    ],
+    "example": "Object: a clip, bent once and never straightened. It held paper together for a forgotten age. Scholars ask why it sleeps in a drawer. Its only message is: stay together, and bend."
+  },
+  "hints": [
+    "How does a museum label usually begin, and what is the plainest true thing you can say about a paper clip?",
+    "What could scholars be unsure about, if they were studying something this ordinary?",
+    "What does a paper clip actually do that your last sentence could dress up as a lesson?"
+  ],
+  "solution": "One example answer (32 words):\n\n> Object: a clip, bent once and never straightened. It held paper together for a forgotten age. Scholars ask why it sleeps in a drawer. Its only message is: stay together, and bend.\n\nEvery sentence is eight words, which gives the deadpan beat of a real label. The last line is a joke that also turns out to be good advice.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/forms:paper-clip-museum-label"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "humour",
+    "museum"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}

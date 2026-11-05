@@ -1,0 +1,29 @@
+{
+  "id": "m-018",
+  "area": "math",
+  "difficulty": 3,
+  "title": "To town and home again",
+  "prompt": "A bus drives from the depot to the town centre at 8 km/h, then turns straight round and drives back along the same road at 24 km/h, with no stops.\n\nWhat is its average speed, in km/h, for the whole round trip?",
+  "answer": {
+    "type": "number",
+    "value": 12,
+    "tolerance": 0
+  },
+  "hints": [
+    "Is average speed the mean of the two speeds, or the total distance divided by the total time?",
+    "Choose a length for the road that both speeds divide exactly: how long does each leg take?",
+    "What is the total distance of the round trip, the total time, and so the average speed?"
+  ],
+  "solution": "**12 km/h.**\n\nAverage speed is total distance divided by total time, not the average of the two speeds.\n\nAny length of road gives the same answer, so choose 24 km, which both speeds divide exactly. The first leg takes 24 ÷ 8 = 3 hours and the second takes 24 ÷ 24 = 1 hour. The round trip is 2 × 24 = 48 km in 3 + 1 = 4 hours, so the average is 48 ÷ 4 = **12 km/h**.\n\nThe tempting answer is 16 km/h, the mean of the two speeds. It is too high because more time is spent at the slower speed.",
+  "solver": "const road = 840; // km, divisible by every speed used\nconst speeds = [8, 24];\nlet minutes = 0;\nfor (const speed of speeds) {\n  let covered = 0;\n  while (covered < road) {\n    covered += speed / 60;\n    minutes++;\n  }\n}\nreturn Math.round((2 * road) / (minutes / 60));",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/average-speed:average-8-24"
+  },
+  "status": "verified",
+  "tags": [
+    "rates",
+    "average speed"
+  ],
+  "createdAt": "2026-11-05T03:18:00.486Z"
+}

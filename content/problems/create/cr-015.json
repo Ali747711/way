@@ -1,0 +1,37 @@
+{
+  "id": "cr-015",
+  "area": "create",
+  "difficulty": 3,
+  "title": "The late train, with no S",
+  "prompt": "Write a tiny story about someone waiting on a platform for a train that is very late.\n\nDo not use the letter *s* anywhere. Write 25 to 70 words.\n\nWords are counted by the spaces between them.",
+  "answer": {
+    "type": "open",
+    "minWords": 25,
+    "maxWords": 70,
+    "authorNote": "The letter *s* hides in plurals, in *is* and *was*, and in *she* and *his*. A strong answer plans around it: past-tense verbs, names in place of pronouns, singular nouns. It still has a small turn, so the story is more than a puzzle solved.",
+    "constraints": [
+      {
+        "type": "no-letter",
+        "letter": "s"
+      }
+    ],
+    "example": "Nan, a tall woman in a grey coat, waited on the platform. Eight o'clock came and went, and no train. Nan read the board, then read it again. Nine o'clock came and went too. Nan grinned, took out a novel, and began to enjoy the wait."
+  },
+  "hints": [
+    "Which small words that you use all the time contain an *s*, and what can stand in for them?",
+    "If you write in the past tense about one named person, how many *s* words do you avoid?",
+    "What small change in the person could end the story, so it is more than a list of waiting?"
+  ],
+  "solution": "One example answer (46 words):\n\n> Nan, a tall woman in a grey coat, waited on the platform. Eight o'clock came and went, and no train. Nan read the board, then read it again. Nine o'clock came and went too. Nan grinned, took out a novel, and began to enjoy the wait.\n\nThe story gives its character a name to avoid *she*, and keeps to the past tense. The turn is quiet: waiting stops being a problem, and the lack of any *s* is never mentioned.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/stories:late-train-no-s"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "micro-story",
+    "no-letter"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}

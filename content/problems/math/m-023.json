@@ -1,0 +1,30 @@
+{
+  "id": "m-023",
+  "area": "math",
+  "difficulty": 3,
+  "title": "Hands pointing apart",
+  "prompt": "A clock has a smoothly moving hour hand and minute hand. From midnight up to, but not including, the next midnight, how many times do the hour hand and the minute hand point in exactly opposite directions (180 degrees apart)?",
+  "answer": {
+    "type": "number",
+    "value": 22,
+    "tolerance": 0
+  },
+  "hints": [
+    "In one hour, how far round the dial does each hand turn, in degrees?",
+    "How much does the minute hand gain on the hour hand each hour, and how long does it take to gain one full turn?",
+    "How many such laps fit in the period, and how many times in each lap do the hands reach the required position?"
+  ],
+  "solution": "**22.**\n\nMeasure the minute hand relative to the hour hand. The minute hand gains 360° − 30° = 330° every hour, so it gains a full turn on the hour hand every 360 ÷ 330 = 12/11 hours.\n\nIn 24 hours that is 24 ÷ (12/11) = 22 full laps. In each lap the hour hand and the minute hand point in exactly opposite directions (180 degrees apart) once, so 22 laps give **22** times.\n\nThe common slip is to count 24 laps, one per hour on the dial, forgetting that the hour hand is also moving and so the minute hand only catches up 22 times.",
+  "solver": "const seconds = 24 * 3600;\nconst targets = [21600];\nconst lap = 360 * 120;\nlet count = 0;\nfor (let s = 0; s < seconds; s++) {\n  for (const t of targets) {\n    const before = Math.floor((11 * s - t) / lap);\n    const after = Math.floor((11 * (s + 1) - t) / lap);\n    if (after > before) count++;\n  }\n}\nreturn count;",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/clock-hands:count-opposite-24"
+  },
+  "status": "verified",
+  "tags": [
+    "clocks",
+    "angles",
+    "rates"
+  ],
+  "createdAt": "2026-11-05T03:18:00.902Z"
+}

@@ -1,0 +1,193 @@
+{
+  "id": "c-020",
+  "area": "code",
+  "difficulty": 3,
+  "title": "Runner-up value",
+  "prompt": "The *runner-up* in a list of numbers is the second-largest *different* value. In `[7, 7, 5, 2]` the largest is `7` and the runner-up is `5`; the second `7` does not count, because it is the same value.\n\nWrite `secondBiggest(nums)` that takes an array of 0 to 20 whole numbers, each from -1000 to 1000, and returns the runner-up. If the array has fewer than two different values, return `null`.\n\nExamples:\n\n- `secondBiggest([7,7,5,2])` returns `5`\n- `secondBiggest([4,4,4])` returns `null`",
+  "answer": {
+    "type": "code",
+    "signature": "function secondBiggest(nums) {\n  \n}",
+    "entry": "secondBiggest",
+    "examples": [
+      {
+        "input": [
+          [
+            7,
+            7,
+            5,
+            2
+          ]
+        ],
+        "expected": 5
+      },
+      {
+        "input": [
+          [
+            4,
+            4,
+            4
+          ]
+        ],
+        "expected": null
+      }
+    ],
+    "tests": [
+      {
+        "input": [
+          []
+        ],
+        "expected": null
+      },
+      {
+        "input": [
+          [
+            9
+          ]
+        ],
+        "expected": null
+      },
+      {
+        "input": [
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "input": [
+          [
+            2,
+            1
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "input": [
+          [
+            -5,
+            -5,
+            -8
+          ]
+        ],
+        "expected": -8
+      },
+      {
+        "input": [
+          [
+            3,
+            9,
+            9,
+            9,
+            8,
+            8
+          ]
+        ],
+        "expected": 8
+      },
+      {
+        "input": [
+          [
+            0,
+            -1000,
+            1000
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          [
+            1,
+            4,
+            -1,
+            -4,
+            1
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "input": [
+          [
+            2,
+            -4,
+            4,
+            -4,
+            1,
+            5,
+            -3,
+            6
+          ]
+        ],
+        "expected": 5
+      },
+      {
+        "input": [
+          [
+            5,
+            6,
+            1,
+            4,
+            -6,
+            -1,
+            -2,
+            -1,
+            -5,
+            -4
+          ]
+        ],
+        "expected": 5
+      },
+      {
+        "input": [
+          [
+            4,
+            -2
+          ]
+        ],
+        "expected": -2
+      },
+      {
+        "input": [
+          [
+            0,
+            2,
+            1,
+            0,
+            -6,
+            -3,
+            0,
+            6,
+            -4,
+            3,
+            6,
+            4
+          ]
+        ],
+        "expected": 4
+      }
+    ],
+    "timeLimitMs": 2000,
+    "reference": "function secondBiggest(nums) {\n  let first = null;\n  let second = null;\n  for (const n of nums) {\n    if (first === null || n > first) {\n      second = first;\n      first = n;\n    } else if (n < first && (second === null || n > second)) {\n      second = n;\n    }\n  }\n  return second;\n}"
+  },
+  "hints": [
+    "What should the function return when every value is the same, or when there are no values at all?",
+    "Could you keep just two numbers as you go, the best so far and the runner-up so far, instead of sorting?",
+    "When a new number equals the current best, should it change the runner-up?"
+  ],
+  "solution": "Keep the largest value seen and the largest value seen that is smaller than it. Update both in a single pass and return the second one.\n\n```js\nfunction secondBiggest(nums) {\n  let first = null;\n  let second = null;\n  for (const n of nums) {\n    if (first === null || n > first) {\n      second = first;\n      first = n;\n    } else if (n < first && (second === null || n > second)) {\n      second = n;\n    }\n  }\n  return second;\n}\n```\n\nThe trap is duplicates of the maximum: `n < first` stops a repeated maximum from becoming its own runner-up. Start with `null`, not `0`, because every number from -1000 to 1000 can be a real answer.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:code/second-largest:only"
+  },
+  "status": "verified",
+  "tags": [
+    "arrays",
+    "loops",
+    "edge-cases"
+  ],
+  "createdAt": "2026-11-05T03:18:01.755Z"
+}

@@ -1,0 +1,323 @@
+{
+  "id": "c-006",
+  "area": "code",
+  "difficulty": 4,
+  "title": "Islands on the map",
+  "prompt": "A map is a grid of `0` (water) and `1` (land). Land squares that touch **up, down, left or right** belong to the same island. Squares that only touch at a corner do **not** join.\n\nWrite `countIslands(grid)` that takes a grid with 0 to 6 rows, where every row has the same length (1 to 6) and holds only `0` and `1`, and returns the number of islands. A grid with no rows has 0 islands. The input must not be changed.\n\nExamples:\n\n- `countIslands([[1,1,0,0],[0,1,0,1],[0,0,0,1]])` returns `2`\n- `countIslands([[1,0],[0,1]])` returns `2`",
+  "answer": {
+    "type": "code",
+    "signature": "function countIslands(grid) {\n  \n}",
+    "entry": "countIslands",
+    "examples": [
+      {
+        "input": [
+          [
+            [
+              1,
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              1
+            ]
+          ]
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          [
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ]
+        ],
+        "expected": 2
+      }
+    ],
+    "tests": [
+      {
+        "input": [
+          []
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          [
+            [
+              0
+            ]
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          [
+            [
+              1
+            ]
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "input": [
+          [
+            [
+              1,
+              1,
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "input": [
+          [
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ]
+        ],
+        "expected": 5
+      },
+      {
+        "input": [
+          [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "input": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          [
+            [
+              1,
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              1,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        "expected": 5
+      },
+      {
+        "input": [
+          [
+            [
+              1,
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              1,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              0,
+              1,
+              1
+            ]
+          ]
+        ],
+        "expected": 5
+      },
+      {
+        "input": [
+          [
+            [
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          [
+            [
+              1,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              1,
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              0,
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        ],
+        "expected": 3
+      }
+    ],
+    "timeLimitMs": 2000,
+    "reference": "function countIslands(grid) {\n  const seen = grid.map((row) => row.map(() => false));\n  let islands = 0;\n  for (let r = 0; r < grid.length; r++) {\n    for (let c = 0; c < grid[r].length; c++) {\n      if (grid[r][c] === 1 && !seen[r][c]) {\n        islands++;\n        const stack = [[r, c]];\n        seen[r][c] = true;\n        while (stack.length > 0) {\n          const [y, x] = stack.pop();\n          for (const [dy, dx] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {\n            const ny = y + dy;\n            const nx = x + dx;\n            if (grid[ny] && grid[ny][nx] === 1 && !seen[ny][nx]) {\n              seen[ny][nx] = true;\n              stack.push([ny, nx]);\n            }\n          }\n        }\n      }\n    }\n  }\n  return islands;\n}"
+  },
+  "hints": [
+    "If you stand on one land square, which other squares belong to the same island?",
+    "How can you \"flood\" an island from one square, marking every connected land square so you never count it again?",
+    "When you scan the grid square by square, what tells you that you have found a brand new island?"
+  ],
+  "solution": "Scan every square. When you find land that has not been visited, count one island and explore it completely (with a stack or recursion), marking each land square you reach as visited.\n\n```js\nfunction countIslands(grid) {\n  const seen = grid.map((row) => row.map(() => false));\n  let islands = 0;\n  for (let r = 0; r < grid.length; r++) {\n    for (let c = 0; c < grid[r].length; c++) {\n      if (grid[r][c] === 1 && !seen[r][c]) {\n        islands++;\n        const stack = [[r, c]];\n        seen[r][c] = true;\n        while (stack.length > 0) {\n          const [y, x] = stack.pop();\n          for (const [dy, dx] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {\n            const ny = y + dy;\n            const nx = x + dx;\n            if (grid[ny] && grid[ny][nx] === 1 && !seen[ny][nx]) {\n              seen[ny][nx] = true;\n              stack.push([ny, nx]);\n            }\n          }\n        }\n      }\n    }\n  }\n  return islands;\n}\n```\n\nMark squares as visited in a separate grid so the input stays unchanged. Only four directions are used: a diagonal neighbour is a different island. A ring of land around one water square is still one island.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:code/count-islands:only"
+  },
+  "status": "verified",
+  "tags": [
+    "grids",
+    "search",
+    "counting"
+  ],
+  "createdAt": "2026-11-05T03:18:01.755Z"
+}

@@ -1,0 +1,30 @@
+{
+  "id": "m-015",
+  "area": "math",
+  "difficulty": 3,
+  "title": "The leaning stick",
+  "prompt": "A straight stick 65 centimetres long leans against a vertical wall on level ground. Its foot is 16 centimetres from the wall. The top slips down the wall by 3 centimetres, and the foot slides out along the ground. The length stays the same.\n\nHow many centimetres does the foot slide?",
+  "answer": {
+    "type": "number",
+    "value": 9,
+    "tolerance": 0
+  },
+  "hints": [
+    "The stick, the wall and the ground make a right triangle: which side is the stick, and what does that tell you about the other two sides?",
+    "How high up the wall does the stick reach at the start, and how high does it reach after the top has slipped?",
+    "How far from the wall is the foot at the end, and how much further out is that than at the start?"
+  ],
+  "solution": "**9.**\n\nThe stick, the wall and the ground make a right triangle with the stick as its longest side, so (foot)² + (height)² = 65² = 4225.\n\nAt the start the foot is 16 from the wall, so the height is √(4225 − 256) = √3969 = 63. After the top slips 3, the height is 63 − 3 = 60, so the foot is √(4225 − 3600) = √625 = 25 from the wall. It has slid 25 − 16 = **9**.\n\nThe common slip is thinking the foot slides as far as the top slips. The two distances are different, because the triangle changes shape.",
+  "solver": "const root = (square) => {\n  for (let r = 1; r * r <= square; r++) if (r * r === square) return r;\n  return NaN;\n};\nconst length = 65;\nconst top = root(length * length - 16 * 16);\nconst newTop = top - 3;\nconst newFoot = root(length * length - newTop * newTop);\nreturn newFoot - 16;",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/ladder-slip:65-16-25-foot"
+  },
+  "status": "verified",
+  "tags": [
+    "geometry",
+    "Pythagoras",
+    "right triangles"
+  ],
+  "createdAt": "2026-11-05T03:18:00.486Z"
+}

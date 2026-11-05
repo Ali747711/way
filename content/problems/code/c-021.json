@@ -1,0 +1,393 @@
+{
+  "id": "c-021",
+  "area": "code",
+  "difficulty": 3,
+  "title": "Teams with no stragglers",
+  "prompt": "A coach splits players into teams of a fixed size, in the order they are listed. If the last team would be too small, its players join the team before it instead, so nobody is left in a tiny team of their own.\n\nWrite `groupUp(items, size)` that takes an array of 0 to 25 whole numbers and a whole number `size` from 1 to 10, and returns an array of groups (arrays). Every group except the last has exactly `size` items; the last group has `size` or more items. The one exception is when there are fewer than `size` items in total: then there is a single group holding all of them. An empty array returns `[]`. The input must not be changed.\n\nExamples:\n\n- `groupUp([1,2,3,4,5,6,7], 3)` returns `[[1,2,3],[4,5,6,7]]`\n- `groupUp([1,2], 5)` returns `[[1,2]]`",
+  "answer": {
+    "type": "code",
+    "signature": "function groupUp(items, size) {\n  \n}",
+    "entry": "groupUp",
+    "examples": [
+      {
+        "input": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          3
+        ],
+        "expected": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6,
+            7
+          ]
+        ]
+      },
+      {
+        "input": [
+          [
+            1,
+            2
+          ],
+          5
+        ],
+        "expected": [
+          [
+            1,
+            2
+          ]
+        ]
+      }
+    ],
+    "tests": [
+      {
+        "input": [
+          [],
+          3
+        ],
+        "expected": []
+      },
+      {
+        "input": [
+          [
+            9
+          ],
+          1
+        ],
+        "expected": [
+          [
+            9
+          ]
+        ]
+      },
+      {
+        "input": [
+          [
+            1,
+            2,
+            3
+          ],
+          1
+        ],
+        "expected": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ]
+        ]
+      },
+      {
+        "input": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          3
+        ],
+        "expected": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            4,
+            5,
+            6
+          ]
+        ]
+      },
+      {
+        "input": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          4
+        ],
+        "expected": [
+          [
+            1,
+            2,
+            3,
+            4
+          ],
+          [
+            5,
+            6,
+            7,
+            8
+          ]
+        ]
+      },
+      {
+        "input": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          5
+        ],
+        "expected": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        ]
+      },
+      {
+        "input": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          10
+        ],
+        "expected": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ]
+        ]
+      },
+      {
+        "input": [
+          [
+            66,
+            42,
+            13,
+            87,
+            41,
+            51,
+            86,
+            49,
+            44,
+            37,
+            49,
+            0,
+            84,
+            73,
+            47,
+            15,
+            24,
+            63,
+            87,
+            21,
+            52
+          ],
+          5
+        ],
+        "expected": [
+          [
+            66,
+            42,
+            13,
+            87,
+            41
+          ],
+          [
+            51,
+            86,
+            49,
+            44,
+            37
+          ],
+          [
+            49,
+            0,
+            84,
+            73,
+            47
+          ],
+          [
+            15,
+            24,
+            63,
+            87,
+            21,
+            52
+          ]
+        ]
+      },
+      {
+        "input": [
+          [
+            18,
+            29,
+            1,
+            9,
+            81,
+            86
+          ],
+          10
+        ],
+        "expected": [
+          [
+            18,
+            29,
+            1,
+            9,
+            81,
+            86
+          ]
+        ]
+      },
+      {
+        "input": [
+          [
+            55,
+            72,
+            74,
+            51,
+            20,
+            54,
+            94,
+            69
+          ],
+          9
+        ],
+        "expected": [
+          [
+            55,
+            72,
+            74,
+            51,
+            20,
+            54,
+            94,
+            69
+          ]
+        ]
+      },
+      {
+        "input": [
+          [
+            83,
+            46,
+            44,
+            50,
+            49,
+            1,
+            53,
+            87,
+            66,
+            73,
+            0,
+            59,
+            33,
+            65,
+            38,
+            8,
+            31,
+            12,
+            74
+          ],
+          8
+        ],
+        "expected": [
+          [
+            83,
+            46,
+            44,
+            50,
+            49,
+            1,
+            53,
+            87
+          ],
+          [
+            66,
+            73,
+            0,
+            59,
+            33,
+            65,
+            38,
+            8,
+            31,
+            12,
+            74
+          ]
+        ]
+      },
+      {
+        "input": [
+          [],
+          5
+        ],
+        "expected": []
+      }
+    ],
+    "timeLimitMs": 2000,
+    "reference": "function groupUp(items, size) {\n  const groups = [];\n  for (let i = 0; i < items.length; i += size) {\n    groups.push(items.slice(i, i + size));\n  }\n  const last = groups[groups.length - 1];\n  if (groups.length > 1 && last.length < size) {\n    groups.pop();\n    groups[groups.length - 1] = groups[groups.length - 1].concat(last);\n  }\n  return groups;\n}"
+  },
+  "hints": [
+    "If you ignored the stragglers rule, how would you cut the array into pieces of `size`, one slice at a time?",
+    "After cutting, how can you tell that the last piece is too short, and what should you do with it when there is an earlier piece?",
+    "What happens when there is only one piece in total, and when the array is empty?"
+  ],
+  "solution": "First cut the array into slices of `size`. Then, if there is more than one slice and the last is short, remove it and append its items to the slice before.\n\n```js\nfunction groupUp(items, size) {\n  const groups = [];\n  for (let i = 0; i < items.length; i += size) {\n    groups.push(items.slice(i, i + size));\n  }\n  const last = groups[groups.length - 1];\n  if (groups.length > 1 && last.length < size) {\n    groups.pop();\n    groups[groups.length - 1] = groups[groups.length - 1].concat(last);\n  }\n  return groups;\n}\n```\n\nTwo edge cases decide the result: a short last slice with nothing before it must stay as it is, and an exact fit must not be merged at all. Test `[1,2,3,4,5,6]` with size 3 (an exact fit, no merge) and `[1,2]` with size 5 (a short slice with nothing before it).",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:code/group-up:only"
+  },
+  "status": "verified",
+  "tags": [
+    "arrays",
+    "loops",
+    "edge-cases"
+  ],
+  "createdAt": "2026-11-05T03:18:01.755Z"
+}

@@ -1,0 +1,30 @@
+{
+  "id": "m-025",
+  "area": "math",
+  "difficulty": 3,
+  "title": "Matches for a season",
+  "prompt": "In a league every club plays every other club twice, home and away. The season has 182 matches.\n\nHow many clubs are in the league?",
+  "answer": {
+    "type": "number",
+    "value": 14,
+    "tolerance": 0
+  },
+  "hints": [
+    "If there are n clubs, how many opponents does each club have?",
+    "Each pair meets twice, once with each side first. Counting from each club's own side, what must n × (n − 1) equal in terms of the total number of matches?",
+    "Which two consecutive whole numbers multiply to that?"
+  ],
+  "solution": "**14.**\n\nIf there are n clubs, each of the n has n − 1 opponents, and every pair meets twice, once with each side first. Counting from each club's own side gives n × (n − 1) matches in all, with no halving. So n × (n − 1) = 182. We need two consecutive whole numbers whose product is 182: 14 and 13, since 14 × 13 = 182. So there are **14** clubs.\n\nCheck: 13 × 12 = 156 is too small and 15 × 14 = 210 is too big.\n\nThe common slip is halving the total, as if each pair met only once.",
+  "solver": "for (let n = 2; n <= 500; n++) {\n  let count = 0;\n  for (let a = 1; a <= n; a++) {\n    for (let b = a + 1; b <= n; b++) count += 2;\n  }\n  if (count === 182) return n;\n}\nreturn NaN;",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/handshakes:twice-reverse-14"
+  },
+  "status": "verified",
+  "tags": [
+    "counting",
+    "pairs",
+    "quadratics"
+  ],
+  "createdAt": "2026-11-05T03:18:00.902Z"
+}

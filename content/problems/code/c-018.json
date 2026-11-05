@@ -1,0 +1,175 @@
+{
+  "id": "c-018",
+  "area": "code",
+  "difficulty": 4,
+  "title": "The most-used words",
+  "prompt": "A weather diary is a text of lowercase words separated by single spaces. You want the words that appear most often.\n\nWrite `topWords(text, k)` that takes a string `text` (0 to 40 words, no leading, trailing or double spaces; an empty string has no words) and a whole number `k` from 1 to 10, and returns an array of the `k` most frequent words, most frequent first. If two words appear equally often, the one that comes first in alphabetical order goes first. If the text has fewer than `k` different words, return all of them.\n\nExamples:\n\n- `topWords(\"rain sun rain fog sun rain\", 2)` returns `[\"rain\",\"sun\"]`\n- `topWords(\"b a c\", 5)` returns `[\"a\",\"b\",\"c\"]`",
+  "answer": {
+    "type": "code",
+    "signature": "function topWords(text, k) {\n  \n}",
+    "entry": "topWords",
+    "examples": [
+      {
+        "input": [
+          "rain sun rain fog sun rain",
+          2
+        ],
+        "expected": [
+          "rain",
+          "sun"
+        ]
+      },
+      {
+        "input": [
+          "b a c",
+          5
+        ],
+        "expected": [
+          "a",
+          "b",
+          "c"
+        ]
+      }
+    ],
+    "tests": [
+      {
+        "input": [
+          "",
+          3
+        ],
+        "expected": []
+      },
+      {
+        "input": [
+          "solo",
+          1
+        ],
+        "expected": [
+          "solo"
+        ]
+      },
+      {
+        "input": [
+          "b a",
+          1
+        ],
+        "expected": [
+          "a"
+        ]
+      },
+      {
+        "input": [
+          "b b a a c",
+          2
+        ],
+        "expected": [
+          "a",
+          "b"
+        ]
+      },
+      {
+        "input": [
+          "x y z x y z x",
+          3
+        ],
+        "expected": [
+          "x",
+          "y",
+          "z"
+        ]
+      },
+      {
+        "input": [
+          "one two three four",
+          2
+        ],
+        "expected": [
+          "four",
+          "one"
+        ]
+      },
+      {
+        "input": [
+          "snow snow snow",
+          4
+        ],
+        "expected": [
+          "snow"
+        ]
+      },
+      {
+        "input": [
+          "rain moon rain fog fog wind cloud moon snow",
+          5
+        ],
+        "expected": [
+          "fog",
+          "moon",
+          "rain",
+          "cloud",
+          "snow"
+        ]
+      },
+      {
+        "input": [
+          "rain snow sun cloud wind sun rain snow moon",
+          2
+        ],
+        "expected": [
+          "rain",
+          "snow"
+        ]
+      },
+      {
+        "input": [
+          "star sun sun star star moon sun star sun star wind snow sun star star wind rain snow star",
+          3
+        ],
+        "expected": [
+          "star",
+          "sun",
+          "snow"
+        ]
+      },
+      {
+        "input": [
+          "moon rain wind rain moon rain snow star sun snow rain star moon cloud wind star rain sun fog moon moon moon rain fog rain",
+          2
+        ],
+        "expected": [
+          "rain",
+          "moon"
+        ]
+      },
+      {
+        "input": [
+          "rain star fog sun sun wind moon cloud moon rain sun",
+          2
+        ],
+        "expected": [
+          "sun",
+          "moon"
+        ]
+      }
+    ],
+    "timeLimitMs": 2000,
+    "reference": "function topWords(text, k) {\n  const counts = new Map();\n  for (const word of text.split(' ')) {\n    if (word !== '') counts.set(word, (counts.get(word) ?? 0) + 1);\n  }\n  return [...counts.keys()]\n    .sort((a, b) => counts.get(b) - counts.get(a) || (a < b ? -1 : 1))\n    .slice(0, k);\n}"
+  },
+  "hints": [
+    "What do you need to count, and which structure lets you look up a word and add one to its count?",
+    "Once every word has a count, how do you order the different words so that bigger counts come first?",
+    "When two counts are equal, what second rule must the ordering use, and what do you do with the empty string?"
+  ],
+  "solution": "Count each word in a map. Then sort the distinct words by count (largest first), breaking ties alphabetically, and take the first `k`.\n\n```js\nfunction topWords(text, k) {\n  const counts = new Map();\n  for (const word of text.split(' ')) {\n    if (word !== '') counts.set(word, (counts.get(word) ?? 0) + 1);\n  }\n  return [...counts.keys()]\n    .sort((a, b) => counts.get(b) - counts.get(a) || (a < b ? -1 : 1))\n    .slice(0, k);\n}\n```\n\nSorting with two rules in one comparison, `countDifference || alphabeticalOrder`, works because the second part only runs when the counts tie. Splitting an empty string gives `[\"\"]`, so skip empty pieces or the \"word\" `\"\"` will be counted.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:code/top-words:only"
+  },
+  "status": "verified",
+  "tags": [
+    "strings",
+    "counting",
+    "sorting"
+  ],
+  "createdAt": "2026-11-05T03:18:01.755Z"
+}

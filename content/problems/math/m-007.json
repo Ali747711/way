@@ -1,0 +1,30 @@
+{
+  "id": "m-007",
+  "area": "math",
+  "difficulty": 3,
+  "title": "The snail and the cracked tile",
+  "prompt": "A snail starts on one tile of a large tiled terrace and must reach the tile 6 tiles to the right of it and 5 tiles up. Each move takes it one tile right or one tile up.\n\nThe tile 4 right and 3 up from the start is broken, so the snail never steps on it. How many different paths are there?",
+  "answer": {
+    "type": "number",
+    "value": 252,
+    "tolerance": 0
+  },
+  "hints": [
+    "A path is a string of right moves and up moves: how many moves does a path to the end have, and how many of them go right?",
+    "How many paths are there if no tile is broken?",
+    "How many of those paths step on the broken tile, counting the part before it and the part after it?"
+  ],
+  "solution": "**252.**\n\nCount all paths, then take away the ones that step on the broken tile.\n\nAny path is 11 moves, of which 6 are right: C(11, 6) = 462 (choose which moves go right).\n\nPaths through the broken tile: 4 right and 3 up to reach it: C(7, 4) = 35 ways, then 2 right and 2 up from there: C(4, 2) = 6 ways, so 210 in all. The answer is 462 − 210 = **252**.\n\nThe common slip is to subtract only the 35 ways of reaching the broken tile, forgetting that each of them can continue to the end in several ways.",
+  "solver": "const east = 6;\nconst north = 5;\nconst blocked = new Set([\"4,3\"]);\nconst run = (fromX, fromY, toX, toY) => {\n  const grid = [];\n  for (let x = fromX; x <= toX; x++) {\n    grid[x] = [];\n    for (let y = fromY; y <= toY; y++) {\n      if (blocked.has(`${x},${y}`)) {\n        grid[x][y] = 0;\n      } else if (x === fromX && y === fromY) {\n        grid[x][y] = 1;\n      } else {\n        const left = x > fromX ? grid[x - 1][y] : 0;\n        const below = y > fromY ? grid[x][y - 1] : 0;\n        grid[x][y] = left + below;\n      }\n    }\n  }\n  return grid[toX][toY];\n};\nreturn run(0, 0, east, north);",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/grid-paths:avoid-6x5-4.3"
+  },
+  "status": "verified",
+  "tags": [
+    "counting",
+    "paths",
+    "grids"
+  ],
+  "createdAt": "2026-11-05T03:18:00.052Z"
+}

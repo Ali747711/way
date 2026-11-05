@@ -1,0 +1,36 @@
+{
+  "id": "cr-017",
+  "area": "create",
+  "difficulty": 3,
+  "title": "Why the sky is blue, in questions",
+  "prompt": "Explain to a curious five-year-old why the sky is blue. Walk them to the answer one question at a time, so that they could nearly say it themselves.\n\nEvery sentence must be a question. Write 30 to 90 words.\n\nWords are counted by the spaces between them. A sentence ends with a full stop, a question mark or an exclamation mark.",
+  "answer": {
+    "type": "open",
+    "minWords": 30,
+    "maxWords": 90,
+    "authorNote": "A strong answer builds the idea in the right order: sunlight hides every colour, the air scatters light, blue scatters most, so blue comes from all over the sky. Each question should set up the next, so that the child feels clever, not tested. The idea has to stay true, even when it is simple.",
+    "constraints": [
+      {
+        "type": "all-questions"
+      }
+    ],
+    "example": "Do you know that sunlight looks white but hides every colour inside? What happens when that light runs into the air, which is full of tiny, tiny bits? Does the short, wiggly blue light get bounced around more than the long, lazy red light? And if blue light is bouncing everywhere, where would you have to look to see it?"
+  },
+  "hints": [
+    "What is the first surprising thing about sunlight that a child could picture?",
+    "What does light run into on its way down, and what happens to it there?",
+    "Which question leads the child to look up and see the answer for themselves?"
+  ],
+  "solution": "One example answer (60 words):\n\n> Do you know that sunlight looks white but hides every colour inside? What happens when that light runs into the air, which is full of tiny, tiny bits? Does the short, wiggly blue light get bounced around more than the long, lazy red light? And if blue light is bouncing everywhere, where would you have to look to see it?\n\nThe four questions follow the real order of the explanation: mixed light, scattering, why blue wins, and what we see. The last question hands the answer back to the child, who only has to look up.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/explain:sky-blue-questions"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "explain",
+    "science"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}

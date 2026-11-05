@@ -1,0 +1,387 @@
+{
+  "id": "c-022",
+  "area": "code",
+  "difficulty": 3,
+  "title": "Turn the picture",
+  "prompt": "A small picture is stored as a grid: an array of rows, each row an array of whole numbers. Turning the picture a quarter turn **clockwise** moves its left column to the top row, read upwards from the bottom. For example, turning\n\n```\n1 2 3\n4 5 6\n```\n\nclockwise gives\n\n```\n4 1\n5 2\n6 3\n```\n\nWrite `rotateRight(grid)` that takes a grid with 0 to 5 rows, where every row has the same length (1 to 5 numbers), and returns the rotated grid as a new array of arrays. A grid with no rows returns `[]`. The input must not be changed.\n\nExamples:\n\n- `rotateRight([[1,2,3],[4,5,6]])` returns `[[4,1],[5,2],[6,3]]`\n- `rotateRight([[7]])` returns `[[7]]`",
+  "answer": {
+    "type": "code",
+    "signature": "function rotateRight(grid) {\n  \n}",
+    "entry": "rotateRight",
+    "examples": [
+      {
+        "input": [
+          [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            4,
+            1
+          ],
+          [
+            5,
+            2
+          ],
+          [
+            6,
+            3
+          ]
+        ]
+      },
+      {
+        "input": [
+          [
+            [
+              7
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            7
+          ]
+        ]
+      }
+    ],
+    "tests": [
+      {
+        "input": [
+          []
+        ],
+        "expected": []
+      },
+      {
+        "input": [
+          [
+            [
+              1,
+              2,
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ]
+        ]
+      },
+      {
+        "input": [
+          [
+            [
+              1
+            ],
+            [
+              2
+            ],
+            [
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            3,
+            2,
+            1
+          ]
+        ]
+      },
+      {
+        "input": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            2
+          ]
+        ]
+      },
+      {
+        "input": [
+          [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6
+            ],
+            [
+              7,
+              8,
+              9
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            7,
+            4,
+            1
+          ],
+          [
+            8,
+            5,
+            2
+          ],
+          [
+            9,
+            6,
+            3
+          ]
+        ]
+      },
+      {
+        "input": [
+          [
+            [
+              4,
+              9,
+              8
+            ],
+            [
+              8,
+              5,
+              6
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            8,
+            4
+          ],
+          [
+            5,
+            9
+          ],
+          [
+            6,
+            8
+          ]
+        ]
+      },
+      {
+        "input": [
+          [
+            [
+              3
+            ],
+            [
+              6
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            6,
+            3
+          ]
+        ]
+      },
+      {
+        "input": [
+          [
+            [
+              7,
+              3,
+              0,
+              6
+            ],
+            [
+              9,
+              8,
+              0,
+              0
+            ],
+            [
+              0,
+              6,
+              7,
+              8
+            ],
+            [
+              8,
+              1,
+              3,
+              6
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            8,
+            0,
+            9,
+            7
+          ],
+          [
+            1,
+            6,
+            8,
+            3
+          ],
+          [
+            3,
+            7,
+            0,
+            0
+          ],
+          [
+            6,
+            8,
+            0,
+            6
+          ]
+        ]
+      },
+      {
+        "input": [
+          [
+            [
+              8,
+              6,
+              7
+            ],
+            [
+              8,
+              4,
+              9
+            ],
+            [
+              0,
+              7,
+              9
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            8,
+            8
+          ],
+          [
+            7,
+            4,
+            6
+          ],
+          [
+            9,
+            9,
+            7
+          ]
+        ]
+      },
+      {
+        "input": [
+          [
+            [
+              4,
+              1,
+              7
+            ],
+            [
+              6,
+              9,
+              3
+            ],
+            [
+              6,
+              1,
+              2
+            ],
+            [
+              9,
+              4,
+              8
+            ],
+            [
+              7,
+              2,
+              0
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            7,
+            9,
+            6,
+            6,
+            4
+          ],
+          [
+            2,
+            4,
+            1,
+            9,
+            1
+          ],
+          [
+            0,
+            8,
+            2,
+            3,
+            7
+          ]
+        ]
+      }
+    ],
+    "timeLimitMs": 2000,
+    "reference": "function rotateRight(grid) {\n  if (grid.length === 0) return [];\n  return grid[0].map((_, col) => grid.map((row) => row[col]).reverse());\n}"
+  },
+  "hints": [
+    "If the grid has 2 rows and 3 columns, how many rows and columns will the turned grid have?",
+    "Which old column becomes the first new row, and in which direction do you read that column?",
+    "Can you build each new row by taking one column from every old row, and then reversing it?"
+  ],
+  "solution": "Each new row is an old column, read from the bottom row up. So for every column index, collect that column from all rows and reverse it.\n\n```js\nfunction rotateRight(grid) {\n  if (grid.length === 0) return [];\n  return grid[0].map((_, col) => grid.map((row) => row[col]).reverse());\n}\n```\n\nThe new grid is as tall as the old one was wide. Use `map` (which builds new arrays) rather than reordering the input in place, and check an empty grid first, because there is no first row to measure the width from.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:code/rotate-grid:only"
+  },
+  "status": "verified",
+  "tags": [
+    "arrays",
+    "grids",
+    "loops"
+  ],
+  "createdAt": "2026-11-05T03:18:01.755Z"
+}

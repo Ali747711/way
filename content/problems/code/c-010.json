@@ -1,0 +1,140 @@
+{
+  "id": "c-010",
+  "area": "code",
+  "difficulty": 3,
+  "title": "Clock after a delay",
+  "prompt": "A 24-hour clock shows times as `\"HH:MM\"`, with two digits for the hours (`00` to `23`) and two for the minutes (`00` to `59`). After `23:59` the next minute is `00:00`.\n\nWrite `addMinutes(time, minutes)` that takes a valid `\"HH:MM\"` string and a whole number `minutes` from -5000 to 5000, and returns the clock time that many minutes later, in the same `\"HH:MM\"` format with leading zeros. A negative `minutes` goes back in time. The result always has hours from `00` to `23`; midnight is `\"00:00\"`, never `\"24:00\"`.\n\nExamples:\n\n- `addMinutes(\"23:50\", 25)` returns `\"00:15\"`\n- `addMinutes(\"00:10\", -20)` returns `\"23:50\"`",
+  "answer": {
+    "type": "code",
+    "signature": "function addMinutes(time, minutes) {\n  \n}",
+    "entry": "addMinutes",
+    "examples": [
+      {
+        "input": [
+          "23:50",
+          25
+        ],
+        "expected": "00:15"
+      },
+      {
+        "input": [
+          "00:10",
+          -20
+        ],
+        "expected": "23:50"
+      }
+    ],
+    "tests": [
+      {
+        "input": [
+          "00:00",
+          0
+        ],
+        "expected": "00:00"
+      },
+      {
+        "input": [
+          "12:30",
+          0
+        ],
+        "expected": "12:30"
+      },
+      {
+        "input": [
+          "23:59",
+          1
+        ],
+        "expected": "00:00"
+      },
+      {
+        "input": [
+          "00:00",
+          -1
+        ],
+        "expected": "23:59"
+      },
+      {
+        "input": [
+          "10:15",
+          1440
+        ],
+        "expected": "10:15"
+      },
+      {
+        "input": [
+          "10:15",
+          -1440
+        ],
+        "expected": "10:15"
+      },
+      {
+        "input": [
+          "06:05",
+          5000
+        ],
+        "expected": "17:25"
+      },
+      {
+        "input": [
+          "06:05",
+          -5000
+        ],
+        "expected": "18:45"
+      },
+      {
+        "input": [
+          "08:15",
+          4779
+        ],
+        "expected": "15:54"
+      },
+      {
+        "input": [
+          "08:28",
+          11
+        ],
+        "expected": "08:39"
+      },
+      {
+        "input": [
+          "10:04",
+          -1561
+        ],
+        "expected": "08:03"
+      },
+      {
+        "input": [
+          "07:26",
+          588
+        ],
+        "expected": "17:14"
+      },
+      {
+        "input": [
+          "16:54",
+          -290
+        ],
+        "expected": "12:04"
+      }
+    ],
+    "timeLimitMs": 2000,
+    "reference": "function addMinutes(time, minutes) {\n  const [hours, mins] = time.split(':').map(Number);\n  const total = hours * 60 + mins + minutes;\n  const wrapped = ((total % 1440) + 1440) % 1440;\n  const pad = (n) => String(n).padStart(2, '0');\n  return pad(Math.floor(wrapped / 60)) + ':' + pad(wrapped % 60);\n}"
+  },
+  "hints": [
+    "Could you turn the clock time into one number, the minutes since midnight, and do the sum on that?",
+    "A day has 1440 minutes. How can the remainder operator wrap a total back into a single day?",
+    "What does % give for a negative total, and what can you add before the final % to fix it?"
+  ],
+  "solution": "Convert `\"HH:MM\"` to minutes since midnight, add the delay, wrap into 0 to 1439, then turn it back into hours and minutes with padding.\n\n```js\nfunction addMinutes(time, minutes) {\n  const [hours, mins] = time.split(':').map(Number);\n  const total = hours * 60 + mins + minutes;\n  const wrapped = ((total % 1440) + 1440) % 1440;\n  const pad = (n) => String(n).padStart(2, '0');\n  return pad(Math.floor(wrapped / 60)) + ':' + pad(wrapped % 60);\n}\n```\n\nNegative totals are the catch: `-10 % 1440` is `-10` in JavaScript, so add 1440 and take `%` again. `padStart(2, \"0\")` gives the leading zeros, so `5` becomes `\"05\"`.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:code/add-minutes:only"
+  },
+  "status": "verified",
+  "tags": [
+    "strings",
+    "math",
+    "time"
+  ],
+  "createdAt": "2026-11-05T03:18:01.755Z"
+}

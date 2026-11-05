@@ -1,0 +1,43 @@
+{
+  "id": "cr-022",
+  "area": "create",
+  "difficulty": 3,
+  "title": "Wanted: one scarecrow",
+  "prompt": "Write a job advert for a scarecrow to guard a field of barley.\n\nDo not use the words *must*, *experience*, *hardworking*, *team*, *passionate*. Write 30 to 70 words.\n\nWords are counted by the spaces between them.",
+  "answer": {
+    "type": "open",
+    "minWords": 30,
+    "maxWords": 70,
+    "authorNote": "Job adverts run on stock phrases, and banning five of them forces a writer to say what the job really is. A strong answer keeps the advert format (duties, hours, qualities, pay) while the details come from the odd life of a scarecrow.",
+    "constraints": [
+      {
+        "type": "forbid-words",
+        "words": [
+          "must",
+          "experience",
+          "hardworking",
+          "team",
+          "passionate"
+        ]
+      }
+    ],
+    "example": "Wanted: one scarecrow for a large field of barley. Duties include standing still, looking worried and wearing whatever the farmer finds. Hours are every hour, with no holidays, though the view is excellent. Our ideal candidate is tall, patient and unbothered by crows. Pay is one hat and the respect of the barley."
+  },
+  "hints": [
+    "Which parts does a job advert always have, and what does each one look like for a scarecrow?",
+    "What are the real duties, hours and benefits of standing still in a field?",
+    "What would the pay be, if the employer is a farmer?"
+  ],
+  "solution": "One example answer (53 words):\n\n> Wanted: one scarecrow for a large field of barley. Duties include standing still, looking worried and wearing whatever the farmer finds. Hours are every hour, with no holidays, though the view is excellent. Our ideal candidate is tall, patient and unbothered by crows. Pay is one hat and the respect of the barley.\n\nIt keeps the stiff shape of an advert (*duties include*, *ideal candidate*, *pay is*) and fills it with scarecrow facts. *The respect of the barley* is the unexpected last beat.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/forms:scarecrow-job-advert"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "advert",
+    "humour"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}

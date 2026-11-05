@@ -1,0 +1,30 @@
+{
+  "id": "m-010",
+  "area": "math",
+  "difficulty": 3,
+  "title": "How many teams?",
+  "prompt": "In a league every team plays every other team exactly once. In total 91 games are played.\n\nHow many teams are in the league?",
+  "answer": {
+    "type": "number",
+    "value": 14,
+    "tolerance": 0
+  },
+  "hints": [
+    "If there are n teams, in how many games does each team take part, and why does multiplying by n count every one of the games twice?",
+    "So what must n × (n − 1) equal, in terms of the total number of games?",
+    "Which two consecutive whole numbers multiply to that?"
+  ],
+  "solution": "**14.**\n\nIf there are n teams, each of the n takes part in n − 1 of the games, and n × (n − 1) counts every one of the games twice, once for each of its two sides. So n × (n − 1) ÷ 2 = 91, which means n × (n − 1) = 182. We need two consecutive whole numbers whose product is 182: 14 and 13, since 14 × 13 = 182. So there are **14** teams.\n\nCheck: 13 × 12 = 156 is too small and 15 × 14 = 210 is too big.\n\nThe common slip is solving n × (n − 1) = 91, without the doubling. The total was already halved.",
+  "solver": "for (let n = 2; n <= 500; n++) {\n  let count = 0;\n  for (let a = 1; a <= n; a++) {\n    for (let b = a + 1; b <= n; b++) count += 1;\n  }\n  if (count === 91) return n;\n}\nreturn NaN;",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/handshakes:once-reverse-14"
+  },
+  "status": "verified",
+  "tags": [
+    "counting",
+    "pairs",
+    "quadratics"
+  ],
+  "createdAt": "2026-11-05T03:18:00.052Z"
+}

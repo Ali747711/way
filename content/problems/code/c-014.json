@@ -1,0 +1,125 @@
+{
+  "id": "c-014",
+  "area": "code",
+  "difficulty": 4,
+  "title": "No repeats allowed",
+  "prompt": "A *stretch* of a string is a piece of consecutive characters. You want the longest stretch in which no character appears twice. In `\"abcabcbb\"` the stretch `\"abc\"` works (length 3), and nothing longer does.\n\nWrite `longestUnique(text)` that takes a string of 0 to 40 characters (letters, digits and spaces; a space counts as a character, and capital and small letters are different) and returns the **length** of the longest stretch with no repeated character. An empty string returns `0`.\n\nExamples:\n\n- `longestUnique(\"abcabcbb\")` returns `3`\n- `longestUnique(\"aaaa\")` returns `1`",
+  "answer": {
+    "type": "code",
+    "signature": "function longestUnique(text) {\n  \n}",
+    "entry": "longestUnique",
+    "examples": [
+      {
+        "input": [
+          "abcabcbb"
+        ],
+        "expected": 3
+      },
+      {
+        "input": [
+          "aaaa"
+        ],
+        "expected": 1
+      }
+    ],
+    "tests": [
+      {
+        "input": [
+          ""
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          "z"
+        ],
+        "expected": 1
+      },
+      {
+        "input": [
+          "ab"
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          "aa"
+        ],
+        "expected": 1
+      },
+      {
+        "input": [
+          "abba"
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          "abcdef"
+        ],
+        "expected": 6
+      },
+      {
+        "input": [
+          "Aa Aa"
+        ],
+        "expected": 3
+      },
+      {
+        "input": [
+          "dvdf"
+        ],
+        "expected": 3
+      },
+      {
+        "input": [
+          " C caAc2B2 bbaA"
+        ],
+        "expected": 5
+      },
+      {
+        "input": [
+          "2ca2BaBBcA1Abbdeed"
+        ],
+        "expected": 4
+      },
+      {
+        "input": [
+          "eCda1 1b 1A12 C 1ecdB1abc AA "
+        ],
+        "expected": 8
+      },
+      {
+        "input": [
+          "aedABcaa"
+        ],
+        "expected": 6
+      },
+      {
+        "input": [
+          "  c2cCdAceAdAc "
+        ],
+        "expected": 5
+      }
+    ],
+    "timeLimitMs": 2000,
+    "reference": "function longestUnique(text) {\n  const lastSeen = new Map();\n  let start = 0;\n  let best = 0;\n  for (let i = 0; i < text.length; i++) {\n    const at = lastSeen.get(text[i]);\n    if (at !== undefined && at >= start) {\n      start = at + 1;\n    }\n    lastSeen.set(text[i], i);\n    best = Math.max(best, i - start + 1);\n  }\n  return best;\n}"
+  },
+  "hints": [
+    "How can you check, for a given stretch, that it has no repeated character?",
+    "Could you keep a window with a left edge and a right edge, moving the right edge forward one character at a time?",
+    "When the new character is already inside the window, how far must the left edge move so the window is clean again?"
+  ],
+  "solution": "Slide a window across the string. Remember the last position of every character. When the next character already appears inside the window, move the left edge just past that earlier copy. After each step, the window length is a candidate for the best.\n\n```js\nfunction longestUnique(text) {\n  const lastSeen = new Map();\n  let start = 0;\n  let best = 0;\n  for (let i = 0; i < text.length; i++) {\n    const at = lastSeen.get(text[i]);\n    if (at !== undefined && at >= start) {\n      start = at + 1;\n    }\n    lastSeen.set(text[i], i);\n    best = Math.max(best, i - start + 1);\n  }\n  return best;\n}\n```\n\nThe left edge must never move backwards: in `\"abba\"`, the second `a` was last seen at 0, which is already outside the window, so it must not pull the edge back. Trying every stretch with a set also works for short strings, but is much slower for long ones.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:code/longest-unique:only"
+  },
+  "status": "verified",
+  "tags": [
+    "strings",
+    "two-pointers",
+    "sliding-window"
+  ],
+  "createdAt": "2026-11-05T03:18:01.755Z"
+}

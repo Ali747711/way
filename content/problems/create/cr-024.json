@@ -1,0 +1,41 @@
+{
+  "id": "cr-024",
+  "area": "create",
+  "difficulty": 4,
+  "title": "A tongue twister for an early bakery",
+  "prompt": "Write a tongue twister about a bakery that opens far too early in the morning.\n\nEvery word must start with the letter *b*. Write exactly 2 sentences. Write 10 to 25 words.\n\nWords are counted by the spaces between them. A sentence ends with a full stop, a question mark or an exclamation mark.",
+  "answer": {
+    "type": "open",
+    "minWords": 10,
+    "maxWords": 25,
+    "authorNote": "With only one starting letter, a writer has to hunt for *b* words that still make a picture. A strong answer has real sense (who, where, when) and a bounce in the rhythm, so it is fun to read aloud, even when it is hard to say.",
+    "constraints": [
+      {
+        "type": "same-start",
+        "letter": "b"
+      },
+      {
+        "type": "sentence-count",
+        "count": 2
+      }
+    ],
+    "example": "Bleary bakers bang big brass bowls before breakfast, banishing bedtime. Bakery bells buzz, batter bubbles, bread blooms boldly."
+  },
+  "hints": [
+    "Which *b* words describe the people, the place and the time of day?",
+    "How can you avoid small words like *the* and *a*, which do not start with *b*?",
+    "Does it make you stumble when you say it aloud, in a good way?"
+  ],
+  "solution": "One example answer (18 words):\n\n> Bleary bakers bang big brass bowls before breakfast, banishing bedtime. Bakery bells buzz, batter bubbles, bread blooms boldly.\n\nThe first line gives a scene (tired bakers, loud bowls, too early). The second line adds sounds and smells in short bursts, and the pile of *b* sounds makes it a true twister.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/stories:early-bakery-twister"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "wordplay",
+    "same-start"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}

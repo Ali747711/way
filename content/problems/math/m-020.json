@@ -1,0 +1,30 @@
+{
+  "id": "m-020",
+  "area": "math",
+  "difficulty": 3,
+  "title": "A tank with a hole",
+  "prompt": "A tap fills an empty tank in 12 hours. The tank has a hole in the bottom, and with the hole open the same tap takes 18 hours to fill the empty tank. The water leaks out at a steady rate whatever the depth.\n\nIf the tank were full, with the tap off, how many hours would the hole take to empty it?",
+  "answer": {
+    "type": "number",
+    "value": 36,
+    "tolerance": 0
+  },
+  "hints": [
+    "What fraction of the tank does the tap fill in one hour with no leak, and what fraction does it gain in one hour with the leak?",
+    "Where did the difference between those two fractions go?",
+    "If that fraction of a full tank leaks away each hour, how long does the whole tank take to empty?"
+  ],
+  "solution": "**36 hours.**\n\nThink in fractions of the tank per hour. The tap fills 1/12 of the tank each hour. With the leak open, the tank gains only 1/18 each hour, so the leak removes the difference: 1/12 − 1/18 = 1/36 of the tank per hour.\n\nIf 1/36 of a full tank leaks away each hour, the leak alone takes **36** hours to empty it.\n\nThe common slip is subtracting the times, 18 − 12 = 6. Times do not subtract, but rates do.",
+  "solver": "const fill = 12;\nconst net = 18;\nfor (let leak = 1; leak <= 10000; leak++) {\n  // Balance the rates 1/fill - 1/leak = 1/net without fractions.\n  if (net * leak - net * fill === fill * leak) return leak;\n}\nreturn NaN;",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/work-rates:leak-12-18"
+  },
+  "status": "verified",
+  "tags": [
+    "rates",
+    "work",
+    "fractions"
+  ],
+  "createdAt": "2026-11-05T03:18:00.902Z"
+}

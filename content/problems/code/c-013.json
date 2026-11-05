@@ -1,0 +1,119 @@
+{
+  "id": "c-013",
+  "area": "code",
+  "difficulty": 3,
+  "title": "The longest streak",
+  "prompt": "A *run* is a stretch of identical characters sitting next to each other. In `\"aabbbcc\"` the runs are `aa`, `bbb` and `cc`.\n\nWrite `longestRun(text)` that takes a string of 0 to 40 lowercase letters and returns its longest run as a string. If two runs are equally long, return the one that starts first. An empty string returns an empty string.\n\nExamples:\n\n- `longestRun(\"aabbbcc\")` returns `\"bbb\"`\n- `longestRun(\"abcd\")` returns `\"a\"`",
+  "answer": {
+    "type": "code",
+    "signature": "function longestRun(text) {\n  \n}",
+    "entry": "longestRun",
+    "examples": [
+      {
+        "input": [
+          "aabbbcc"
+        ],
+        "expected": "bbb"
+      },
+      {
+        "input": [
+          "abcd"
+        ],
+        "expected": "a"
+      }
+    ],
+    "tests": [
+      {
+        "input": [
+          ""
+        ],
+        "expected": ""
+      },
+      {
+        "input": [
+          "z"
+        ],
+        "expected": "z"
+      },
+      {
+        "input": [
+          "aabb"
+        ],
+        "expected": "aa"
+      },
+      {
+        "input": [
+          "abbbaaa"
+        ],
+        "expected": "bbb"
+      },
+      {
+        "input": [
+          "xxxxxx"
+        ],
+        "expected": "xxxxxx"
+      },
+      {
+        "input": [
+          "abababab"
+        ],
+        "expected": "a"
+      },
+      {
+        "input": [
+          "cbaaa"
+        ],
+        "expected": "aaa"
+      },
+      {
+        "input": [
+          "cccaaacbcbabcaccacbabcabaab"
+        ],
+        "expected": "ccc"
+      },
+      {
+        "input": [
+          "bbccbabcbaaabacbcccbaaca"
+        ],
+        "expected": "aaa"
+      },
+      {
+        "input": [
+          "ccbbacbacccbbac"
+        ],
+        "expected": "ccc"
+      },
+      {
+        "input": [
+          "bbc"
+        ],
+        "expected": "bb"
+      },
+      {
+        "input": [
+          "bccbbbacacc"
+        ],
+        "expected": "bbb"
+      }
+    ],
+    "timeLimitMs": 2000,
+    "reference": "function longestRun(text) {\n  let best = '';\n  let runStart = 0;\n  for (let i = 1; i <= text.length; i++) {\n    if (i === text.length || text[i] !== text[runStart]) {\n      if (i - runStart > best.length) {\n        best = text.slice(runStart, i);\n      }\n      runStart = i;\n    }\n  }\n  return best;\n}"
+  },
+  "hints": [
+    "How can you tell that the character at position i continues the run that began earlier, and when does a new run start?",
+    "Can you remember just where the current run started, and compare its length with the best length so far each time it ends?",
+    "If two runs tie, should the later one replace the earlier one, or only a strictly longer one?"
+  ],
+  "solution": "Remember where the current run began. When the next character differs (or the string ends), the run is over: compare its length with the best so far and start a new run.\n\n```js\nfunction longestRun(text) {\n  let best = '';\n  let runStart = 0;\n  for (let i = 1; i <= text.length; i++) {\n    if (i === text.length || text[i] !== text[runStart]) {\n      if (i - runStart > best.length) {\n        best = text.slice(runStart, i);\n      }\n      runStart = i;\n    }\n  }\n  return best;\n}\n```\n\nUsing `>` instead of `>=` when comparing lengths keeps the earliest run on ties. Handling the end of the string inside the same loop (index `text.length`) avoids a forgotten last run.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:code/longest-run:only"
+  },
+  "status": "verified",
+  "tags": [
+    "strings",
+    "loops",
+    "edge-cases"
+  ],
+  "createdAt": "2026-11-05T03:18:01.755Z"
+}

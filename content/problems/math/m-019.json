@@ -1,0 +1,30 @@
+{
+  "id": "m-019",
+  "area": "math",
+  "difficulty": 3,
+  "title": "Zeros in the five times table",
+  "prompt": "Multiply the first 30 multiples of 5 together: 5 × 10 × 15 × … × 150.\n\nHow many zeros does the product have at its right-hand end?",
+  "answer": {
+    "type": "number",
+    "value": 26,
+    "tolerance": 0
+  },
+  "hints": [
+    "What do you get if you take a 5 out of every multiple of 5 in the product?",
+    "After doing that, which of the two primes 2 and 5 is scarce and which is plentiful?",
+    "How many factors of the scarce prime are there altogether, counting multiples of 2, of 4 and so on?"
+  ],
+  "solution": "**26.**\n\nWrite every multiple of 5 as 5 × something: 5 × 10 × 15 × … × 150 = (5 × 1)(5 × 2)…(5 × 30) = 5³⁰ × 30!.\n\nA trailing zero needs a 2 and a 5. Now the fives are plentiful, since 5³⁰ alone gives 30 of them, and the twos are scarce: they come only from 30!. So the twos decide.\n\nCount the factors of 2 in 30!: 30 ÷ 2, 30 ÷ 4, 30 ÷ 8 and so on, rounded down, add up to 26.\n\nThe product ends in **26** zeros.\n\nThe common slip is to use the 5s as the limit, as for a factorial. Here the 5s are the plentiful ones.",
+  "solver": "const zerosOf = (value) => {\n  let count = 0;\n  while (value % 10n === 0n) {\n    value /= 10n;\n    count++;\n  }\n  return count;\n};\nlet product = 1n;\nfor (let i = 1n; i <= 30n; i++) product *= 5n * i;\nreturn zerosOf(product);",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/trailing-zeros:fives-30"
+  },
+  "status": "verified",
+  "tags": [
+    "number theory",
+    "factorials",
+    "prime factors"
+  ],
+  "createdAt": "2026-11-05T03:18:00.902Z"
+}

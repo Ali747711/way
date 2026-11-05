@@ -1,0 +1,32 @@
+{
+  "id": "d-005",
+  "area": "math",
+  "difficulty": 5,
+  "title": "Lucky tickets",
+  "prompt": "A raffle sells tickets numbered 1 to 2026. A ticket is lucky if the digits in its number add up to 11. Ticket 66 has a digit sum of 12, for example.\n\nHow many tickets are lucky?",
+  "answer": {
+    "type": "number",
+    "value": 134,
+    "tolerance": 0
+  },
+  "hints": [
+    "Can you count, by hand, how many two-digit numbers have digits adding to a small total such as 7, and see how the count changes for other totals?",
+    "If you allow leading zeros so that every number has the same number of digits, how can you count the strings of digits that add to a given total?",
+    "Why might a count that ignores the rule that a digit is at most 9 be too big, and what do you subtract to fix it?",
+    "Which numbers up to the largest one can you group by their first digit, and how many digits are then free for each group?",
+    "What do you get when you add up the groups, and does the largest number itself need to be added or not?"
+  ],
+  "solution": "**134.**\n\n**Stage 1: count strings of digits.** Write every number as four digits with leading zeros, so 47 is 0047. To count strings of k digits that add to s, first ignore the rule that a digit is at most 9. Then the number of ways to split s into k parts, each 0 or more, is C(s + k − 1, k − 1) (\"stars and bars\"). Now remove the strings in which some digit is 10 or more: pick that digit (k ways), take 10 off the total, and count again. For instance, three digits adding to 12: C(14, 2) = 91, minus 3 × C(4, 2) = 18, leaves 73. (For sums below 20 two digits cannot both be 10 or more, so nothing else needs correcting.)\n\n**Stage 2: split by where the number first drops below the limit.** Compare a number with 2026 from the left. It either agrees with the limit for a while and then has a smaller digit, or it is the limit itself. For each smaller digit, the digits after it are free (groups that cannot reach the total are left out):\n\n- Numbers below 1000 (written with leading zeros): the last 3 digits must add to 11, which can be done in 69 ways\n- Numbers starting 1: the last 3 digits must add to 10, which can be done in 63 ways\n- Numbers starting 200: the last 1 digit must add to 9, which can be done in 1 way\n- Numbers starting 201: the last 1 digit must add to 8, which can be done in 1 way\n\n**Stage 3: add the groups.** The groups add to 134. The limit 2026 has digit sum 10, not 11, so it adds nothing. The total is **134**.\n\n**Why shortcuts fail.** Listing numbers one by one is far too long. Counting four free digits adding to 11 counts numbers above 2026. Forgetting the correction for digits above 9 counts strings such as 0, 0, 0, 11 that are not made of digits at all.",
+  "solver": "let count = 0;\nfor (let n = 1; n <= 2026; n++) {\n  let total = 0;\n  for (const d of String(n)) total += Number(d);\n  if (total === 11) count++;\n}\nreturn count;",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/digit-sum-count:2026-11"
+  },
+  "status": "verified",
+  "tags": [
+    "counting",
+    "digits",
+    "stars and bars"
+  ],
+  "createdAt": "2026-11-05T03:18:01.338Z"
+}

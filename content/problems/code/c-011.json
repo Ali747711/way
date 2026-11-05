@@ -1,0 +1,186 @@
+{
+  "id": "c-011",
+  "area": "code",
+  "difficulty": 3,
+  "title": "The lost raffle ticket",
+  "prompt": "A box should hold raffle tickets numbered `1` up to `n`, but one ticket has fallen out. The tickets that are left are in a random order.\n\nWrite `findMissing(tickets)` that takes an array of the remaining ticket numbers and returns the number of the missing ticket. The array has `n - 1` different whole numbers, all between `1` and `n`, where `n` is one more than the length of the array (`n` is at most 40). An empty array means `n` is 1, so the missing ticket is `1`.\n\nExamples:\n\n- `findMissing([3,1,4])` returns `2`\n- `findMissing([2,3,1,5,6])` returns `4`",
+  "answer": {
+    "type": "code",
+    "signature": "function findMissing(tickets) {\n  \n}",
+    "entry": "findMissing",
+    "examples": [
+      {
+        "input": [
+          [
+            3,
+            1,
+            4
+          ]
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          [
+            2,
+            3,
+            1,
+            5,
+            6
+          ]
+        ],
+        "expected": 4
+      }
+    ],
+    "tests": [
+      {
+        "input": [
+          []
+        ],
+        "expected": 1
+      },
+      {
+        "input": [
+          [
+            1
+          ]
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          [
+            2
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "input": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": 4
+      },
+      {
+        "input": [
+          [
+            2,
+            3,
+            4
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "input": [
+          [
+            4,
+            3,
+            1
+          ]
+        ],
+        "expected": 2
+      },
+      {
+        "input": [
+          [
+            37,
+            10,
+            39,
+            19,
+            25,
+            16,
+            36,
+            23,
+            8,
+            11,
+            1,
+            26,
+            38,
+            29,
+            32,
+            22,
+            2,
+            5,
+            6,
+            3,
+            28,
+            20,
+            21,
+            18,
+            34,
+            31,
+            24,
+            30,
+            40,
+            27,
+            4,
+            14,
+            35,
+            12,
+            7,
+            9,
+            13,
+            33,
+            15
+          ]
+        ],
+        "expected": 17
+      },
+      {
+        "input": [
+          [
+            11,
+            2,
+            9,
+            12,
+            10,
+            5,
+            6,
+            1,
+            4,
+            8,
+            3
+          ]
+        ],
+        "expected": 7
+      },
+      {
+        "input": [
+          [
+            5,
+            3,
+            4,
+            6,
+            1,
+            7
+          ]
+        ],
+        "expected": 2
+      }
+    ],
+    "timeLimitMs": 2000,
+    "reference": "function findMissing(tickets) {\n  const n = tickets.length + 1;\n  let expected = (n * (n + 1)) / 2;\n  for (const ticket of tickets) {\n    expected -= ticket;\n  }\n  return expected;\n}"
+  },
+  "hints": [
+    "If all the tickets were present, what would they add up to, and is there a short way to work that total out from n alone?",
+    "How does the total of the tickets still in the box differ from the total of a full box?",
+    "What is n when the array is empty, and does your method still give the right ticket?"
+  ],
+  "solution": "A full box adds up to `n * (n + 1) / 2`. Subtract every ticket still in the box from that total; what is left is the missing number.\n\n```js\nfunction findMissing(tickets) {\n  const n = tickets.length + 1;\n  let expected = (n * (n + 1)) / 2;\n  for (const ticket of tickets) {\n    expected -= ticket;\n  }\n  return expected;\n}\n```\n\nYou do not need to sort or search. With `n` equal to `length + 1`, an empty array gives `1 * 2 / 2 = 1`, so the empty case needs no special code. Sorting and looking for the first gap also works, just slower.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:code/missing-number:only"
+  },
+  "status": "verified",
+  "tags": [
+    "arrays",
+    "math",
+    "counting"
+  ],
+  "createdAt": "2026-11-05T03:18:01.755Z"
+}

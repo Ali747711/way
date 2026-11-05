@@ -1,0 +1,30 @@
+{
+  "id": "m-012",
+  "area": "math",
+  "difficulty": 3,
+  "title": "Eggs for the market",
+  "prompt": "A pile of eggs is counted out in different ways: in groups of 7, 5 eggs are left over; in groups of 8, 3 eggs are left over; in groups of 3, 1 egg is left over. There are more than 150 eggs.\n\nWhat is the smallest number of eggs the pile could hold?",
+  "answer": {
+    "type": "number",
+    "value": 187,
+    "tolerance": 0
+  },
+  "hints": [
+    "Which of the conditions gives the shortest list of possible numbers, and what are the first few?",
+    "Which of those numbers also satisfy the next condition?",
+    "Once a number fits all the conditions, how do you know it is the smallest one that is allowed?"
+  ],
+  "solution": "**187.**\n\nA number that fits one condition is easy to list, so list the ones for the largest group size and test them against the rest.\n\nStart with the largest group size, 8: the numbers leaving 3 over go 3, 11, 19, and so on. Test them in turn against the other conditions. \n\n- 155 leaves 1 in groups of 7, not 5\n- 163 leaves 2 in groups of 7, not 5\n- 171 leaves 3 in groups of 7, not 5\n- 179 leaves 4 in groups of 7, not 5\n- 187 fits every condition\n\nSo 187 is the first that satisfies all of them.\n\nSo the smallest number that fits every condition and is larger than 150 is **187**.\n\nThe common slip is to stop at the first number that fits two of the conditions, without checking the third.",
+  "solver": "const moduli = [7,8,3];\nconst remainders = [5,3,1];\nfor (let n = 151; n < 1000000; n++) {\n  if (moduli.every((m, i) => n % m === remainders[i])) return n;\n}\nreturn NaN;",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/remainders:7.8.3-5.3.1-150"
+  },
+  "status": "verified",
+  "tags": [
+    "number theory",
+    "remainders",
+    "multiples"
+  ],
+  "createdAt": "2026-11-05T03:18:00.052Z"
+}

@@ -1,0 +1,40 @@
+{
+  "id": "cr-014",
+  "area": "create",
+  "difficulty": 3,
+  "title": "How a tree drinks",
+  "prompt": "Explain to a child how a very tall tree gets water from its roots all the way up to its highest leaf.\n\nUse the words *straw* and *sun*. Write 40 to 90 words.\n\nWords are counted by the spaces between them.",
+  "answer": {
+    "type": "open",
+    "minWords": 40,
+    "maxWords": 90,
+    "authorNote": "The required words point at the real mechanism: a straw-like set of tubes, and the sun that pulls water out through the leaves. A strong answer makes the pulling clear, so the child understands that the leaves do the work, not the roots.",
+    "constraints": [
+      {
+        "type": "must-include",
+        "words": [
+          "straw",
+          "sun"
+        ]
+      }
+    ],
+    "example": "A tree is like a giant drinking straw standing in the ground. The sun warms the leaves, and tiny bits of water dry off into the air through little holes in them. Water is clingy, so every bit that leaves tugs the next one up behind it, all the way from the roots. A hot day means a very thirsty tree."
+  },
+  "hints": [
+    "What everyday object also lifts a drink upward, and how is a tree like it?",
+    "What happens to the water in the leaves on a sunny day?",
+    "Why does one bit of water leaving pull the next bit up?"
+  ],
+  "solution": "One example answer (61 words):\n\n> A tree is like a giant drinking straw standing in the ground. The sun warms the leaves, and tiny bits of water dry off into the air through little holes in them. Water is clingy, so every bit that leaves tugs the next one up behind it, all the way from the roots. A hot day means a very thirsty tree.\n\nThe straw gives the picture and the sun gives the cause. *Water is clingy* is the real reason, in a child's own words, and the last line ties it to something a child can notice on a hot day.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/explain:tree-drinks-straw"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "explain",
+    "science"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}

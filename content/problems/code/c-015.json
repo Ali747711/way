@@ -1,0 +1,176 @@
+{
+  "id": "c-015",
+  "area": "code",
+  "difficulty": 4,
+  "title": "Ways to pay exactly",
+  "prompt": "A machine pays out an exact amount using coins. You have as many coins of each value as you like. Two ways are the same if they use the same number of each coin, whatever the order: `1 + 2` and `2 + 1` count as one way.\n\nWrite `countWays(amount, coins)` that takes a whole number `amount` from 0 to 60 and an array `coins` of 1 to 4 different whole numbers from 1 to 25, in any order, and returns how many different ways there are to make `amount`. There is exactly one way to make `0` (use no coins). If an amount cannot be made, return `0`.\n\nExamples:\n\n- `countWays(4, [1,2,3])` returns `4`\n- `countWays(3, [2])` returns `0`",
+  "answer": {
+    "type": "code",
+    "signature": "function countWays(amount, coins) {\n  \n}",
+    "entry": "countWays",
+    "examples": [
+      {
+        "input": [
+          4,
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": 4
+      },
+      {
+        "input": [
+          3,
+          [
+            2
+          ]
+        ],
+        "expected": 0
+      }
+    ],
+    "tests": [
+      {
+        "input": [
+          0,
+          [
+            5
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "input": [
+          0,
+          [
+            1,
+            2
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "input": [
+          1,
+          [
+            2,
+            3
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          10,
+          [
+            10
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "input": [
+          10,
+          [
+            5,
+            2,
+            1
+          ]
+        ],
+        "expected": 10
+      },
+      {
+        "input": [
+          60,
+          [
+            1,
+            5,
+            10,
+            25
+          ]
+        ],
+        "expected": 73
+      },
+      {
+        "input": [
+          7,
+          [
+            3,
+            5
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          3,
+          [
+            8
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          29,
+          [
+            2,
+            10,
+            8
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          3,
+          [
+            8,
+            15,
+            2,
+            20
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          31,
+          [
+            8
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          17,
+          [
+            6
+          ]
+        ],
+        "expected": 0
+      }
+    ],
+    "timeLimitMs": 2000,
+    "reference": "function countWays(amount, coins) {\n  const ways = new Array(amount + 1).fill(0);\n  ways[0] = 1;\n  for (const coin of coins) {\n    for (let total = coin; total <= amount; total++) {\n      ways[total] += ways[total - coin];\n    }\n  }\n  return ways[amount];\n}"
+  },
+  "hints": [
+    "If you only had one kind of coin, how would you decide whether an amount can be paid, and in how many ways?",
+    "How could you build a table where entry `t` holds the number of ways to pay `t`, adding one coin type at a time?",
+    "To avoid counting `1 + 2` and `2 + 1` as different ways, should you loop over the coins on the outside or the inside?"
+  ],
+  "solution": "Keep a table `ways[t]` for every total up to `amount`, starting with `ways[0] = 1`. For each coin in turn, for every total from that coin upwards, add `ways[total - coin]`. Handling one coin type at a time counts each combination only once.\n\n```js\nfunction countWays(amount, coins) {\n  const ways = new Array(amount + 1).fill(0);\n  ways[0] = 1;\n  for (const coin of coins) {\n    for (let total = coin; total <= amount; total++) {\n      ways[total] += ways[total - coin];\n    }\n  }\n  return ways[amount];\n}\n```\n\nThe order of the two loops is the whole trick. With coins on the outside you count combinations; swap the loops and the same table counts *orders*, so `1 + 2` and `2 + 1` would both be counted. If you get `7` for 4 with coins 1, 2, 3, you counted orders by mistake; the answer is 4.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:code/coin-ways:only"
+  },
+  "status": "verified",
+  "tags": [
+    "dynamic-programming",
+    "counting",
+    "arrays"
+  ],
+  "createdAt": "2026-11-05T03:18:01.755Z"
+}

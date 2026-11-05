@@ -1,0 +1,44 @@
+{
+  "id": "cr-007",
+  "area": "create",
+  "difficulty": 4,
+  "title": "A pigeon files a complaint",
+  "prompt": "Write a formal complaint from a pigeon to the person who used to feed it on a park bench and has stopped.\n\nWrite exactly 4 sentences. Use the words *bench* and *crumbs*. Write 30 to 70 words.\n\nWords are counted by the spaces between them. A sentence ends with a full stop, a question mark or an exclamation mark.",
+  "answer": {
+    "type": "open",
+    "minWords": 30,
+    "maxWords": 70,
+    "authorNote": "A strong answer gives the pigeon real dignity: it speaks like a customer with a long history, not like a beggar. Specific grievances (days, generations, standards) make the complaint feel formal, and a stiff sign-off lands the joke.",
+    "constraints": [
+      {
+        "type": "sentence-count",
+        "count": 4
+      },
+      {
+        "type": "must-include",
+        "words": [
+          "bench",
+          "crumbs"
+        ]
+      }
+    ],
+    "example": "To the keeper of the bench: I have sat here since Monday and the crumbs have stopped. My family has kept this bench company for generations, and we expect proper payment for our decorations. Please resume the crumbs, or we will have to find another statue to stand on. Yours in hunger, a loyal customer."
+  },
+  "hints": [
+    "How would a very formal customer open a letter of complaint?",
+    "What history does the pigeon claim with the bench, and what does it think it is owed?",
+    "How could the sign-off be both polite and a little threatening?"
+  ],
+  "solution": "One example answer (55 words):\n\n> To the keeper of the bench: I have sat here since Monday and the crumbs have stopped. My family has kept this bench company for generations, and we expect proper payment for our decorations. Please resume the crumbs, or we will have to find another statue to stand on. Yours in hunger, a loyal customer.\n\nThe pigeon treats the bench as a business with a contract, which is the whole joke. *Payment for our decorations* is the line a player will remember.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/forms:pigeon-complaint"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "letter",
+    "humour"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}

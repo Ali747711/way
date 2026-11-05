@@ -1,0 +1,40 @@
+{
+  "id": "cr-006",
+  "area": "create",
+  "difficulty": 4,
+  "title": "A cat says sorry, alphabetically",
+  "prompt": "Write the apology a cat would give after knocking its owner's favourite plant off the shelf.\n\nWrite exactly 5 sentences. Start your five sentences with *A*, *B*, *C*, *D* and *E*, in that order. Write 25 to 70 words.\n\nWords are counted by the spaces between them. A sentence ends with a full stop, a question mark or an exclamation mark.",
+  "answer": {
+    "type": "open",
+    "minWords": 25,
+    "maxWords": 70,
+    "authorNote": "A strong answer keeps the alphabet invisible: each opening word feels chosen for the voice, not forced by the letter. It also stays in character. A cat apologises without ever admitting fault, and the last sentence turns the apology into something else.",
+    "constraints": [
+      {
+        "type": "sentence-count",
+        "count": 5
+      },
+      {
+        "type": "alphabet-run",
+        "from": "a"
+      }
+    ],
+    "example": "A plant fell, and I watched it go. Before you shout, consider the angle of the sun. Clearly the pot wanted to be lower. Dirt on the rug is a fresh pattern, really. Every great artist starts with one bold mess."
+  },
+  "hints": [
+    "Which excuses would a proud cat give, and which would it never admit to?",
+    "For each letter from A to E, which opening word could start a sentence naturally, so the alphabet does not show?",
+    "Can your last sentence turn the apology into something that is not really an apology at all?"
+  ],
+  "solution": "One example answer (41 words):\n\n> A plant fell, and I watched it go. Before you shout, consider the angle of the sun. Clearly the pot wanted to be lower. Dirt on the rug is a fresh pattern, really. Every great artist starts with one bold mess.\n\nEach sentence begins with the next letter (A, Before, Clearly, Dirt, Every), yet every opening reads as a natural choice. The cat never once says sorry, and the final line reframes the mess as art, which is the joke.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/constrained:cat-apology"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "voice"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}

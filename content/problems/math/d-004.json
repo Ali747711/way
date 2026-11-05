@@ -1,0 +1,33 @@
+{
+  "id": "d-004",
+  "area": "math",
+  "difficulty": 5,
+  "title": "Winners of every circle",
+  "prompt": "For each circle size n, people are numbered 1 to n round the circle. Going clockwise from person 1, people alternately stay and leave: person 1 stays, person 2 leaves, person 3 stays, person 4 leaves, and so on. The count carries on round the circle without restarting, skipping anyone who has already left, so the person after the last one to leave stays and the next one leaves, until only one person is left. Let W(n) be the number of the last person standing in a circle of n people. For example, W(1) = 1 and W(3) = 3.\n\nWhat is W(1) + W(2) + W(3) + … + W(200)?",
+  "answer": {
+    "type": "number",
+    "value": 10790,
+    "tolerance": 0
+  },
+  "hints": [
+    "Can you work out the survivor by hand for circles of 1 to 8 people? What do you notice?",
+    "What happens in a circle with a power of 2 (such as 4, 8 or 16) people after one full lap: who is left, and where does the counting restart?",
+    "If you write n as a power of 2 plus a remainder L, what has happened once L people have left, and who then plays the part of person 1?",
+    "For all the n from one power of 2 up to just before the next, what list of survivors do you get, and how do you add up a run of odd numbers starting from 1?",
+    "How many complete blocks are there below the limit, what does the last incomplete block look like, and what is the total?"
+  ],
+  "solution": "**10790.**\n\n**Stage 1: find the survivor rule.** Work out small circles by hand: W(1) = 1, W(2) = 1, W(3) = 3, W(4) = 1, W(5) = 3, W(6) = 5, W(7) = 7, W(8) = 1. In a circle of 2, 4, 8, … people, one lap removes every even number and leaves the same game on the odd numbers, with the count back at person 1, so W is 1 whenever n is a power of 2. For other n, write n = 2ᵐ + L. After L people have left (persons 2, 4, …, 2L), exactly 2ᵐ people remain and the count reaches person 2L + 1, who stays. Person 2L + 1 now plays the part of person 1 in a circle of 2ᵐ, so W(n) = 2L + 1.\n\n**Stage 2: group the sizes by power of two.** For n from 2ᵐ to 2ᵐ⁺¹ − 1, L runs from 0 up to 2ᵐ − 1, so the survivors are 1, 3, 5, …, each odd number once. The first k odd numbers add to k², so a complete block of 2ᵐ sizes adds to (2ᵐ)².\n\n**Stage 3: add the blocks, the last one incomplete.**\n\n- n = 1: survivors 1, which sum to 1² = 1\n- n from 2 to 3: survivors 1, 3, which sum to 2² = 4\n- n from 4 to 7: survivors 1, 3, …, 7 (4 of them), which sum to 4² = 16\n- n from 8 to 15: survivors 1, 3, …, 15 (8 of them), which sum to 8² = 64\n- n from 16 to 31: survivors 1, 3, …, 31 (16 of them), which sum to 16² = 256\n- n from 32 to 63: survivors 1, 3, …, 63 (32 of them), which sum to 32² = 1024\n- n from 64 to 127: survivors 1, 3, …, 127 (64 of them), which sum to 64² = 4096\n- n from 128 to 200: survivors 1, 3, …, 145 (73 of them), which sum to 73² = 5329\n\n**Stage 4: total.** The last block starts at 128, so it holds 73 sizes and sums to 73². Adding the block sums gives **10790**.\n\n**Why shortcuts fail.** Playing the game out for all 200 circle sizes by hand is far too long, and a guess from W(1) to W(8) does not show the pattern. Summing the first 200 odd numbers ignores the way the survivors start again at each power of 2, and treating the last block as complete overcounts it.",
+  "solver": "const winner = (n) => {\n  const circle = Array.from({ length: n }, (_, i) => i + 1);\n  let index = 0;\n  while (circle.length > 1) {\n    index = (index + 1) % circle.length;\n    circle.splice(index, 1);\n    if (index === circle.length) index = 0;\n  }\n  return circle[0];\n};\nlet total = 0;\nfor (let n = 1; n <= 200; n++) total += winner(n);\nreturn total;",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/josephus:sum-200"
+  },
+  "status": "verified",
+  "tags": [
+    "counting",
+    "patterns",
+    "recursion",
+    "josephus"
+  ],
+  "createdAt": "2026-11-05T03:18:01.338Z"
+}

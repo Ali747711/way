@@ -1,0 +1,119 @@
+{
+  "id": "c-027",
+  "area": "code",
+  "difficulty": 3,
+  "title": "Read the old numerals",
+  "prompt": "Roman numerals use the letters `I` (1), `V` (5), `X` (10), `L` (50), `C` (100), `D` (500) and `M` (1000). Letters are normally added from left to right, so `XVI` is 10 + 5 + 1 = 16. But when a smaller letter comes right before a bigger one, it is subtracted instead: `IV` is 4 and `XC` is 90.\n\nWrite `romanToInt(numeral)` that takes a valid Roman numeral in capital letters, written in the standard way, for any whole number from 1 to 3999, and returns its value as a number. You do not need to handle invalid numerals.\n\nExamples:\n\n- `romanToInt(\"XVI\")` returns `16`\n- `romanToInt(\"XLIX\")` returns `49`",
+  "answer": {
+    "type": "code",
+    "signature": "function romanToInt(numeral) {\n  \n}",
+    "entry": "romanToInt",
+    "examples": [
+      {
+        "input": [
+          "XVI"
+        ],
+        "expected": 16
+      },
+      {
+        "input": [
+          "XLIX"
+        ],
+        "expected": 49
+      }
+    ],
+    "tests": [
+      {
+        "input": [
+          "I"
+        ],
+        "expected": 1
+      },
+      {
+        "input": [
+          "IV"
+        ],
+        "expected": 4
+      },
+      {
+        "input": [
+          "IX"
+        ],
+        "expected": 9
+      },
+      {
+        "input": [
+          "MCMXCIV"
+        ],
+        "expected": 1994
+      },
+      {
+        "input": [
+          "MMMCMXCIX"
+        ],
+        "expected": 3999
+      },
+      {
+        "input": [
+          "MMXXVI"
+        ],
+        "expected": 2026
+      },
+      {
+        "input": [
+          "DCCCXC"
+        ],
+        "expected": 890
+      },
+      {
+        "input": [
+          "DCCCLXI"
+        ],
+        "expected": 861
+      },
+      {
+        "input": [
+          "MDCCLII"
+        ],
+        "expected": 1752
+      },
+      {
+        "input": [
+          "MMMCMV"
+        ],
+        "expected": 3905
+      },
+      {
+        "input": [
+          "CCXXXIV"
+        ],
+        "expected": 234
+      },
+      {
+        "input": [
+          "MMMDCXXXII"
+        ],
+        "expected": 3632
+      }
+    ],
+    "timeLimitMs": 2000,
+    "reference": "function romanToInt(numeral) {\n  const values = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };\n  let total = 0;\n  for (let i = 0; i < numeral.length; i++) {\n    const value = values[numeral[i]];\n    const next = values[numeral[i + 1]] ?? 0;\n    total += value < next ? -value : value;\n  }\n  return total;\n}"
+  },
+  "hints": [
+    "What do you need to compare, as you look at each letter, to know whether it is added or subtracted?",
+    "Could you look one letter ahead, and subtract the current value when the next letter is worth more?",
+    "What should \"the next letter\" be when you are standing on the last letter of the numeral?"
+  ],
+  "solution": "Read left to right. Add each letter, but subtract it instead when the letter after it is worth more. The last letter is always added.\n\n```js\nfunction romanToInt(numeral) {\n  const values = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };\n  let total = 0;\n  for (let i = 0; i < numeral.length; i++) {\n    const value = values[numeral[i]];\n    const next = values[numeral[i + 1]] ?? 0;\n    total += value < next ? -value : value;\n  }\n  return total;\n}\n```\n\nThe `?? 0` makes the missing letter after the end count as nothing, so the last letter is added without a special case. This works because standard numerals only subtract one letter before a bigger one, never a long chain.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:code/roman-to-int:only"
+  },
+  "status": "verified",
+  "tags": [
+    "strings",
+    "loops",
+    "lookup"
+  ],
+  "createdAt": "2026-11-05T03:18:01.755Z"
+}

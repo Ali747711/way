@@ -1,0 +1,37 @@
+{
+  "id": "cr-021",
+  "area": "create",
+  "difficulty": 3,
+  "title": "A bedtime story for a small dragon",
+  "prompt": "Write a bedtime story for a small dragon who is afraid of the dark. The word *dragon* is itself too long to use, so give the hero a name.\n\nNo word may be longer than 5 letters. Write 30 to 80 words.\n\nWords are counted by the spaces between them.",
+  "answer": {
+    "type": "open",
+    "minWords": 30,
+    "maxWords": 80,
+    "authorNote": "Short words make a soothing, steady voice, so a strong answer lets the limit help the mood. It gives a small fear, a small helper and a small change in how the hero sees the dark, and it ends on rest.",
+    "constraints": [
+      {
+        "type": "max-word-length",
+        "letters": 5
+      }
+    ],
+    "example": "Ember was a small beast who hid from the dark. Each night, she hid under one wing and shook. Then a moth came by and said, \"Look up.\" She did. The sky was full of tiny lamps, just like her own warm flame. Now she naps with one eye on the stars, and the dark is just a big, soft room."
+  },
+  "hints": [
+    "What short name and short word for a creature can replace *dragon*?",
+    "Who or what helps the hero look at the dark in a new way?",
+    "How can the last sentence feel like falling asleep?"
+  ],
+  "solution": "One example answer (61 words):\n\n> Ember was a small beast who hid from the dark. Each night, she hid under one wing and shook. Then a moth came by and said, \"Look up.\" She did. The sky was full of tiny lamps, just like her own warm flame. Now she naps with one eye on the stars, and the dark is just a big, soft room.\n\nEvery word is short, which makes the story sound like a lullaby. The moth offers one gentle idea (the dark is full of lamps), and the ending turns the fear into a soft room.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/stories:small-dragon-bedtime"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "bedtime",
+    "max-word-length"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}

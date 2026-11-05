@@ -1,0 +1,332 @@
+{
+  "id": "c-016",
+  "area": "code",
+  "difficulty": 4,
+  "title": "How long until it warms up?",
+  "prompt": "A list holds the temperature for each day in a row, in whole degrees. For every day you want to know how many days you must wait until a **strictly warmer** day arrives. A day that is just as warm does not count.\n\nWrite `daysToWarmer(temps)` that takes an array of 0 to 30 whole numbers from -30 to 45 and returns an array of the same length. Entry `i` is the number of days from day `i` to the next day with a higher temperature, or `0` if no later day is warmer. An empty array returns `[]`.\n\nExamples:\n\n- `daysToWarmer([20,25,22,19,30])` returns `[1,3,2,1,0]`\n- `daysToWarmer([10,10,9])` returns `[0,0,0]`",
+  "answer": {
+    "type": "code",
+    "signature": "function daysToWarmer(temps) {\n  \n}",
+    "entry": "daysToWarmer",
+    "examples": [
+      {
+        "input": [
+          [
+            20,
+            25,
+            22,
+            19,
+            30
+          ]
+        ],
+        "expected": [
+          1,
+          3,
+          2,
+          1,
+          0
+        ]
+      },
+      {
+        "input": [
+          [
+            10,
+            10,
+            9
+          ]
+        ],
+        "expected": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "tests": [
+      {
+        "input": [
+          []
+        ],
+        "expected": []
+      },
+      {
+        "input": [
+          [
+            5
+          ]
+        ],
+        "expected": [
+          0
+        ]
+      },
+      {
+        "input": [
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "expected": [
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "input": [
+          [
+            4,
+            3,
+            2,
+            1
+          ]
+        ],
+        "expected": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "input": [
+          [
+            7,
+            7,
+            7
+          ]
+        ],
+        "expected": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "input": [
+          [
+            -5,
+            -10,
+            0,
+            -3,
+            -3,
+            2
+          ]
+        ],
+        "expected": [
+          2,
+          1,
+          3,
+          2,
+          1,
+          0
+        ]
+      },
+      {
+        "input": [
+          [
+            30,
+            20,
+            25,
+            20,
+            26,
+            27,
+            1
+          ]
+        ],
+        "expected": [
+          0,
+          1,
+          2,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "input": [
+          [
+            -4,
+            8,
+            24,
+            4,
+            -8
+          ]
+        ],
+        "expected": [
+          1,
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "input": [
+          [
+            22,
+            2,
+            25,
+            -5,
+            1,
+            21,
+            -6,
+            -4,
+            -3,
+            25,
+            -4,
+            13,
+            26,
+            7,
+            -7,
+            -10,
+            23,
+            12,
+            16,
+            20,
+            -2,
+            25,
+            15
+          ]
+        ],
+        "expected": [
+          2,
+          1,
+          10,
+          1,
+          1,
+          4,
+          1,
+          1,
+          1,
+          3,
+          1,
+          1,
+          0,
+          3,
+          2,
+          1,
+          5,
+          1,
+          1,
+          2,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "input": [
+          [
+            28,
+            -1,
+            4,
+            27,
+            30,
+            24,
+            20,
+            9,
+            28,
+            -1,
+            20
+          ]
+        ],
+        "expected": [
+          4,
+          1,
+          1,
+          1,
+          0,
+          3,
+          2,
+          1,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "input": [
+          [
+            11,
+            -10,
+            3,
+            -6,
+            19,
+            -9,
+            13,
+            5,
+            1,
+            6,
+            4,
+            -4,
+            11
+          ]
+        ],
+        "expected": [
+          4,
+          1,
+          2,
+          1,
+          0,
+          1,
+          0,
+          2,
+          1,
+          3,
+          2,
+          1,
+          0
+        ]
+      },
+      {
+        "input": [
+          [
+            -2,
+            10,
+            21,
+            9,
+            2,
+            2,
+            12,
+            0,
+            18
+          ]
+        ],
+        "expected": [
+          1,
+          1,
+          0,
+          3,
+          2,
+          1,
+          2,
+          1,
+          0
+        ]
+      }
+    ],
+    "timeLimitMs": 2000,
+    "reference": "function daysToWarmer(temps) {\n  const waits = new Array(temps.length).fill(0);\n  const waiting = [];\n  for (let day = 0; day < temps.length; day++) {\n    while (waiting.length > 0 && temps[waiting[waiting.length - 1]] < temps[day]) {\n      const earlier = waiting.pop();\n      waits[earlier] = day - earlier;\n    }\n    waiting.push(day);\n  }\n  return waits;\n}"
+  },
+  "hints": [
+    "For one day, how would you find its answer if you just looked ahead day by day?",
+    "Can you keep a list of earlier days that are still waiting for a warmer day, and settle some of them every time a new day arrives?",
+    "Which waiting days does a new, warmer day settle, and in what order are they stored so you can reach them quickly?"
+  ],
+  "solution": "Keep a stack of days still waiting for a warmer one. For each new day, while the day on top of the stack is colder, pop it and record how many days it waited. Then push the new day.\n\n```js\nfunction daysToWarmer(temps) {\n  const waits = new Array(temps.length).fill(0);\n  const waiting = [];\n  for (let day = 0; day < temps.length; day++) {\n    while (waiting.length > 0 && temps[waiting[waiting.length - 1]] < temps[day]) {\n      const earlier = waiting.pop();\n      waits[earlier] = day - earlier;\n    }\n    waiting.push(day);\n  }\n  return waits;\n}\n```\n\nThe stack stays ordered from colder at the top to warmer below, so each day is pushed once and popped once. Days left on the stack at the end never saw a warmer day and keep their `0`. A day with the same temperature must not settle a waiting day, so the comparison is strictly `<`.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:code/days-to-warmer:only"
+  },
+  "status": "verified",
+  "tags": [
+    "arrays",
+    "stack"
+  ],
+  "createdAt": "2026-11-05T03:18:01.755Z"
+}

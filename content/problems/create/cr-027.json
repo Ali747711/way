@@ -1,0 +1,47 @@
+{
+  "id": "cr-027",
+  "area": "create",
+  "difficulty": 4,
+  "title": "Pitching the snail couriers",
+  "prompt": "Pitch a courier service run entirely by snails to a room of busy investors.\n\nWrite exactly 3 sentences. Do not use the words *slow*, *slowly*, *fast*, *quick*, *quickly*. Write 30 to 65 words.\n\nWords are counted by the spaces between them. A sentence ends with a full stop, a question mark or an exclamation mark.",
+  "answer": {
+    "type": "open",
+    "minWords": 30,
+    "maxWords": 65,
+    "authorNote": "The obvious joke is speed, and the rule takes it away. A strong answer sells the product's one real feature (patience, a trail, reliability, charm) with a confident salesperson's voice, and names the flaw only to sell it as a feature.",
+    "constraints": [
+      {
+        "type": "sentence-count",
+        "count": 3
+      },
+      {
+        "type": "forbid-words",
+        "words": [
+          "slow",
+          "slowly",
+          "fast",
+          "quick",
+          "quickly"
+        ]
+      }
+    ],
+    "example": "Every other courier promises speed, and every customer is still disappointed. Our couriers promise patience: parcels arrive late, but they arrive covered in a glossy trail that no one can forge. Hand us your wedding invitations, your love letters and your overdue apologies, and we will deliver them eventually."
+  },
+  "hints": [
+    "If you cannot mention speed, what else could a snail courier honestly offer?",
+    "What would a confident founder say about the competition in the first sentence?",
+    "Which three kinds of parcel would make investors laugh and also nod?"
+  ],
+  "solution": "One example answer (49 words):\n\n> Every other courier promises speed, and every customer is still disappointed. Our couriers promise patience: parcels arrive late, but they arrive covered in a glossy trail that no one can forge. Hand us your wedding invitations, your love letters and your overdue apologies, and we will deliver them eventually.\n\nThe pitch turns the weakness into a feature (a trail nobody can forge) without ever using the banned words. The final sentence picks parcels where lateness is already a joke.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/forms:snail-courier-pitch"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "pitch",
+    "humour"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}

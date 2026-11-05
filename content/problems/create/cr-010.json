@@ -1,0 +1,37 @@
+{
+  "id": "cr-010",
+  "area": "create",
+  "difficulty": 3,
+  "title": "House rules from a friendly ghost",
+  "prompt": "Write the house rules a friendly ghost leaves for the family moving into its haunted house.\n\nWrite exactly 5 sentences. Write 30 to 80 words.\n\nWords are counted by the spaces between them. A sentence ends with a full stop, a question mark or an exclamation mark.",
+  "answer": {
+    "type": "open",
+    "minWords": 30,
+    "maxWords": 80,
+    "authorNote": "A strong answer lets the ghost be the polite one: every spooky habit is explained as help or hospitality. Numbering the rules gives a clear rhythm, and the last rule should feel warmer than the first.",
+    "constraints": [
+      {
+        "type": "sentence-count",
+        "count": 5
+      }
+    ],
+    "example": "Rule one: the third stair squeaks, and that is me saying hello. Rule two: please leave the cold spot by the window alone, because it is my favourite. Rule three: if the lights flicker, I am only trying to help you find the switch. Rule four: if you sing in the bath, I will join in from the pipes. Rule five: stay as long as you like, because the quiet was getting very lonely."
+  },
+  "hints": [
+    "Which spooky habits could the ghost explain as being helpful or friendly?",
+    "How do the rules sound if the ghost is nervous about the new family leaving?",
+    "Could the final rule say something the ghost has never said out loud?"
+  ],
+  "solution": "One example answer (74 words):\n\n> Rule one: the third stair squeaks, and that is me saying hello. Rule two: please leave the cold spot by the window alone, because it is my favourite. Rule three: if the lights flicker, I am only trying to help you find the switch. Rule four: if you sing in the bath, I will join in from the pipes. Rule five: stay as long as you like, because the quiet was getting very lonely.\n\nEach rule turns a classic haunting into good manners. The fifth rule drops the joke and tells the truth, which is why the whole piece feels kind.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/forms:ghost-house-rules"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "rules",
+    "humour"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}

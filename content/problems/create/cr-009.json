@@ -1,0 +1,40 @@
+{
+  "id": "cr-009",
+  "area": "create",
+  "difficulty": 4,
+  "title": "A goldfish and a cat, in questions",
+  "prompt": "Write the conversation between a goldfish and a cat who are staring at each other through the glass of the tank. Label each line with who is speaking.\n\nEvery sentence must be a question. Write exactly 6 sentences. Write 30 to 80 words.\n\nWords are counted by the spaces between them. A sentence ends with a full stop, a question mark or an exclamation mark.",
+  "answer": {
+    "type": "open",
+    "minWords": 30,
+    "maxWords": 80,
+    "authorNote": "When nobody can state anything, each question has to carry a hint of an opinion. A strong answer gives the two a real contrast (the cat is hungry, the fish is calm), makes each question answer the last one, and lets the last line be the sharpest.",
+    "constraints": [
+      {
+        "type": "all-questions"
+      },
+      {
+        "type": "sentence-count",
+        "count": 6
+      }
+    ],
+    "example": "Cat: Do you ever get tired of swimming in circles? Fish: Do you ever get tired of sitting on the edge of things? Cat: Is that a fish, or a very small orange opinion? Fish: Is that a cat, or a long wait for dinner? Cat: Would you come out if I asked nicely? Fish: Would you come in if I asked nicely?"
+  },
+  "hints": [
+    "What does each animal want, and which question reveals it without saying it?",
+    "How could each reply mirror the question before it, so that they sound like a real argument?",
+    "Which animal gets the last question, and does it win?"
+  ],
+  "solution": "One example answer (63 words):\n\n> Cat: Do you ever get tired of swimming in circles? Fish: Do you ever get tired of sitting on the edge of things? Cat: Is that a fish, or a very small orange opinion? Fish: Is that a cat, or a long wait for dinner? Cat: Would you come out if I asked nicely? Fish: Would you come in if I asked nicely?\n\nEach reply copies the shape of the question and turns it around, which is how a real taunt works. The fish wins on the last line, calmly, from behind glass.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/stories:goldfish-cat-questions"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "dialogue",
+    "humour"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}

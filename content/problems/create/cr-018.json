@@ -1,0 +1,41 @@
+{
+  "id": "cr-018",
+  "area": "create",
+  "difficulty": 4,
+  "title": "The empty house in three sentences",
+  "prompt": "Write a very short ghost story about a house that everyone says is empty.\n\nWrite exactly 3 sentences. Every sentence must be exactly 6 words long. Write exactly 18 words.\n\nWords are counted by the spaces between them. A sentence ends with a full stop, a question mark or an exclamation mark.",
+  "answer": {
+    "type": "open",
+    "minWords": 18,
+    "maxWords": 18,
+    "authorNote": "Three sentences of six words leave no space for decoration, so a strong answer lets one plain, concrete detail do the frightening. The first line sets up a claim, the second breaks it, and the last leaves the reader to finish the thought.",
+    "constraints": [
+      {
+        "type": "sentence-count",
+        "count": 3
+      },
+      {
+        "type": "sentence-words",
+        "words": 6
+      }
+    ],
+    "example": "The house was empty, they said. Yet someone had laid the table. Four places, and one cup steaming."
+  },
+  "hints": [
+    "What does everyone claim about the house, in six words?",
+    "What is one ordinary object that would be most unsettling in an empty house?",
+    "Can the last sentence stop just before it explains?"
+  ],
+  "solution": "One example answer (18 words):\n\n> The house was empty, they said. Yet someone had laid the table. Four places, and one cup steaming.\n\nThe claim, the contradiction and the detail each take one short line. Four places and one steaming cup suggest a guest who has only just left, and the story stops before it says so.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/stories:empty-house-three-sentences"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "micro-story",
+    "ghost"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}

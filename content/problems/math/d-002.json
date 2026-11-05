@@ -1,0 +1,32 @@
+{
+  "id": "d-002",
+  "area": "math",
+  "difficulty": 5,
+  "title": "Paving a garden path",
+  "prompt": "A garden path is 12 squares long and 3 squares wide, where a square is the size of one small slab. The builder has plenty of double slabs, called dominoes, each covering two squares side by side, and can lay them in either direction. They must cover the path exactly, with no gaps, overlaps or cutting.\n\nHow many different patterns can the builder make? Patterns are different if some double slab is in a different place.",
+  "answer": {
+    "type": "number",
+    "value": 2131,
+    "tolerance": 0
+  },
+  "hints": [
+    "Why can a floor 3 squares wide be covered by dominoes only when its length is even, and in how many ways can you cover a floor just 2 squares long?",
+    "If a tiling has a vertical line from top to bottom that no domino crosses, what do the two sides of that line look like?",
+    "Look at a tiling with no such line for length 2, and then try to build one for length 4: how many are there?",
+    "Once the first domino in such a tiling is placed, are the rest forced, and how many uncuttable tilings are there for each larger even length?",
+    "How do you combine the uncuttable pieces with the tilings of smaller boards into a rule for t(k), and how do you build the answer up from t(0) = 1?"
+  ],
+  "solution": "**2131.**\n\nCall the area a board and each piece a domino (it covers two squares). Let t(k) be the number of tilings of a 3 by k board. Take t(0) = 1 (the empty board has one tiling: use no dominoes).\n\n**Stage 1: small boards.** A 3 by k board has 3k squares, and dominoes cover two each, so k must be even: for odd lengths t = 0. A 3 by 2 board has exactly 3 tilings: three horizontal dominoes stacked up, or a pair of vertical dominoes with one horizontal domino above them, or one below them. So t(2) = 3.\n\n**Stage 2: cut the board at the first clean line.** Look for the leftmost vertical line, between two columns, that no domino crosses. It splits the tiling into a left part that cannot be cut again and a right part that is any tiling of the rest. So t(k) is the sum, over the length j of the left part, of (the number of uncuttable tilings of length j) × t(k − j).\n\n**Stage 3: count the uncuttable tilings.** Length 2 has 3 of them, all of those above. Length 4 or more has exactly 2. The left column cannot hold three horizontal dominoes, because then the first two columns would be a finished block with a clean line after them. So the left column holds one vertical domino, on its top two squares or on its bottom two. Then the last square of that column must be covered by a horizontal domino reaching into the second column. In the second column the other two squares must then take horizontal dominoes reaching into the third column (a vertical domino there would cut the board cleanly), and so on, in a staircase of bricks that is forced all the way to the right end, where a vertical domino closes it. The only choice is whether the left end has its vertical domino at the top or at the bottom, so there are 2.\n\n**Stage 4: the rule.** t(k) = 3 t(k − 2) + 2 t(k − 4) + 2 t(k − 6) + … + 2 t(0). Building up: t(0) = 1, t(2) = 3, t(4) = 11, t(6) = 41, t(8) = 153, t(10) = 571, t(12) = 2131. For example the last step is t(12) = 3 × 571 + 2 × 153 + 2 × 41 + 2 × 11 + 2 × 3 + 2 × 1 = 1713 + 306 + 82 + 22 + 6 + 2 = **2131**.\n\n**Why shortcuts fail.** Counting only the tilings built from blocks of length 2 gives 3⁶ = 729, which misses every tiling that has a staircase in it. Trying to list the tilings by hand is hopeless at this size, and guessing a pattern from t(2) = 3 and t(4) = 11 does not give the rule.",
+  "solver": "const columns = 12;\nconst filled = new Array(3 * columns).fill(false);\nconst cell = (row, col) => col * 3 + row;\nconst count = (position) => {\n  while (position < filled.length && filled[position]) position++;\n  if (position === filled.length) return 1;\n  const col = Math.floor(position / 3);\n  const row = position % 3;\n  let ways = 0;\n  filled[position] = true;\n  if (col + 1 < columns && !filled[cell(row, col + 1)]) {\n    filled[cell(row, col + 1)] = true;\n    ways += count(position + 1);\n    filled[cell(row, col + 1)] = false;\n  }\n  if (row + 1 < 3 && !filled[position + 1]) {\n    filled[position + 1] = true;\n    ways += count(position + 1);\n    filled[position + 1] = false;\n  }\n  filled[position] = false;\n  return ways;\n};\nreturn count(0);",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/domino-tilings:3x12"
+  },
+  "status": "verified",
+  "tags": [
+    "counting",
+    "tilings",
+    "recurrence"
+  ],
+  "createdAt": "2026-11-05T03:18:01.338Z"
+}

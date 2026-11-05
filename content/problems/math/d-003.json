@@ -1,0 +1,32 @@
+{
+  "id": "d-003",
+  "area": "math",
+  "difficulty": 5,
+  "title": "The rare colour",
+  "prompt": "A box holds 6 counters: 3 red, 2 blue and 1 green. A counter is taken out at random, its colour is written down and it is put back. Each counter is equally likely each time.\n\nOn average, how many draws until every colour has been written down at least once? Give the average as p/q in lowest terms and find p + q.",
+  "answer": {
+    "type": "number",
+    "value": 83,
+    "tolerance": 0
+  },
+  "hints": [
+    "If you have seen only some of the colours, what is the chance that the next draw shows a colour you have not seen yet, and does it depend only on how many colours you have seen?",
+    "If every draw has the same chance s of success, how many draws does it take on average to get the first success?",
+    "Which sets of colours can you have seen so far, and from each set, which draws move you to a bigger set?",
+    "For one set of seen colours, can you write the average number of further draws in terms of the sets you can move to, remembering that a draw showing a seen colour leaves you where you were?",
+    "Which set is easiest to deal with, in what order should you work out the others, and which set do you start in?"
+  ],
+  "solution": "**83.**\n\n**Stage 1: the chances.** The 6 items are equally likely, so the chances of the colours are red 3/6, blue 2/6, green 1/6. They are not equal, so the wait for a new colour depends on which colours you have already seen, not just how many.\n\n**Stage 2: one waiting time.** If each draw succeeds with chance s, the average number of draws up to and including the first success is 1/s. To see why, call it E. The first draw succeeds with chance s; otherwise one draw is spent and the wait starts again, so E = 1 + (1 − s) × E, which gives E = 1/s.\n\n**Stage 3: track the colours seen.** Let E(S) be the average number of further draws when the colours in S have been seen. If every colour has been seen, E = 0. Otherwise one draw is spent, and then either a seen colour comes up and nothing changes, or a new colour c comes up with chance p(c) and moves us to the larger set. So E(S) = 1 + P(S) × E(S) + (the sum over new colours c of p(c) × E(S with c)), where P(S) is the chance of a seen colour. Rearranged, E(S) = (1 + the sum of p(c) × E(S with c)) ÷ (1 − P(S)). Working backwards from the finished set, the sets with at least one colour seen give:\n\n- blue + green seen: a draw repeats a seen colour with chance 3/6; average further draws **2**\n- red + green seen: a draw repeats a seen colour with chance 4/6; average further draws **3**\n- green seen: a draw repeats a seen colour with chance 1/6; average further draws **19/5**\n- red + blue seen: a draw repeats a seen colour with chance 5/6; average further draws **6**\n- blue seen: a draw repeats a seen colour with chance 2/6; average further draws **13/2**\n- red seen: a draw repeats a seen colour with chance 3/6; average further draws **7**\n\n**Stage 4: the start.** With nothing seen, the first draw always shows a colour, so E = 1 + 3/6 × 7 + 2/6 × 13/2 + 1/6 × 19/5. That adds to 73/10 draws, in lowest terms, so p + q = 73 + 10 = **83**.\n\n**Why shortcuts fail.** Adding the separate waits for each colour (6/3 + 6/2 + 6/1 = 11) counts the same draws several times, because the waits run at the same time. Using only the wait for the rarest colour (6) ignores the other colours. The true average lies between the two, and it cannot be found without tracking which colours are already seen.",
+  "solver": "const counts = [3,2,1];\nconst m = counts.reduce((a, b) => a + b, 0);\nconst gcd = (x, y) => (y === 0 ? x : gcd(y, x % y));\nconst norm = (n, d) => {\n  const g = gcd(Math.abs(n), d);\n  return [n / g, d / g];\n};\nconst full = (1 << counts.length) - 1;\nconst e = new Array(full + 1);\ne[full] = [0, 1];\nfor (let mask = full - 1; mask >= 0; mask--) {\n  let top = [m, 1];\n  let seen = 0;\n  counts.forEach((w, i) => {\n    if (mask & (1 << i)) {\n      seen += w;\n    } else {\n      const [n, d] = e[mask | (1 << i)];\n      top = norm(top[0] * d + w * n * top[1], top[1] * d);\n    }\n  });\n  e[mask] = norm(top[0], top[1] * (m - seen));\n}\nreturn e[0][0] + e[0][1];",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/coupon-collector:3-2-1"
+  },
+  "status": "verified",
+  "tags": [
+    "probability",
+    "expected value",
+    "fractions"
+  ],
+  "createdAt": "2026-11-05T03:18:01.338Z"
+}

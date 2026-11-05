@@ -1,0 +1,30 @@
+{
+  "id": "m-024",
+  "area": "math",
+  "difficulty": 3,
+  "title": "A pile of coins",
+  "prompt": "A pile of coins is counted out in different ways: in groups of 4, 3 coins are left over; in groups of 6, 5 coins are left over; in groups of 9, 8 coins are left over. There is at least one coin.\n\nWhat is the smallest number of coins the pile could hold?",
+  "answer": {
+    "type": "number",
+    "value": 35,
+    "tolerance": 0
+  },
+  "hints": [
+    "In each way of counting, how many more would you need to make the last group complete?",
+    "What does that tell you about the pile if you imagine adding that many?",
+    "What is the smallest positive number that every group size divides exactly?"
+  ],
+  "solution": "**35.**\n\nEvery group size leaves the pile 1 short of a full group. So if 1 more coin were added, every group size would divide the pile exactly. The pile plus 1 would be a common multiple of 4, 6, 9.\n\nThe smallest common multiple is lcm(4, 6, 9) = 36, so the pile is 36 − 1 = **35**.\n\nThe common slip is multiplying the group sizes, which gives 216, instead of taking the least common multiple, 36.",
+  "solver": "const moduli = [4,6,9];\nconst remainders = [3,5,8];\nfor (let n = 1; n < 1000000; n++) {\n  if (moduli.every((m, i) => n % m === remainders[i])) return n;\n}\nreturn NaN;",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:math/remainders:4.6.9-3.5.8-0"
+  },
+  "status": "verified",
+  "tags": [
+    "number theory",
+    "remainders",
+    "multiples"
+  ],
+  "createdAt": "2026-11-05T03:18:00.902Z"
+}

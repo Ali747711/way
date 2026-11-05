@@ -1,0 +1,44 @@
+{
+  "id": "cr-012",
+  "area": "create",
+  "difficulty": 4,
+  "title": "A whole story in one sentence",
+  "prompt": "Tell a whole story, with a beginning, a middle and an end, in a single sentence.\n\nWrite exactly one sentence. Use the words *bridge* and *promise*. Write 25 to 70 words.\n\nWords are counted by the spaces between them. A sentence ends with a full stop, a question mark or an exclamation mark.",
+  "answer": {
+    "type": "open",
+    "minWords": 25,
+    "maxWords": 70,
+    "authorNote": "One sentence has to move through time, so a strong answer leans on clauses that carry the story along (when, yet, and, until). It sets up a person, a goal and a cost, and the last clause lands a small surprise that changes what the promise meant.",
+    "constraints": [
+      {
+        "type": "sentence-count",
+        "count": 1
+      },
+      {
+        "type": "must-include",
+        "words": [
+          "bridge",
+          "promise"
+        ]
+      }
+    ],
+    "example": "When the old ferryman made a promise to build a bridge before he died, nobody believed him, yet he laid one plank each morning for forty years, and when the last plank went down the whole village crossed to thank him, only to see him rowing home the old way, because he had never trusted bridges."
+  },
+  "hints": [
+    "Who makes the promise, and what does it cost them?",
+    "Which small words (when, yet, until) can carry the story from the start to the end?",
+    "What could the last clause reveal that changes what the bridge was for?"
+  ],
+  "solution": "One example answer (56 words):\n\n> When the old ferryman made a promise to build a bridge before he died, nobody believed him, yet he laid one plank each morning for forty years, and when the last plank went down the whole village crossed to thank him, only to see him rowing home the old way, because he had never trusted bridges.\n\nThe sentence has a clear beginning, middle and end. The last clause turns the story: the man who kept a forty-year promise to everyone else still trusts only his boat.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/stories:one-sentence-bridge-story"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "micro-story",
+    "one-sentence"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}

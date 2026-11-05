@@ -1,0 +1,130 @@
+{
+  "id": "c-017",
+  "area": "code",
+  "difficulty": 4,
+  "title": "Shuffled together",
+  "prompt": "Two strings are *shuffled together* like two halves of a deck of cards: you take letters from one or the other, but each string keeps its own letters in their original order. `\"axbyc\"` is made by shuffling `\"abc\"` and `\"xy\"` together, but `\"ayxbc\"` is not, because `y` would come before `x`.\n\nWrite `isInterleaving(a, b, c)` that takes three strings of lowercase letters, `a` and `b` with 0 to 8 letters each and `c` with 0 to 16, and returns `true` if `c` can be made by shuffling `a` and `b` together, using every letter of both exactly once. Otherwise return `false`.\n\nExamples:\n\n- `isInterleaving(\"abc\", \"xy\", \"axbyc\")` returns `true`\n- `isInterleaving(\"ab\", \"cd\", \"adbc\")` returns `false`",
+  "answer": {
+    "type": "code",
+    "signature": "function isInterleaving(a, b, c) {\n  \n}",
+    "entry": "isInterleaving",
+    "examples": [
+      {
+        "input": [
+          "abc",
+          "xy",
+          "axbyc"
+        ],
+        "expected": true
+      },
+      {
+        "input": [
+          "ab",
+          "cd",
+          "adbc"
+        ],
+        "expected": false
+      }
+    ],
+    "tests": [
+      {
+        "input": [
+          "",
+          "",
+          ""
+        ],
+        "expected": true
+      },
+      {
+        "input": [
+          "",
+          "ab",
+          "ab"
+        ],
+        "expected": true
+      },
+      {
+        "input": [
+          "ab",
+          "",
+          "ba"
+        ],
+        "expected": false
+      },
+      {
+        "input": [
+          "a",
+          "b",
+          "ab"
+        ],
+        "expected": true
+      },
+      {
+        "input": [
+          "ab",
+          "ac",
+          "acab"
+        ],
+        "expected": true
+      },
+      {
+        "input": [
+          "abc",
+          "def",
+          "abcde"
+        ],
+        "expected": false
+      },
+      {
+        "input": [
+          "ab",
+          "ba",
+          "abba"
+        ],
+        "expected": true
+      },
+      {
+        "input": [
+          "ab",
+          "bb",
+          "abbb"
+        ],
+        "expected": true
+      },
+      {
+        "input": [
+          "ab",
+          "abbaba",
+          "ababbaba"
+        ],
+        "expected": true
+      },
+      {
+        "input": [
+          "ab",
+          "abbaba",
+          "ababbabb"
+        ],
+        "expected": false
+      }
+    ],
+    "timeLimitMs": 2000,
+    "reference": "function isInterleaving(a, b, c) {\n  if (a.length + b.length !== c.length) return false;\n  // ok[i][j]: the first i letters of a and first j letters of b can make the first i + j letters of c.\n  const ok = Array.from({ length: a.length + 1 }, () =>\n    new Array(b.length + 1).fill(false)\n  );\n  ok[0][0] = true;\n  for (let i = 0; i <= a.length; i++) {\n    for (let j = 0; j <= b.length; j++) {\n      if (i > 0 && ok[i - 1][j] && a[i - 1] === c[i + j - 1]) ok[i][j] = true;\n      if (j > 0 && ok[i][j - 1] && b[j - 1] === c[i + j - 1]) ok[i][j] = true;\n    }\n  }\n  return ok[a.length][b.length];\n}"
+  },
+  "hints": [
+    "Before anything else, what must be true about the lengths of the three strings?",
+    "Look at the first letter of `c`. Which strings could it have come from, and what is left to check once you decide?",
+    "Can you describe a state by two numbers, how many letters of `a` and of `b` are used so far, and note which states are reachable?"
+  ],
+  "solution": "Let `ok[i][j]` mean \"the first `i` letters of `a` and the first `j` letters of `b` can be shuffled into the first `i + j` letters of `c`\". A state is reachable if the last letter used matches `c` and the state before it was reachable. The answer is `ok[a.length][b.length]`.\n\n```js\nfunction isInterleaving(a, b, c) {\n  if (a.length + b.length !== c.length) return false;\n  // ok[i][j]: the first i letters of a and first j letters of b can make the first i + j letters of c.\n  const ok = Array.from({ length: a.length + 1 }, () =>\n    new Array(b.length + 1).fill(false)\n  );\n  ok[0][0] = true;\n  for (let i = 0; i <= a.length; i++) {\n    for (let j = 0; j <= b.length; j++) {\n      if (i > 0 && ok[i - 1][j] && a[i - 1] === c[i + j - 1]) ok[i][j] = true;\n      if (j > 0 && ok[i][j - 1] && b[j - 1] === c[i + j - 1]) ok[i][j] = true;\n    }\n  }\n  return ok[a.length][b.length];\n}\n```\n\nA greedy rule that takes from `a` whenever the letters match fails: with `a = \"ab\"`, `b = \"ac\"` and `c = \"acab\"`, both strings start with `a`, and only taking it from `b` first works. That is why you must keep every possible state, not one path.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:code/interleaving:only"
+  },
+  "status": "verified",
+  "tags": [
+    "strings",
+    "dynamic-programming"
+  ],
+  "createdAt": "2026-11-05T03:18:01.755Z"
+}

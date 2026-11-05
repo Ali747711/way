@@ -1,0 +1,41 @@
+{
+  "id": "cr-011",
+  "area": "create",
+  "difficulty": 4,
+  "title": "Seasons in forty words",
+  "prompt": "Explain to a child why we have summer and winter. The cause is not how far the Earth is from the sun.\n\nWrite exactly 5 sentences. Every sentence must be exactly 8 words long. Write exactly 40 words.\n\nWords are counted by the spaces between them. A sentence ends with a full stop, a question mark or an exclamation mark.",
+  "answer": {
+    "type": "open",
+    "minWords": 40,
+    "maxWords": 40,
+    "authorNote": "Five sentences of exactly eight words leave no room for waffle. A strong answer picks the one true cause (the tilt of the Earth), shows what it does to each half, and says the halves swap places over the year, all in even, plain sentences.",
+    "constraints": [
+      {
+        "type": "sentence-count",
+        "count": 5
+      },
+      {
+        "type": "sentence-words",
+        "words": 8
+      }
+    ],
+    "example": "Our Earth leans a little as it travels. The half tipped towards the sun gets summer. Sunbeams land there more directly, heating everything up. The half tipped away gets weaker, winter sunbeams. Six months on, the two halves swap jobs."
+  },
+  "hints": [
+    "What is the one thing about the Earth that causes the seasons, in plain words?",
+    "What happens to a half that leans towards the sun, and to the half that leans away?",
+    "How can you finish by saying that the seasons come back round?"
+  ],
+  "solution": "One example answer (40 words):\n\n> Our Earth leans a little as it travels. The half tipped towards the sun gets summer. Sunbeams land there more directly, heating everything up. The half tipped away gets weaker, winter sunbeams. Six months on, the two halves swap jobs.\n\nThe five sentences follow the cause, the effect, the reason and the swap. The even length gives it the feel of a poem, and *swap jobs* leaves a child with an easy way to remember it.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/explain:seasons-forty-words"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "explain",
+    "science"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}

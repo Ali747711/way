@@ -1,0 +1,37 @@
+{
+  "id": "cr-023",
+  "area": "create",
+  "difficulty": 3,
+  "title": "The tide, spelled out",
+  "prompt": "Explain to a child why the sea rises and falls along the shore each day.\n\nThe first letters of your sentences, in order, must spell *TIDE*. Write 30 to 80 words.\n\nWords are counted by the spaces between them. A sentence ends with a full stop, a question mark or an exclamation mark.",
+  "answer": {
+    "type": "open",
+    "minWords": 30,
+    "maxWords": 80,
+    "authorNote": "The acrostic gives the explanation a spine of four steps, so a strong answer plans the steps first (the moon tugs, the free-flowing sea moves most, the ocean swells into two hills, one facing the moon and one on the far side, and the turning Earth carries the shore through both) and only then finds natural opening words. The hidden word should never make a sentence clumsy.",
+    "constraints": [
+      {
+        "type": "acrostic",
+        "word": "tide"
+      }
+    ],
+    "example": "The moon is far away, but it still tugs on everything on Earth. It moves the sea the most, because water is free to flow. Drawn and stretched by the moon, the ocean bulges into two low hills, one on each side of the planet. Every day the Earth spins your beach through both hills, so the sea rises and falls twice, and that is the tide."
+  },
+  "hints": [
+    "What are the four steps of the idea, in order, before you think about letters?",
+    "For each of T, I, D and E, which ordinary opening word would sound natural for that step?",
+    "How do you show that the water moves while the shore stays still?"
+  ],
+  "solution": "One example answer (67 words):\n\n> The moon is far away, but it still tugs on everything on Earth. It moves the sea the most, because water is free to flow. Drawn and stretched by the moon, the ocean bulges into two low hills, one on each side of the planet. Every day the Earth spins your beach through both hills, so the sea rises and falls twice, and that is the tide.\n\nThe four sentences are the four steps of the real explanation, and the first letters spell the topic without strain. The word *tide* is saved for the last line, so the reader earns it.",
+  "source": {
+    "kind": "generated",
+    "attribution": "template:create/explain:tides-acrostic"
+  },
+  "status": "verified",
+  "tags": [
+    "constraint",
+    "explain",
+    "acrostic"
+  ],
+  "createdAt": "2026-11-05T03:18:02.288Z"
+}
